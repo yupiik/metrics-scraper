@@ -1,0 +1,77 @@
+= metrics-scrapper
+:toc:
+
+Generated project.
+
+IMPORTANT: ensure to use maven >= 3.8 and Java >= 17.
+
+== Application Configuration
+
+`MetricsScrapperConfiguration` contains the application configuration.
+
+It uses Yupiik Fusion Configuration mecanism which uses system properties and environment variable to bind values on a record.
+
+It enables to inject the configuration from system properties or environment variable.
+
+== JSON-RPC server
+
+The application uses Yupiik Fusion IoC.
+
+`ServerConfigurationProducer` file configured from the application specific configuration the embedded Tomcat.
+
+`GreetingEndpoint` is a sample JSON-RPC endpoint. You can add as much `@JsonRpcMethod` you need in this class or another one marked with `@JsonRpc`.
+These endpoints use Fusion JSON to map the models, you have to use records and `@JsonXXX` annotations.
+
+Finally, `GreetingEndpointTest` shows a basic test using a random port for Tomcat server.
+It relies on a JUnit5 stereotype `@ApplicationSupport` which ensure the test is executed in the application context.
+
+TIP: the test is written as a client test but you can also inject your `GreetingEndpoint` bean marking a method parameter with `@Fusion` and test it as a standard bean in such a test.
+
+== Jib/Docker images
+
+You can build the project docker image using: `mvn package jib:dockerBuild [-DskipTests]` (docker) or `mvn package jib:build [-DskipTests]` (remote registry if configured with related properties).
+
+== Health Probe
+
+Health checks are used by orchestrators (kubernetes typically) to check if an application is started, ready, live, ...
+
+The `HealthCheckEndpoints` provides a base implementation for ready and live checks.
+First one (generally) must check if the application has the required dependencies and last one if the application is well behaving at runtime.
+
+To customize it at need in your application you should fill the `specific checks` parts.
+
+A common example is to `@Inject DataSource datasource;` if your application configured a datasource (not done in the generator) and check it is up:
+
+[source,java]
+----
+try (final var connection = dataSource.getConnection()) {
+    if (!connection.isValid(10_000)) {
+        throw new IllegalStateException("datasource not valid");
+    }
+}
+----
+
+These probes are then wired to Kubernetes (or any orchestrator) to report the application status.
+
+Bundlebee enables you to automate the deployment of your application in Kubernetes.
+
+Generator creates a basic recipe in `manifest.json` for your application.
+it has one per type of deployment (a `Deployment` for a JSON-RPC server, a `CronJob` for a batch for example) and one "all in one" called metrics-scrapper
+
+You can deploy your application using: `mvn bundlebee:apply`.
+
+`kubernetes/io.yupiik.metrics/metrics-scrapper/jsonrpc-server/configmap.json` contains the JSON-RPC server configuration in the data map (matches `MetricsScrapperConfiguration`).
+By default it forwards the environment and deploy time only (can be used with stakater reloader to restart the dpeloyment for example).
+
+`kubernetes/io.yupiik.metrics/metrics-scrapper/jsonrpc-server/deployment.json` contains the JSON-RPC server deployment.
+It uses placeholders like `bundlebee.deployments.metrics-scrapper-jsonrpc-server.replicas` you can force on the command line ot override the default (1).
+
+TIP: If you enabled documentation feature you can see the environment names to use there.
+
+== Documentation
+
+The documentation module sets up:
+
+* Documentation using yupiik minisite in `src/main/minisite/content`
+
+You can visualize the documentation running: `mvn process-classes yupiik-tools:serve-minisite [-Dyupiik.minisite.port=8080 [-Dyupiik.minisite.openBrowser=false]]`.

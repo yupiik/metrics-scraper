@@ -1,0 +1,22 @@
+= JSON-RPC API
+:minisite-index: 300
+:minisite-index-title: JSON-RPC
+:minisite-index-description: JSON-RPC API.
+:minisite-index-icon: laptop-house
+:minisite-keywords: api, json-rpc, documentation
+:minisite-breadcrumb: Home[/] > JSON-RPC API
+:minisite-nav-prev-label: Configuration
+:minisite-nav-next-label: Deployment
+
+== API
+
+include::{partialsdir}/generated/metrics-scrapper.openrpc.adoc[leveloffset=+1]
+
+=== JSON
+
+[source,json]
+----
+include::{partialsdir}/generated/metrics-scrapper.openrpc.json[]
+----
+
+

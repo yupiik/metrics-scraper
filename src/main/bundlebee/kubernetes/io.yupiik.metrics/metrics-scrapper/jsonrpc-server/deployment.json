@@ -1,0 +1,107 @@
+{
+  "apiVersion": "apps/v1",
+  "kind": "Deployment",
+  "metadata": {
+    "name": "metrics-scrapper-jsonrpc-server",
+    "labels": {
+      "app": "metrics-scrapper-jsonrpc-server",
+      "deploy.by":"{{user.name:-unknown}}"
+    }
+  },
+  "spec": {
+    "selector": {
+      "matchLabels": {
+        "app": "metrics-scrapper-jsonrpc-server"
+      }
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "metrics-scrapper-jsonrpc-server",
+          "deploy.by":"{{user.name:-unknown}}",
+          "deploy.at":"{{app.deploytime:-unset}}",
+          "app.environment":"{{bundlebee.environment}}"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "metrics-scrapper-jsonrpc-server",
+            "image":"{{image.registry}}/metrics-scrapper:{{project.version}}",
+            "imagePullPolicy": "{{image.pullPolicy:-IfNotPresent}}",
+            "command": [
+              "java",
+              "-Djava.util.logging.manager=io.yupiik.logging.jul.YupiikLogManager",
+              "-Dio.yupiik.logging.jul.handler.StandardHandler.formatter=json",
+              "-Djava.security.egd=file:/dev/./urandom",
+              "-cp",
+              "@/opt/applications/metrics-scrapper/jib-classpath-file",
+              "io.yupiik.fusion.framework.api.main.Launcher"
+            ],
+            "env": [
+              {
+                "name": "K8S_POD_NAME",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath":"metadata.name"
+                  }
+                }
+              },
+              {
+                "name": "K8S_POD_NAMESPACE",
+                "valueFrom": {
+                  "fieldRef": {
+                    "fieldPath":"metadata.namespace"
+                  }
+                }
+              }
+            ],
+            "envFrom": [
+              {
+                "configMapRef": {
+                  "name": "metrics-scrapper-jsonrpc-server"
+                }
+              }
+            ],
+            "ports": [
+              {
+                "containerPort": 8080
+              }
+            ],
+            "readinessProbe": {
+              "initialDelaySeconds": 3,
+              "periodSeconds": 3,
+              "failureThreshold": 10,
+              "httpGet": {
+                "path": "/health?ready",
+                "port": 8080,
+                "httpHeaders": [
+                  {
+                    "name": "Health-Key",
+                    "value": "{{bundlebee.probes.health.key:-changeit}}"
+                  }
+                ]
+              }
+            },
+            "livenessProbe": {
+              "initialDelaySeconds": 3,
+              "periodSeconds": 3,
+              "failureThreshold": 10,
+              "httpGet": {
+                "path": "/health?live",
+                "port": 8080,
+                "httpHeaders": [
+                  {
+                    "name": "Health-Key",
+                    "value": "{{bundlebee.probes.health.key:-changeit}}"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "replicas": {{bundlebee.deployments.metrics-scrapper-jsonrpc-server.replicas:-1}}
+  }
+}

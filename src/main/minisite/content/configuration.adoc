@@ -1,0 +1,13 @@
+= Configuration
+:minisite-index: 300
+:minisite-index-title: Configuration
+:minisite-index-description: Application Configuration.
+:minisite-index-icon: code
+:minisite-keywords: configuration, json-rpc, documentation
+:minisite-breadcrumb: Home[/] > Configuration
+:minisite-nav-prev-label: Getting Started
+:minisite-nav-next-label: JSON-RPC
+
+Here is the application configuration:
+
+include::{partialsdir}/generated/documentation.metrics-scrapper.adoc[lines=4..-1]
