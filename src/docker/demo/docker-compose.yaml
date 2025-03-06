@@ -3,41 +3,53 @@ services:
   # Monitor Elasticsearch
   metrics-elasticsearch:
     container_name: metrics-elasticsearch
-    image: elasticsearch:7.4.0
-    volumes:
-      - ./config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    image: elasticsearch:8.17.3
     ports:
-      - 9200:9200
+      - "9200:9200"
     environment:
-      discovery.type: single-node
+      - cluster.name="metrics-elasticsearch"
+      - network.host=0.0.0.0
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+    healthcheck:
+      test: curl -s http://metrics-elasticsearch:9200 >/dev/null || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 120
 
   # Kibana
   metrics-kibana:
+    depends_on:
+      metrics-elasticsearch:
+        condition: service_healthy
     container_name: metrics-kibana
-    image: kibana:7.4.0
+    image: kibana:8.17.3
     volumes:
       - ./config/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
     ports:
-      - 5601:5601
+      - "5601:5601"
     restart: on-failure
 
   #Mock metrics endpoint
   metrics-mock:
     image: mockserver/mockserver:5.14.0
     ports:
-      - 1080:1080
+      - "1080:1080"
     environment:
       MOCKSERVER_PROPERTY_FILE: /config/mockserver.properties
       MOCKSERVER_INITIALIZATION_JSON_PATH: /config/expectationInitialiser.json
+      MOCKSERVER_LOG_LEVEL: WARN
     volumes:
       - ./config/mock:/config
 
   # Metrics scrapper
   metricsScrapper:
+    depends_on:
+      metrics-elasticsearch:
+        condition: service_healthy
     image: metrics-scrapper/metrics-scrapper:1.0.0-SNAPSHOT
     env_file:
       - ./config/metricsScrapper/setup.env
-    depends_on:
-      - metrics-mock
-      - metrics-elasticsearch
-      - metrics-kibana
+    ports:
+      - "5005:5005"
