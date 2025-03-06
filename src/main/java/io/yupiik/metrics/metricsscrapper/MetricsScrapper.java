@@ -1,13 +1,9 @@
 package io.yupiik.metrics.metricsscrapper;
 
-import io.yupiik.fusion.framework.api.ConfiguringContainer;
 import io.yupiik.fusion.framework.api.event.Emitter;
-import io.yupiik.fusion.framework.api.lifecycle.Start;
 import io.yupiik.fusion.framework.api.lifecycle.Stop;
 import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
 import io.yupiik.fusion.framework.build.api.event.OnEvent;
-import io.yupiik.fusion.framework.build.api.lifecycle.Init;
-import io.yupiik.fusion.framework.build.api.scanning.Injection;
 import io.yupiik.metrics.metricsscrapper.configuration.MetricsScrapperConfiguration;
 import io.yupiik.metrics.metricsscrapper.configuration.Scrapper;
 import io.yupiik.metrics.metricsscrapper.configuration.ScrappingConfiguration;
@@ -31,42 +27,32 @@ import static java.util.Optional.ofNullable;
 
 @ApplicationScoped
 public class MetricsScrapper {
+
     private static final Logger log = Logger.getLogger(MetricsScrapper.class.getName());
 
-    @Injection
-    MetricsScrapperConfiguration configuration;
+    private final MetricsScrapperConfiguration configuration;
+    private final OpenMetricsReader openMetricsReader;
+    private final SimpleHttpClient httpClient;
+    private final ElasticsearchCollector esCollector;
+    private final Emitter emitter;
+    private final ScheduledExecutorService executor;
 
-    @Injection
-    OpenMetricsReader openMetricsReader;
-
-    @Injection
-    SimpleHttpClient httpClient;
-
-    @Injection
-    ElasticsearchCollector esCollector;
-
-    @Injection
-    Emitter emitter;
-
-    private ScheduledExecutorService executor;
-
-    public void onStart(@OnEvent final Start start) {
-        log.info("> start: " + start);
+    public MetricsScrapper(final MetricsScrapperConfiguration configuration, final OpenMetricsReader openMetricsReader, final SimpleHttpClient httpClient,
+                           final ElasticsearchCollector esCollector, final Emitter emitter) {
         log.info("> Initializing MetricsScrapper");
         log.info("> Configuration: " + configuration);
+        this.configuration = configuration;
+        this.openMetricsReader = openMetricsReader;
+        this.httpClient = httpClient;
+        this.esCollector = esCollector;
+        this.emitter = emitter;
         this.executor = Executors.newScheduledThreadPool(10); //TODO add threading configuration with defaults
         final ScrappingConfiguration defaultScrapping = configuration.defaultScrapping();
         if (configuration.scrappers() == null || configuration.scrappers().isEmpty()) {
             log.info("No scrappers defined, exiting");
             return;
         }
-        configuration.scrappers().forEach(scrapper -> launchScrapping(scrapper, defaultScrapping, httpClient, openMetricsReader, esCollector, emitter));
-    }
-
-    public static void main(final String... args) {
-        try (final var container = ConfiguringContainer.of().start()) {
-
-        }
+        configuration.scrappers().forEach(scrapper -> this.launchScrapping(scrapper, defaultScrapping, httpClient, openMetricsReader, esCollector, emitter));
     }
 
     private void launchScrapping(final Scrapper scrapper, final ScrappingConfiguration defaultScrapping, final SimpleHttpClient http,
@@ -133,7 +119,7 @@ public class MetricsScrapper {
                 return;
             }
             //TODO implement k8s management
-            if (usesKubernetes()) {
+            if(this.usesKubernetes()) {
 //                final Discovered currentDiscovered = discovered;
 //                if ((currentDiscovered == null || currentDiscovered.shouldRefresh(clock))) {
 //                    final Discovered newDiscovered = new Discovered(
@@ -170,7 +156,7 @@ public class MetricsScrapper {
             try {
                 http.request("GET", url, null, timeout, true, Status.class, headers).handle((r, error) -> {
                     try {
-                        log.log(Level.FINE, "Got scrapping of '{0}'", r);
+                        log.fine(String.format("Got scrapping of '%s'", r));
                         if (error != null) {
                             log.log(Level.SEVERE, error.getMessage(), error);
                         } else if (r.value() != config.expectedResponseCode()) {
@@ -180,7 +166,8 @@ public class MetricsScrapper {
                                 log.log(Level.WARNING, "Expected status {0} but got {1}", new Object[]{config.expectedResponseCode(), r.value()});
                             }
                         } else if (!r.payload().trim().isEmpty()) {
-                            onResponse(r.payload());
+                            log.fine(String.format("Open metrics read: %s", r.payload()));
+                            this.onResponse(r.payload());
                         } else {
                             log.log(Level.FINE, "Got an empty payload from {0}", url);
                         }
@@ -203,6 +190,8 @@ public class MetricsScrapper {
             }
             if (!metrics.isEmpty()) {
                 this.emitter.emit(new ScrapperMetrics(timestamp, config, metrics));
+            } else {
+                log.fine(String.format("No metrics found in %s", payload));
             }
         }
 

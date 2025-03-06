@@ -28,9 +28,10 @@
  */
 package io.yupiik.metrics.metricsscrapper.elasticsearch;
 
+import io.yupiik.fusion.framework.api.lifecycle.Start;
+import io.yupiik.fusion.framework.api.lifecycle.Stop;
 import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
 import io.yupiik.fusion.framework.build.api.event.OnEvent;
-import io.yupiik.fusion.framework.build.api.lifecycle.Destroy;
 import io.yupiik.fusion.json.JsonMapper;
 import io.yupiik.metrics.metricsscrapper.model.metrics.Metrics;
 import io.yupiik.metrics.metricsscrapper.model.metrics.ScrapperMetrics;
@@ -58,12 +59,12 @@ public class ElasticsearchCollector {
     private final Map<CompletableFuture<?>, Boolean> pending = new ConcurrentHashMap<>();
 
     public ElasticsearchCollector(final JsonMapper jsonMapper, final ElasticsearchClient esClient) {
+        log.info("> Initializing ElasticsearchCollector");
         this.jsonMapper = jsonMapper;
         this.esClient = esClient;
     }
 
-    @Destroy
-    public void stop() {
+    public void stop(@OnEvent final Stop stop) {
         closing.set(true);
         final CompletableFuture<?>[] futures = pending.keySet().toArray(new CompletableFuture<?>[0]);
         try { // try to flush it a bit but not that critical
@@ -76,6 +77,7 @@ public class ElasticsearchCollector {
     }
 
     public void onMetrics(@OnEvent final ScrapperMetrics scrapperMetrics) {
+        log.info(String.format("Got event on metrics %s", jsonMapper.toString(scrapperMetrics)));
         final Metrics metrics = scrapperMetrics.getMetrics();
         if (closing.get() || metrics.isEmpty()) {
             return;

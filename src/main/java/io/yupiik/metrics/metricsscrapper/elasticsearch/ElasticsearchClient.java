@@ -3,6 +3,7 @@ package io.yupiik.metrics.metricsscrapper.elasticsearch;
 import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
 import io.yupiik.fusion.json.JsonMapper;
 import io.yupiik.metrics.metricsscrapper.configuration.ElasticsearchClientConfiguration;
+import io.yupiik.metrics.metricsscrapper.configuration.MetricsScrapperConfiguration;
 import io.yupiik.metrics.metricsscrapper.http.SimpleHttpClient;
 import io.yupiik.metrics.metricsscrapper.model.domain.*;
 import io.yupiik.metrics.metricsscrapper.model.elasticsearch.DocumentResult;
@@ -42,9 +43,8 @@ public class ElasticsearchClient {
 
     private final Logger log = Logger.getLogger(ElasticsearchClient.class.getName());
 
-    private final ElasticsearchClientConfiguration config;
+    private final MetricsScrapperConfiguration configuration;
     private final JsonMapper jsonMapper;
-
     private final SimpleHttpClient httpClient;
 
     private ZoneId zone;
@@ -56,19 +56,21 @@ public class ElasticsearchClient {
     private final String[] headers;
     private final int timeout;
 
-    private final CompletableFuture<?> initialized;
+    private CompletableFuture<?> initialized;
 
     private final Map<Class<?>, String> indicesNames = new HashMap<>();
 
-    public ElasticsearchClient(final ElasticsearchClientConfiguration config, final JsonMapper jsonMapper, final SimpleHttpClient httpClient) {
-        this.httpClient = httpClient;
-        this.config = config;
+    public ElasticsearchClient(final MetricsScrapperConfiguration configuration, final JsonMapper jsonMapper, final SimpleHttpClient httpClient) {
+        log.info("> Initializing ElasticsearchClient");
+        log.info("> Configuration: " + configuration);
+        this.configuration = configuration;
         this.jsonMapper = jsonMapper;
+        this.httpClient = httpClient;
 
-        this.base = config.base();
-        this.query = config.refreshOnWrite() ? "?refresh" : "";
+        this.base = configuration.elasticsearch().base();
+        this.query = configuration.elasticsearch().refreshOnWrite() ? "?refresh" : "";
 
-        final Map<String, String> headers = config.headers();
+        final Map<String, String> headers = ofNullable(configuration.elasticsearch().headers()).orElseGet(HashMap::new);
         this.headers = Stream.concat(
                         Stream.concat(
                                 !headers.containsKey("Content-Type") ? Stream.of("Content-Type", "application/json") : Stream.empty(),
@@ -76,15 +78,15 @@ public class ElasticsearchClient {
                         headers.entrySet().stream()
                                 .flatMap(it -> Stream.of(it.getKey(), it.getValue())))
                 .toArray(String[]::new);
-        this.timeout = (int) Math.max(0, config.timeout());
+        this.timeout = (int) Math.max(0, configuration.elasticsearch().timeout());
 
         this.indicesNames.putAll(getIndexableClasses().collect(toMap(identity(), this::toIndex)));
 
-        final boolean isDynamicIndexName = config.indexNameSuffix() != null;
+        final boolean isDynamicIndexName = configuration.elasticsearch().indexNameSuffix() != null;
         this.useWildcardForOperations = isDynamicIndexName; // <name>-<date>
 
         if (isDynamicIndexName) {
-            this.initIndexFactory(config.indexNameSuffix());
+            this.initIndexFactory(configuration.elasticsearch().indexNameSuffix());
             zone = ZoneId.of("UTC");
             final CompletableFuture<?>[] tasks = getIndexableClasses()
                     .map(type -> {
@@ -101,14 +103,14 @@ public class ElasticsearchClient {
                                 });
                     })
                     .toArray(CompletableFuture<?>[]::new);
-            this.initialized = this.toInitialized(config, tasks);
+            this.initialized = this.toInitialized(configuration.elasticsearch(), tasks);
         } else {
             final CompletableFuture<?>[] tasks = this.getIndexableClasses()
                     .map(this::ensureMapping)
                     .map(CompletionStage::toCompletableFuture)
                     .toArray(CompletableFuture[]::new);
             currentIndex = this.getIndicesNames()::get;
-            this.initialized = this.toInitialized(config, tasks);
+            this.initialized = this.toInitialized(configuration.elasticsearch(), tasks);
         }
     }
 
@@ -127,7 +129,7 @@ public class ElasticsearchClient {
 
     private CompletionStage<Boolean> createIndexTemplate(final Class<?> type, final String templateName) {
         //TODO eventually handle mappings deeper (not sure)
-        final IndexTemplate template = new IndexTemplate(List.of(templateName + "*"), new Template(new ElasticsearchIndexSettingsIndex(config.settingsTemplate().index().shards(), config.settingsTemplate().index().replicas()), this.createMappings(type)));
+        final IndexTemplate template = new IndexTemplate(List.of(templateName + "*"), new Template(new ElasticsearchIndexSettingsIndex(configuration.elasticsearch().settingsTemplate().index().shards(), configuration.elasticsearch().settingsTemplate().index().replicas()), this.createMappings(type)));
         final String tpl = jsonMapper.toString(template);
         if (log.isLoggable(Level.FINE)) {
             log.log(Level.FINE, "Creating index template '{0}':\n{1}", new Object[]{templateName, tpl});
@@ -250,7 +252,7 @@ public class ElasticsearchClient {
     public CompletionStage<Void> createIndex(final String index) {
         log.log(Level.INFO, "Creating elasticsearch index '{0}'", index);
         return this.request("PUT", base + '/' + index,
-                        "{\"settings\":" + jsonMapper.toString(config.settingsTemplate().index()) + "}",
+                        "{\"settings\":" + jsonMapper.toString(configuration.elasticsearch().settingsTemplate().index()) + "}",
                         Status.class, timeout, true, headers)
                 .thenApply(status -> ensure200(index, status, "Can't create properly"));
     }
@@ -311,7 +313,7 @@ public class ElasticsearchClient {
     }
 
     protected String toIndexName(final String name) {
-        final StringBuilder builder = new StringBuilder(config.indexPrefix());
+        final StringBuilder builder = new StringBuilder(configuration.elasticsearch().indexPrefix());
         for (final char c : name.toCharArray()) {
             if (Character.isUpperCase(c)) {
                 if (builder.charAt(builder.length() - 1) != '-') {

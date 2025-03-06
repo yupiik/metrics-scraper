@@ -472,6 +472,10 @@
               <key>metrics-scrapper.elasticsearch.indexPrefix</key>
               <value>test-scrapper-</value>
             </property>
+            <property>
+              <key>io.yupiik.metrics.metricsscrapper.level</key>
+              <value>FINER</value>
+            </property>
           </systemProperties>
         </configuration>
       </plugin>

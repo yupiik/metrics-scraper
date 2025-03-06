@@ -28,12 +28,9 @@
  */
 package io.yupiik.metrics.metricsscrapper.http;
 
-import io.yupiik.fusion.framework.api.lifecycle.Start;
 import io.yupiik.fusion.framework.api.lifecycle.Stop;
 import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
 import io.yupiik.fusion.framework.build.api.event.OnEvent;
-import io.yupiik.fusion.framework.build.api.lifecycle.Init;
-import io.yupiik.fusion.framework.build.api.scanning.Injection;
 import io.yupiik.fusion.json.JsonMapper;
 import io.yupiik.metrics.metricsscrapper.common.ThreadFactoryImpl;
 import io.yupiik.metrics.metricsscrapper.configuration.MetricsScrapperConfiguration;
@@ -43,8 +40,8 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.concurrent.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
@@ -54,25 +51,25 @@ import static java.util.stream.Collectors.joining;
 public class SimpleHttpClient {
     private final Logger log = Logger.getLogger(SimpleHttpClient.class.getName());
 
-    @Injection
-    MetricsScrapperConfiguration configuration;
-
-    @Injection
-    JsonMapper jsonMapper;
+    private final MetricsScrapperConfiguration configuration;
+    private final JsonMapper jsonMapper;
 
     private ExecutorService pool;
 
-    public void onStart(@OnEvent Start start) {
-        log.info("> start: " + start);
+    public SimpleHttpClient(final MetricsScrapperConfiguration configuration, final JsonMapper jsonMapper) {
         log.info("> Initializing SimpleHttpClient");
-        log.info("> Configuration: " + configuration.threading());
+        log.info("> Configuration: " + configuration);
+
+        this.configuration = configuration;
+        this.jsonMapper = jsonMapper;
+
         this.pool = new ThreadPoolExecutor(
                 this.configuration.threading().core(),
                 this.configuration.threading().max(),
                 1, TimeUnit.MINUTES, new LinkedBlockingQueue<>(),
                 new ThreadFactoryImpl("metrics-scrapper-http-client"),
                 (r, executor) -> {
-                    log.log(Level.SEVERE, "Rejecting http task '{0}' from pool '{1}'", new Object[]{r, executor});
+                    log.severe(String.format("Rejecting http task '%s' from pool '%s'", r, executor));
                     throw new RejectedExecutionException("Task " + r.toString() + " rejected from " + executor.toString());
                 });
 
@@ -98,8 +95,10 @@ public class SimpleHttpClient {
                                           final String... headers) {
         final CompletableFuture<T> result = new CompletableFuture<>();
         try {
+            log.fine(String.format("Requesting '%s' on '%s' with timeout %s on type %s and headers %s", url, method, timeout, type.getName(), Arrays.toString(headers)));
             pool.submit(() -> doRequest(method, url, payload, timeout, enableRedirects, result, headers, type));
         } catch (final Exception e) {
+            log.severe("Could not submit request: " + e);
             result.completeExceptionally(e);
         }
         return result;
@@ -136,7 +135,7 @@ public class SimpleHttpClient {
                 return;
             }
             if (responseCode < HttpURLConnection.HTTP_OK || responseCode > HttpURLConnection.HTTP_MULT_CHOICE) {
-                log.log(Level.SEVERE, "HTTP response to '{}' was a HTTP {}: '{}'", new Object[]{url, responseCode, this.slurpPayload(connection)});
+                log.severe(String.format("HTTP response to '%s' was a HTTP %s: '%s'", url, responseCode, this.slurpPayload(connection)));
                 result.completeExceptionally(new IllegalArgumentException("HTTP response was HTTP " + responseCode));
                 return;
             }
