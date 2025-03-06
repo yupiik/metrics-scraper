@@ -1,0 +1,2 @@
+cluster.name: "metrics-elasticsearch"
+network.host: 0.0.0.0
