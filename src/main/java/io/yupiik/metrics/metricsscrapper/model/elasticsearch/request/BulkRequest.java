@@ -1,11 +1,15 @@
 package io.yupiik.metrics.metricsscrapper.model.elasticsearch.request;
 
+import io.yupiik.fusion.framework.build.api.json.JsonModel;
+
+@JsonModel
 public record BulkRequest(
         String _index,
         String _id,
         Object document,
         BulkActionType actionType
 ) {
+    @JsonModel
     public enum BulkActionType
     {
         index( "index", true ),

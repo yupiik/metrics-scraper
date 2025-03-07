@@ -28,6 +28,7 @@
  */
 package io.yupiik.metrics.metricsscrapper.http;
 
+import io.yupiik.fusion.framework.api.lifecycle.Start;
 import io.yupiik.fusion.framework.api.lifecycle.Stop;
 import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
 import io.yupiik.fusion.framework.build.api.event.OnEvent;
@@ -57,11 +58,14 @@ public class SimpleHttpClient {
     private ExecutorService pool;
 
     public SimpleHttpClient(final MetricsScrapperConfiguration configuration, final JsonMapper jsonMapper) {
-        log.info("> Initializing SimpleHttpClient");
-        log.info("> Configuration: " + configuration);
-
+        log.info("> Constructor SimpleHttpClient");
         this.configuration = configuration;
         this.jsonMapper = jsonMapper;
+    }
+
+    public void start(@OnEvent Start start) {
+        log.info("> Initializing SimpleHttpClient");
+        log.info("> Configuration: " + configuration);
 
         this.pool = new ThreadPoolExecutor(
                 this.configuration.threading().core(),
@@ -79,9 +83,9 @@ public class SimpleHttpClient {
     }
 
     public void destroy(@OnEvent Stop stop) {
-        pool.shutdownNow();
+        this.pool.shutdownNow();
         try {
-            if (!pool.awaitTermination(2, TimeUnit.SECONDS)) {
+            if (!this.pool.awaitTermination(2, TimeUnit.SECONDS)) {
                 log.warning("Async task not stopped in 2s (ES client)");
             }
         } catch (final InterruptedException e) {
@@ -96,7 +100,7 @@ public class SimpleHttpClient {
         final CompletableFuture<T> result = new CompletableFuture<>();
         try {
             log.fine(String.format("Requesting '%s' on '%s' with timeout %s on type %s and headers %s", url, method, timeout, type.getName(), Arrays.toString(headers)));
-            pool.submit(() -> doRequest(method, url, payload, timeout, enableRedirects, result, headers, type));
+            this.pool.submit(() -> doRequest(method, url, payload, timeout, enableRedirects, result, headers, type));
         } catch (final Exception e) {
             log.severe("Could not submit request: " + e);
             result.completeExceptionally(e);
@@ -131,7 +135,8 @@ public class SimpleHttpClient {
             }
             responseCode = connection.getResponseCode();
             if (Status.class == returnType) {
-                result.complete(returnType.cast(new Status(connection.getResponseCode(), slurpPayload(connection))));
+                log.fine("Complete result of type Status.class");
+                result.complete(returnType.cast(new Status(responseCode, this.slurpPayload(connection))));
                 return;
             }
             if (responseCode < HttpURLConnection.HTTP_OK || responseCode > HttpURLConnection.HTTP_MULT_CHOICE) {
@@ -159,10 +164,15 @@ public class SimpleHttpClient {
     }
 
     private String slurpPayload(final HttpURLConnection connection) {
+
+        log.fine(() -> String.format("Slurping payload with url: '%s", connection.getURL()));
         try (final BufferedReader reader = new BufferedReader(new InputStreamReader(
                 connection.getResponseCode() >= 400 ? connection.getErrorStream() : connection.getInputStream(), StandardCharsets.UTF_8))) {
-            return reader.lines().collect(joining("\n"));
+            final String lines = reader.lines().collect(joining("\n"));
+            log.fine(() -> String.format("Slurping lines: '%s", lines));
+            return lines;
         } catch (final Exception e) {
+            log.fine(() -> "Slurping lines: '-'");
             return "-";
         }
     }

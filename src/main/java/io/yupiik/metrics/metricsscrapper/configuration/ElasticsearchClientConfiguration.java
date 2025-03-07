@@ -1,9 +1,11 @@
 package io.yupiik.metrics.metricsscrapper.configuration;
 
 import io.yupiik.fusion.framework.build.api.configuration.Property;
+import io.yupiik.fusion.framework.build.api.json.JsonModel;
 
 import java.util.Map;
 
+@JsonModel
 public record ElasticsearchClientConfiguration(
         @Property(value = "indexNameSuffix", documentation = "Index Name Suffix - An optional (but recommended) date pattern suffix to append to index names", defaultValue = "\"ISO_LOCAL_DATE\"")
         String indexNameSuffix,
@@ -27,6 +29,7 @@ public record ElasticsearchClientConfiguration(
         long timeout
 ) {
 
+    @JsonModel
     public record ElasticsearchIndexSettings(
             @Property(value = "index", documentation = "Index - Index settings for created indices")
             ElasticsearchIndexSettingsIndex index
@@ -34,6 +37,7 @@ public record ElasticsearchClientConfiguration(
 
     }
 
+    @JsonModel
     public record ElasticsearchIndexSettingsIndex(
             @Property(value = "shards", documentation = "Elasticsearch Settings - The number of primary shards that an index should have.", defaultValue = "3")
             int shards,

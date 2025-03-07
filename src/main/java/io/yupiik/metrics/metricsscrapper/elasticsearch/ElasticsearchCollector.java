@@ -32,7 +32,6 @@ import io.yupiik.fusion.framework.api.lifecycle.Start;
 import io.yupiik.fusion.framework.api.lifecycle.Stop;
 import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
 import io.yupiik.fusion.framework.build.api.event.OnEvent;
-import io.yupiik.fusion.json.JsonMapper;
 import io.yupiik.metrics.metricsscrapper.model.metrics.Metrics;
 import io.yupiik.metrics.metricsscrapper.model.metrics.ScrapperMetrics;
 
@@ -52,16 +51,17 @@ import static java.util.concurrent.TimeUnit.MINUTES;
 public class ElasticsearchCollector {
     private final Logger log = Logger.getLogger(ElasticsearchCollector.class.getName());
 
-    private final JsonMapper jsonMapper;
     private final ElasticsearchClient esClient;
 
     private final AtomicBoolean closing = new AtomicBoolean(false);
     private final Map<CompletableFuture<?>, Boolean> pending = new ConcurrentHashMap<>();
 
-    public ElasticsearchCollector(final JsonMapper jsonMapper, final ElasticsearchClient esClient) {
-        log.info("> Initializing ElasticsearchCollector");
-        this.jsonMapper = jsonMapper;
+    public ElasticsearchCollector(final ElasticsearchClient esClient) {
         this.esClient = esClient;
+    }
+
+    public void start(@OnEvent final Start start) {
+        log.info("> Initializing ElasticsearchCollector");
     }
 
     public void stop(@OnEvent final Stop stop) {
@@ -77,18 +77,19 @@ public class ElasticsearchCollector {
     }
 
     public void onMetrics(@OnEvent final ScrapperMetrics scrapperMetrics) {
-        log.info(String.format("Got event on metrics %s", jsonMapper.toString(scrapperMetrics)));
+        log.fine("> onMetrics");
         final Metrics metrics = scrapperMetrics.getMetrics();
         if (closing.get() || metrics.isEmpty()) {
+            log.fine("> empty metrics or closed collector");
             return;
         }
         final CompletableFuture<?> promise = esClient.createBulk(metrics, scrapperMetrics.getConfiguration().tags(), scrapperMetrics.getTimestamp());
         pending.put(promise, true);
         promise.handle((r, e) -> {
             if (e != null) {
-                log.log(Level.SEVERE, e.getMessage() + ", sending metrics: " + jsonMapper.toString(metrics), e);
+                log.log(Level.SEVERE, e.getMessage() + ", sending metrics: " + metrics, e);
             } else {
-                log.log(Level.FINE, "Success sending metrics {}", jsonMapper.toString(metrics));
+                log.log(Level.FINE, "Success sending metrics {}", metrics);
             }
             pending.remove(promise);
             return r;

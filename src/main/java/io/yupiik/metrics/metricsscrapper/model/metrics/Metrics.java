@@ -87,4 +87,15 @@ public class Metrics {
     public void dropZeroCounters() {
         counters.removeIf(it -> it.getValue() == null || it.getValue() == 0);
     }
+
+    @Override
+    public String toString() {
+        return "Metrics{" +
+                "counters=" + counters +
+                ", gauges=" + gauges +
+                ", untyped=" + untyped +
+                ", histogram=" + histogram +
+                ", summary=" + summary +
+                '}';
+    }
 }

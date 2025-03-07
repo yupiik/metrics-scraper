@@ -1,6 +1,8 @@
 package io.yupiik.metrics.metricsscrapper.elasticsearch;
 
+import io.yupiik.fusion.framework.api.lifecycle.Start;
 import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
+import io.yupiik.fusion.framework.build.api.event.OnEvent;
 import io.yupiik.fusion.json.JsonMapper;
 import io.yupiik.metrics.metricsscrapper.configuration.ElasticsearchClientConfiguration;
 import io.yupiik.metrics.metricsscrapper.configuration.MetricsScrapperConfiguration;
@@ -50,23 +52,25 @@ public class ElasticsearchClient {
     private ZoneId zone;
     private Function<Class<?>, String> currentIndex;
 
-    private final boolean useWildcardForOperations;
-    private final String base;
-    private final String query;
-    private final String[] headers;
-    private final int timeout;
+    private boolean useWildcardForOperations;
+    private String base;
+    private String query;
+    private String[] headers;
+    private int timeout;
 
     private CompletableFuture<?> initialized;
 
     private final Map<Class<?>, String> indicesNames = new HashMap<>();
 
     public ElasticsearchClient(final MetricsScrapperConfiguration configuration, final JsonMapper jsonMapper, final SimpleHttpClient httpClient) {
-        log.info("> Initializing ElasticsearchClient");
-        log.info("> Configuration: " + configuration);
         this.configuration = configuration;
         this.jsonMapper = jsonMapper;
         this.httpClient = httpClient;
+    }
 
+    public void start(@OnEvent Start start){
+        log.info("> Initializing ElasticsearchClient");
+        log.info("> Configuration: " + configuration);
         this.base = configuration.elasticsearch().base();
         this.query = configuration.elasticsearch().refreshOnWrite() ? "?refresh" : "";
 
@@ -81,11 +85,13 @@ public class ElasticsearchClient {
         this.timeout = (int) Math.max(0, configuration.elasticsearch().timeout());
 
         this.indicesNames.putAll(getIndexableClasses().collect(toMap(identity(), this::toIndex)));
+        log.fine(String.format("Generating index names %s", String.join(", ", indicesNames.values())));
 
         final boolean isDynamicIndexName = configuration.elasticsearch().indexNameSuffix() != null;
         this.useWildcardForOperations = isDynamicIndexName; // <name>-<date>
 
         if (isDynamicIndexName) {
+            log.fine("> Dynamic index name - Using wildcards for operations");
             this.initIndexFactory(configuration.elasticsearch().indexNameSuffix());
             zone = ZoneId.of("UTC");
             final CompletableFuture<?>[] tasks = getIndexableClasses()
@@ -98,13 +104,14 @@ public class ElasticsearchClient {
                                     if (exists.value() == 404) { // then create it
                                         return this.createIndexTemplate(type, templateName).toCompletableFuture();
                                     }
-                                    log.log(Level.FINE, "Index template '{0}' already exists", templateName);
+                                    log.fine(String.format("Index template '%s' already exists", templateName));
                                     return completedFuture(true); // done
                                 });
                     })
                     .toArray(CompletableFuture<?>[]::new);
             this.initialized = this.toInitialized(configuration.elasticsearch(), tasks);
         } else {
+            log.fine("> Static index name");
             final CompletableFuture<?>[] tasks = this.getIndexableClasses()
                     .map(this::ensureMapping)
                     .map(CompletionStage::toCompletableFuture)
@@ -129,12 +136,13 @@ public class ElasticsearchClient {
 
     private CompletionStage<Boolean> createIndexTemplate(final Class<?> type, final String templateName) {
         //TODO eventually handle mappings deeper (not sure)
+        log.fine("Create index template.");
         final IndexTemplate template = new IndexTemplate(List.of(templateName + "*"), new Template(new ElasticsearchIndexSettingsIndex(configuration.elasticsearch().settingsTemplate().index().shards(), configuration.elasticsearch().settingsTemplate().index().replicas()), this.createMappings(type)));
         final String tpl = jsonMapper.toString(template);
         if (log.isLoggable(Level.FINE)) {
-            log.log(Level.FINE, "Creating index template '{0}':\n{1}", new Object[]{templateName, tpl});
+            log.fine(String.format("Creating index template '%s':\n%s", templateName, tpl));
         } else {
-            log.log(Level.INFO, "Creating index template '{0}'", templateName);
+            log.info(String.format("Creating index template '%s'", templateName));
         }
         return this.request(
                         "PUT", base + "/_index_template/" + templateName,
@@ -148,14 +156,17 @@ public class ElasticsearchClient {
     }
 
     private Mappings createMappings(final Class<?> type) {
+        log.fine("Create mappings for type: " + type.getSimpleName());
         final Mappings mappings = new Mappings(List.of());
         for (final Field declaredField : type.getDeclaredFields()) {
+            log.fine("Create property in mappings for field: " + declaredField.getName());
             mappings.properties().add(new Property(declaredField.getName(), this.getEsType(declaredField.getType())));
         }
         return mappings;
     }
 
     private String getEsType(final Type model) {
+        log.fine("Compute ES type for property type: " + model.getTypeName());
         //TODO handle complex toto eventually, and implement a finer mapping
         if (boolean.class == model || Boolean.class == model) {
             return "boolean";
@@ -182,18 +193,18 @@ public class ElasticsearchClient {
             if (config.refreshOnWrite()) {
                 return allOf(tasks)
                         .thenCompose(i -> this.request(
-                                        "GET", base + '/' + getAllIndices() + "/_refresh", null,
+                                        "GET", base + '/' + this.getAllIndices() + "/_refresh", null,
                                         Status.class, timeout, true, headers)
                                 .thenApply(s -> {
-                                    log.log(Level.FINE, "Refresh after mapping creation: {0}", s);
+                                    log.fine(String.format("Refresh after mapping creation: %s", s));
                                     return null;
                                 }));
             }
             return allOf(tasks).thenApply(it -> {
-                log.log(Level.FINE, "Initialized mapping without refresh");
+                log.fine("Initialized mapping without refresh");
                 return it;
             }).exceptionally(error -> {
-                log.log(Level.SEVERE, error.getMessage(), error);
+                log.log(Level.SEVERE, "Could not initialize mapping due to following error: " + error.getMessage(), error);
                 if (RuntimeException.class.isInstance(error)) {
                     throw RuntimeException.class.cast(error);
                 }
@@ -250,7 +261,7 @@ public class ElasticsearchClient {
     }
 
     public CompletionStage<Void> createIndex(final String index) {
-        log.log(Level.INFO, "Creating elasticsearch index '{0}'", index);
+        log.info(String.format("Creating elasticsearch index '%s'", index));
         return this.request("PUT", base + '/' + index,
                         "{\"settings\":" + jsonMapper.toString(configuration.elasticsearch().settingsTemplate().index()) + "}",
                         Status.class, timeout, true, headers)
@@ -285,15 +296,15 @@ public class ElasticsearchClient {
             if (!has) {
                 return this.createIndex(index).thenCompose(ignored -> this.createMapping(index, this.createMappings(type)));
             }
-            log.log(Level.FINE, "Index '{0}' already exists", index);
+            log.fine(String.format("Index '%s' already exists", index));
             return completedFuture(null);
         });
     }
 
     private CompletionStage<Void> createMapping(final String index, final Mappings mapping) {
-        log.log(Level.INFO, "Creating elasticsearch mapping for index '{0}'", index);
+        log.info(String.format("Creating elasticsearch mapping for index '%s'", index));
         if (log.isLoggable(Level.FINE)) {
-            log.log(Level.FINE, "> ES mapping: {0}", mapping);
+            log.fine(String.format("> ES mapping: %s", mapping));
         }
         return this.request("PUT", base + '/' + index + "/_mapping", mapping, Status.class,
                         timeout, true, headers)
@@ -337,13 +348,14 @@ public class ElasticsearchClient {
     }
 
     private CompletionStage<?> doBulk(final Metrics metrics, final Map<String, String> customTags) {
+        log.fine("Creating elasticsearch bulk");
         return this.bulk(this.toBulk(metrics, customTags)).thenApply(result -> {
             if (!result.errors()) {
                 return result; // ok
             }
             final Map<String, Object> items = result.items();
             if (items == null) {
-                log.log(Level.SEVERE, "Index update failed: {0}", result);
+                log.severe(String.format("Index update failed: %s", result));
                 return result;
             }
             final List<String> errors = items.values().stream()
@@ -351,7 +363,7 @@ public class ElasticsearchClient {
                     .map(o -> BulkResponseItem.class.cast(o).error().reason())
                     .collect(toList());
             if (!errors.isEmpty()) {
-                log.log(Level.SEVERE, "Error during bulk metric push:\n{0}", String.join("\n", errors));
+                log.severe(String.format("Error during bulk metric push:\n%s", String.join("\n", errors)));
             }
             return errors;
         }).toCompletableFuture();
@@ -403,6 +415,7 @@ public class ElasticsearchClient {
     }
 
     private void initIndexFactory(final String pattern) {
+        log.fine("Initializing index factory with pattern: " + pattern);
         final Map<Class<?>, String> indexBases = this.getStaticIndexNames(this::toIndex);
 
         // when computing the name once a day avoid to recompute and check indices all the time
@@ -443,6 +456,8 @@ public class ElasticsearchClient {
                         indexBases, formatter, runtimeIndices, type,
                         now -> toOffsetDateTime(now).plusSeconds(1).withNano(0).toInstant());
             }
+        } finally {
+            log.log(Level.FINE, () -> "Index factory initialized. Current index: " + currentIndex.toString());
         }
     }
 

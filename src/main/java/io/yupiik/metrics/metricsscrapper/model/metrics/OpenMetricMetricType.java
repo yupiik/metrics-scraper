@@ -28,6 +28,9 @@
  */
 package io.yupiik.metrics.metricsscrapper.model.metrics;
 
+import io.yupiik.fusion.framework.build.api.json.JsonModel;
+
+@JsonModel
 public enum OpenMetricMetricType { // openmetric types, /!\ does not match microprofile-metrics types
     counter, gauge, histogram, summary, untyped
 }

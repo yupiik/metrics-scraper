@@ -36,4 +36,13 @@ public class ScrapperMetrics {
     public void setMetrics(Metrics metrics) {
         this.metrics = metrics;
     }
+
+    @Override
+    public String toString() {
+        return "ScrapperMetrics{" +
+                "timestamp=" + timestamp +
+                ", configuration=" + configuration +
+                ", metrics=" + metrics +
+                '}';
+    }
 }

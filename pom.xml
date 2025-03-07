@@ -20,7 +20,7 @@
     <yupiik-logging.version>1.0.8</yupiik-logging.version>
 
     <!-- Image related configuration -->
-    <image.base>azul/zulu-openjdk-alpine:21.0.1@sha256:d45f86fffd7ccd63839d0518f7aa69dd8c8e1703e2c9b6a62dabb813300946cd</image.base>
+    <image.base>ossyupiik/java:21.0.6</image.base>
     <image.workdir>/opt/applications/${project.artifactId}</image.workdir>
     <image.version>${project.version}</image.version>
     <image.name>${project.artifactId}/${project.artifactId}:${image.version}</image.name>

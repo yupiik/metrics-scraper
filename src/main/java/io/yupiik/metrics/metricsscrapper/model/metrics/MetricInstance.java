@@ -157,4 +157,24 @@ public class MetricInstance {
     public void setStddev(Double stddev) {
         this.stddev = stddev;
     }
+
+    @Override
+    public String toString() {
+        return "MetricInstance{" +
+                "help='" + help + '\'' +
+                ", name='" + name + '\'' +
+                ", tags=" + tags +
+                ", toto=" + toto +
+                ", timestamp=" + timestamp +
+                ", value=" + value +
+                ", sum=" + sum +
+                ", count=" + count +
+                ", quantiles=" + quantiles +
+                ", buckets=" + buckets +
+                ", min=" + min +
+                ", max=" + max +
+                ", mean=" + mean +
+                ", stddev=" + stddev +
+                '}';
+    }
 }

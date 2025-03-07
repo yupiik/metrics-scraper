@@ -33,7 +33,7 @@ public class OpenMetricsReader {
                 if (type.startsWith("TYPE ")) {
                     final String[] typeSegments = spacePattern.split(type);
                     if (typeSegments.length != 3) {
-                        log.log(Level.WARNING, "Invalid TYPE: '{0}'", type);
+                        log.warning(String.format("Invalid TYPE: '%s'", type));
                         continue;
                     }
                     final String metricName = typeSegments[1].trim();
