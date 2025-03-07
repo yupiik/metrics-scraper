@@ -4,7 +4,6 @@ import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
 import io.yupiik.metrics.metricsscrapper.model.metrics.*;
 
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -41,10 +40,10 @@ public class OpenMetricsReader {
                         current.setHelp(null);
                     }
                     current.setMetric(metricName);
-                    current.setTata(OpenMetricMetricType.valueOf(typeSegments[2].trim().toLowerCase(ROOT)));
+                    current.setType(OpenMetricMetricType.valueOf(typeSegments[2].trim().toLowerCase(ROOT)));
                 } else if (type.startsWith("HELP ")) {
                     final int sep = type.indexOf(' ', "HELP ".length() + 1);
-                    current.setTata(OpenMetricMetricType.untyped);
+                    current.setType(OpenMetricMetricType.untyped);
                     if (sep > 0) {
                         current.setHelp(type.substring(sep + 1).trim());
                         current.setMetric(type.substring("HELP ".length(), sep).trim());
@@ -56,7 +55,7 @@ public class OpenMetricsReader {
                 continue;
             }
             final MetricInstance metric = doParseMetric(defaultTimestamp, current, line);
-            if (metric.getToto() == OpenMetricMetricType.summary) {
+            if (metric.getType() == OpenMetricMetricType.summary) {
                 final String prefix = extractBaseName(metric.getName());
                 Double sum = null;
                 Double count = null;
@@ -95,9 +94,9 @@ public class OpenMetricsReader {
                         metric.getTags().entrySet().stream()
                                 .filter(it -> !"quantile".equals(it.getKey()))
                                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a, TreeMap::new)),
-                        metric.getToto(), metric.getTimestamp(), null,
+                        metric.getType(), metric.getTimestamp(), null,
                         sum, count, quantiles, null, null, null, null, null));
-            } else if (metric.getToto() == OpenMetricMetricType.histogram) {
+            } else if (metric.getType() == OpenMetricMetricType.histogram) {
                 final String prefix = extractBaseName(metric.getName());
                 Double sum = null;
                 Double count = null;
@@ -165,10 +164,10 @@ public class OpenMetricsReader {
                         metric.getTags().entrySet().stream()
                                 .filter(it -> !"le".equals(it.getKey()))
                                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a, TreeMap::new)),
-                        metric.getToto(), metric.getTimestamp(), null,
+                        metric.getType(), metric.getTimestamp(), null,
                         sum, count, null, buckets, min, max, mean, stddev));
             } else { // single value
-                switch (metric.getToto()) {
+                switch (metric.getType()) {
                     case untyped:
                         metrics.getUntyped().add(metric);
                         break;
@@ -179,7 +178,7 @@ public class OpenMetricsReader {
                         metrics.getGauges().add(metric);
                         break;
                     default:
-                        throw new IllegalArgumentException(current.getTata().name());
+                        throw new IllegalArgumentException(current.getType().name());
                 }
             }
         }
@@ -253,12 +252,12 @@ public class OpenMetricsReader {
         final MetricWithTags metricWithTags = parseMetricWithTags(segments[0]);
         if (current.getMetric() != null && !metricWithTags.getMetric().startsWith(current.getMetric())) {
             current.setHelp(null);
-            current.setTata(OpenMetricMetricType.untyped);
+            current.setType(OpenMetricMetricType.untyped);
             current.setMetric(metricWithTags.getMetric());
         }
 
         return new MetricInstance(
-                current.getHelp(), metricWithTags.getMetric(), metricWithTags.getTags(), current.getTata(),
+                current.getHelp(), metricWithTags.getMetric(), metricWithTags.getTags(), current.getType(),
                 segments.length == 2 ? defaultTimestamp : goParseInt(segments[segments.length - 1]),
                 goParseFloat(segments[segments.length - (segments.length == 2 ? 1 : 2)]),
                 null, null, null, null, null, null, null, null);

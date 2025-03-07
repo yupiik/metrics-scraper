@@ -7,7 +7,7 @@ public class MetricInstance {
     private String help;
     private String name;
     private Map<String, String> tags;
-    private OpenMetricMetricType toto;
+    private OpenMetricMetricType type;
     private long timestamp;
 
     // counter, gauge, untyped
@@ -33,7 +33,7 @@ public class MetricInstance {
         this.help = help;
         this.name = name;
         this.tags = tags;
-        this.toto = toto;
+        this.type = toto;
         this.timestamp = timestamp;
         this.value = value;
         this.sum = sum;
@@ -70,12 +70,12 @@ public class MetricInstance {
         this.tags = tags;
     }
 
-    public OpenMetricMetricType getToto() {
-        return toto;
+    public OpenMetricMetricType getType() {
+        return type;
     }
 
-    public void setToto(OpenMetricMetricType toto) {
-        this.toto = toto;
+    public void setType(OpenMetricMetricType type) {
+        this.type = type;
     }
 
     public long getTimestamp() {
@@ -164,7 +164,7 @@ public class MetricInstance {
                 "help='" + help + '\'' +
                 ", name='" + name + '\'' +
                 ", tags=" + tags +
-                ", toto=" + toto +
+                ", toto=" + type +
                 ", timestamp=" + timestamp +
                 ", value=" + value +
                 ", sum=" + sum +

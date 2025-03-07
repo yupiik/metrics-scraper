@@ -3,7 +3,7 @@ package io.yupiik.metrics.metricsscrapper.model.metrics;
 public class Current {
     protected String metric;
     protected String help;
-    protected OpenMetricMetricType tata;
+    protected OpenMetricMetricType type;
 
     public String getMetric() {
         return metric;
@@ -21,11 +21,11 @@ public class Current {
         this.help = help;
     }
 
-    public OpenMetricMetricType getTata() {
-        return tata;
+    public OpenMetricMetricType getType() {
+        return type;
     }
 
-    public void setTata(OpenMetricMetricType tata) {
-        this.tata = tata;
+    public void setType(OpenMetricMetricType type) {
+        this.type = type;
     }
 }

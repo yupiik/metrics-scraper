@@ -16,6 +16,7 @@ import io.yupiik.metrics.metricsscrapper.model.elasticsearch.response.BulkRespon
 import io.yupiik.metrics.metricsscrapper.model.http.Status;
 import io.yupiik.metrics.metricsscrapper.model.metrics.Metrics;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.time.Instant;
@@ -68,7 +69,7 @@ public class ElasticsearchClient {
         this.httpClient = httpClient;
     }
 
-    public void start(@OnEvent Start start){
+    public void start(@OnEvent Start start) {
         log.info("> Initializing ElasticsearchClient");
         log.info("> Configuration: " + configuration);
         this.base = configuration.elasticsearch().base();
@@ -157,10 +158,10 @@ public class ElasticsearchClient {
 
     private Mappings createMappings(final Class<?> type) {
         log.fine("Create mappings for type: " + type.getSimpleName());
-        final Mappings mappings = new Mappings(List.of());
+        final Mappings mappings = new Mappings(new HashMap<>());
         for (final Field declaredField : type.getDeclaredFields()) {
             log.fine("Create property in mappings for field: " + declaredField.getName());
-            mappings.properties().add(new Property(declaredField.getName(), this.getEsType(declaredField.getType())));
+            mappings.properties().put(declaredField.getName(), new Property(this.getEsType(declaredField.getType())));
         }
         return mappings;
     }
@@ -176,6 +177,8 @@ public class ElasticsearchClient {
             return "double";
         } else if (int.class == model || short.class == model || byte.class == model || long.class == model || Integer.class == model || Short.class == model || Byte.class == model || Long.class == model) {
             return "long";
+        }  else if(Map.class == model || List.class == model || Set.class == model || Collection.class == model || Object[].class == model) {
+            return "nested";
         } else if (this.isStringable(model)) {
             return "text";
         } else {
@@ -373,21 +376,21 @@ public class ElasticsearchClient {
         return Stream.of(
                         metrics.getCounters().stream()
                                 .map(it -> new Counter(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getToto(), it.getTimestamp(), it.getValue())),
+                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(), it.getTimestamp(), it.getValue())),
                         metrics.getGauges().stream()
                                 .map(it -> new Gauge(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getToto(), it.getTimestamp(), it.getValue())),
+                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(), it.getTimestamp(), it.getValue())),
                         metrics.getUntyped().stream()
                                 .map(it -> new Untyped(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getToto(), it.getTimestamp(), it.getValue())),
+                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(), it.getTimestamp(), it.getValue())),
                         metrics.getHistogram().stream()
                                 .map(it -> new Histogram(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getToto(),
+                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(),
                                         it.getTimestamp(), it.getSum(), it.getCount(), it.getBuckets(),
                                         it.getMin(), it.getMax(), it.getMean(), it.getStddev())),
                         metrics.getSummary().stream()
                                 .map(it -> new Summary(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getToto(),
+                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(),
                                         it.getTimestamp(), it.getSum(), it.getCount(), it.getQuantiles())))
                 .flatMap(s -> s.flatMap(this::toBulkRequests))
                 .collect(toList());
