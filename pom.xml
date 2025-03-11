@@ -494,7 +494,7 @@
           <fallbackMode>no</fallbackMode>
           <enableAllSecurityServices>false</enableAllSecurityServices>
           <scanningExcludedArtifacts>*</scanningExcludedArtifacts>
-          <main>io.yupiik.metrics.metricsscrapper.MetricsScrapper</main>
+          <main>${main.class}</main>
           <customOptions>
             <customOption>-Djava.util.logging.manager=io.yupiik.logging.jul.YupiikLogManager</customOption>
             <customOption>-Djava.net.preferIPv4Stack=true</customOption>
