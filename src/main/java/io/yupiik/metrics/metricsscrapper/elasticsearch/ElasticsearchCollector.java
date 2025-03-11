@@ -89,7 +89,7 @@ public class ElasticsearchCollector {
             if (e != null) {
                 log.log(Level.SEVERE, e.getMessage() + ", sending metrics: " + metrics, e);
             } else {
-                log.log(Level.FINE, "Success sending metrics {}", metrics);
+                log.fine(String.format("Success sending metrics %s", metrics));
             }
             pending.remove(promise);
             return r;

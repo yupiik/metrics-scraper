@@ -27,13 +27,13 @@ public class MetricInstance {
     private Double mean;
     private Double stddev;
 
-    public MetricInstance(String help, String name, Map<String, String> tags, OpenMetricMetricType toto,
+    public MetricInstance(String help, String name, Map<String, String> tags, OpenMetricMetricType type,
                           long timestamp, Double value, Double sum, Double count, Map<String, Double> quantiles,
                           Map<String, Double> buckets, Double min, Double max, Double mean, Double stddev) {
         this.help = help;
         this.name = name;
         this.tags = tags;
-        this.type = toto;
+        this.type = type;
         this.timestamp = timestamp;
         this.value = value;
         this.sum = sum;
@@ -164,7 +164,7 @@ public class MetricInstance {
                 "help='" + help + '\'' +
                 ", name='" + name + '\'' +
                 ", tags=" + tags +
-                ", toto=" + type +
+                ", type=" + type +
                 ", timestamp=" + timestamp +
                 ", value=" + value +
                 ", sum=" + sum +

@@ -15,7 +15,7 @@ public record TracerConfiguration(
         String serviceName,
         @Property(value = "component", documentation = "Component - Component name - put in tags.", defaultValue = "\"metric-scrapper\"")
         String component,
-        @Property(value = "idGeneratorType", documentation = "ID Generator - Trace/Span identifier generator toto.")
+        @Property(value = "idGeneratorType", documentation = "ID Generator - Trace/Span identifier generator type.")
         IdGeneratorType idGeneratorType,
         @Property(value = "collectionType", documentation = "Collector - Type of the collector.")
         TracingCollectionType collectionType,

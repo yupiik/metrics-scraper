@@ -124,6 +124,14 @@ public class ElasticsearchClient {
 
     protected <T> CompletionStage<T> request(String mtd, String url, Object payload, Class<T> returnedType,
                                              int timeout, boolean redirected, String[] headers) {
+        log.fine("Request method: " + mtd);
+        log.fine("Request url: " + url);
+        log.fine("Request payload: " + payload);
+        log.fine("Request returnType: " + returnedType != null ? returnedType.toString() : "null");
+        log.fine("Request timeout: " + timeout);
+        log.fine("Request redirected: " + redirected);
+        log.fine("Request headers: " + String.join(", ", headers));
+
         if (Status.class == returnedType) {
             return httpClient.request(mtd, url, payload, timeout, redirected, Status.class, headers)
                     .thenApply(s -> returnedType.cast(new Status(s.value(), s.payload())));
@@ -255,8 +263,18 @@ public class ElasticsearchClient {
     }
 
     private String toBulkLine(BulkRequest bulkRequest) {
-        return "{ \"" + bulkRequest.actionType().getCode() + "\" : { \"_index\" : \"" + bulkRequest._index() +
-                "\", \"_id\" : \"" + bulkRequest._id() + "\" } }\n" + (bulkRequest.actionType().hasDocument() ? jsonMapper.toString(bulkRequest.document()) : "");
+        final StringBuilder sb = new StringBuilder("{ \"");
+        sb.append(bulkRequest.actionType().getCode())
+                .append("\" : { \"_index\" : \"")
+                .append(bulkRequest._index())
+                .append("\"");
+        if(bulkRequest._id() != null) {
+            sb.append(", \"_id\" : \"")
+                    .append(bulkRequest._id())
+                    .append("\"");
+        }
+        sb.append("} }\n").append(bulkRequest.actionType().hasDocument() ? jsonMapper.toString(bulkRequest.document()) : "");
+        return sb.toString();
     }
 
     public String toIndex(final Class<?> type) {
