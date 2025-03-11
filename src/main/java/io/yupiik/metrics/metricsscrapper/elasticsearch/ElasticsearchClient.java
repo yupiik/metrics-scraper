@@ -16,13 +16,9 @@ import io.yupiik.metrics.metricsscrapper.model.elasticsearch.response.BulkRespon
 import io.yupiik.metrics.metricsscrapper.model.http.Status;
 import io.yupiik.metrics.metricsscrapper.model.metrics.Metrics;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -394,24 +390,34 @@ public class ElasticsearchClient {
         return Stream.of(
                         metrics.getCounters().stream()
                                 .map(it -> new Counter(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(), it.getTimestamp(), it.getValue())),
+                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(),
+                                        this.toTimeStamp(it.getTimestamp()), it.getValue())),
                         metrics.getGauges().stream()
                                 .map(it -> new Gauge(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(), it.getTimestamp(), it.getValue())),
+                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(),
+                                        this.toTimeStamp(it.getTimestamp()), it.getValue())),
                         metrics.getUntyped().stream()
                                 .map(it -> new Untyped(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(), it.getTimestamp(), it.getValue())),
+                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(),
+                                        this.toTimeStamp(it.getTimestamp()), it.getValue())),
                         metrics.getHistogram().stream()
                                 .map(it -> new Histogram(
                                         it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(),
-                                        it.getTimestamp(), it.getSum(), it.getCount(), it.getBuckets(),
+                                        this.toTimeStamp(it.getTimestamp()), it.getSum(), it.getCount(), it.getBuckets(),
                                         it.getMin(), it.getMax(), it.getMean(), it.getStddev())),
                         metrics.getSummary().stream()
                                 .map(it -> new Summary(
                                         it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(),
-                                        it.getTimestamp(), it.getSum(), it.getCount(), it.getQuantiles())))
+                                        this.toTimeStamp(it.getTimestamp()), it.getSum(), it.getCount(), it.getQuantiles())))
                 .flatMap(s -> s.flatMap(this::toBulkRequests))
                 .collect(toList());
+    }
+
+    private String toTimeStamp(long timestamp){
+        final Instant instant = Instant.ofEpochMilli(timestamp);
+        final LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.of(configuration.timezone()));
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        return localDateTime.format(formatter);
     }
 
     private Map<String, String> merge(final Map<String, String> tags, final Map<String, String> customTags) {
