@@ -35,6 +35,9 @@ import io.yupiik.metrics.metricsscrapper.protocol.OpenMetricsReader;
 import io.yupiik.metrics.metricsscrapper.test.ApplicationSupport;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import static java.util.Comparator.comparing;
@@ -98,6 +101,13 @@ class OpenMetricsReaderTest {
                         "SUMMARIES:\n" +
                         "rpc_duration_seconds: 1234: 1.7560473E7, 2693.0 /{}/0.01=3102.0,0.05=3272.0,0.5=4773.0,0.9=9001.0,0.99=76656.0",
                 format(metrics));
+    }
+
+    @Test
+    void parseComplex(@Fusion final OpenMetricsReader reader) throws IOException {
+        final String content = new String(Files.readAllBytes(Paths.get("src/test/resources/metrics.txt")));
+        final Metrics metrics = reader.read(content, 1234);
+        System.out.println(metrics);
     }
 
     private String format(final Metrics metrics) {

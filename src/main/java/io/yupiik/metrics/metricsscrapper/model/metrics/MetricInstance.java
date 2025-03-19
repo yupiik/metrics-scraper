@@ -160,7 +160,7 @@ public class MetricInstance {
 
     @Override
     public String toString() {
-        return "MetricInstance{" +
+        return "\nMetricInstance{" +
                 "help='" + help + '\'' +
                 ", name='" + name + '\'' +
                 ", tags=" + tags +
@@ -175,6 +175,6 @@ public class MetricInstance {
                 ", max=" + max +
                 ", mean=" + mean +
                 ", stddev=" + stddev +
-                '}';
+                "}";
     }
 }

@@ -100,7 +100,7 @@ public class SimpleHttpClient {
         final CompletableFuture<T> result = new CompletableFuture<>();
         try {
             log.fine(String.format("Requesting '%s' on '%s' with timeout %s on type %s and headers %s", url, method, timeout, type.getName(), Arrays.toString(headers)));
-            this.pool.submit(() -> doRequest(method, url, payload, timeout, enableRedirects, result, headers, type));
+            this.pool.submit(() -> this.doRequest(method, url, payload, timeout, enableRedirects, result, headers, type));
         } catch (final Exception e) {
             log.severe("Could not submit request: " + e);
             result.completeExceptionally(e);

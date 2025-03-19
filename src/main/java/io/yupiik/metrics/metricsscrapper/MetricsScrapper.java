@@ -212,6 +212,7 @@ public class MetricsScrapper {
                 metrics.dropZeroCounters();
             }
             if (!metrics.isEmpty()) {
+                log.fine(String.format("Emitting metrics %s", metrics));
                 this.emitter.emit(new ScrapperMetrics(timestamp, config, metrics));
             } else {
                 log.fine(String.format("No metrics found in %s", payload));
