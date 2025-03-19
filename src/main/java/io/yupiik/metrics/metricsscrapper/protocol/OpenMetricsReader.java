@@ -54,7 +54,7 @@ public class OpenMetricsReader {
                 } // else comment, skip
                 continue;
             }
-            final MetricInstance metric = doParseMetric(defaultTimestamp, current, line);
+            final MetricInstance metric = this.doParseMetric(defaultTimestamp, current, line);
             if (metric.getType() == OpenMetricMetricType.summary) {
                 final String prefix = extractBaseName(metric.getName());
                 Double sum = null;
@@ -258,8 +258,8 @@ public class OpenMetricsReader {
 
         return new MetricInstance(
                 current.getHelp(), metricWithTags.getMetric(), metricWithTags.getTags(), current.getType(),
-                segments.length == 2 ? defaultTimestamp : goParseInt(segments[segments.length - 1]),
-                goParseFloat(segments[segments.length - (segments.length == 2 ? 1 : 2)]),
+                segments.length == 2 ? defaultTimestamp : this.goParseInt(segments[segments.length - 1]),
+                this.goParseFloat(segments[segments.length - (segments.length == 2 ? 1 : 2)]),
                 null, null, null, null, null, null, null, null);
     }
 
@@ -286,7 +286,7 @@ public class OpenMetricsReader {
         }
         return new MetricWithTags(
                 segment.substring(0, tagDelimiter),
-                split(segment.substring(tagDelimiter + 1, segment.length() - 1), ',')
+                this.split(segment.substring(tagDelimiter + 1, segment.length() - 1), ',')
                         .map(String::trim)
                         .filter(it -> it.contains("="))
                         .collect(toMap(it -> it.substring(0, it.indexOf('=')), it -> {

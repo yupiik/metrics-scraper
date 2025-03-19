@@ -91,11 +91,11 @@ public class Metrics {
     @Override
     public String toString() {
         return "Metrics{" +
-                "counters=" + counters +
-                ", gauges=" + gauges +
-                ", untyped=" + untyped +
-                ", histogram=" + histogram +
-                ", summary=" + summary +
-                '}';
+                "\nCounters(" + counters.size() + "):\n    " + counters +
+                ", \nGauges(" + gauges.size() + "):\n    " + gauges +
+                ", \nUntyped(" + untyped.size() + "):\n    " + untyped +
+                ", \nHistogram(" + histogram.size() + "):\n    " + histogram +
+                ", \nSummary(" + summary.size() + "):\n    " + summary +
+                "\n}";
     }
 }

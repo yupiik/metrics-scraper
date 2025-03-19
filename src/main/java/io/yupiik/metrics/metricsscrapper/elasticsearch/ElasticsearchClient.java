@@ -172,7 +172,7 @@ public class ElasticsearchClient {
 
     private String getEsType(final Type model) {
         log.fine("Compute ES type for property type: " + model.getTypeName());
-        //TODO handle complex toto eventually, and implement a finer mapping
+        //TODO handle complex type eventually, and implement a finer mapping
         if (boolean.class == model || Boolean.class == model) {
             return "boolean";
         } else if (String.class == model) {
@@ -182,11 +182,11 @@ public class ElasticsearchClient {
         } else if (int.class == model || short.class == model || byte.class == model || long.class == model || Integer.class == model || Short.class == model || Byte.class == model || Long.class == model) {
             return "long";
         }  else if(Map.class == model || List.class == model || Set.class == model || Collection.class == model || Object[].class == model) {
-            return "nested";
+            return "object";
         } else if (this.isStringable(model)) {
             return "text";
         } else {
-            //TODO handle complex toto eventually
+            //TODO handle complex type eventually
             return "text";
         }
     }
@@ -258,7 +258,7 @@ public class ElasticsearchClient {
                 lines.stream().map(this::toBulkLine).collect(joining("\n")) + '\n', BulkResponse.class, timeout, true, headers));
     }
 
-    private String toBulkLine(BulkRequest bulkRequest) {
+    private String toBulkLine(final BulkRequest bulkRequest) {
         final StringBuilder sb = new StringBuilder("{ \"");
         sb.append(bulkRequest.actionType().getCode())
                 .append("\" : { \"_index\" : \"")
@@ -270,6 +270,7 @@ public class ElasticsearchClient {
                     .append("\"");
         }
         sb.append("} }\n").append(bulkRequest.actionType().hasDocument() ? jsonMapper.toString(bulkRequest.document()) : "");
+        log.finer("Built bulk line : " + sb);
         return sb.toString();
     }
 
@@ -325,7 +326,7 @@ public class ElasticsearchClient {
         }
         return this.request("PUT", base + '/' + index + "/_mapping", mapping, Status.class,
                         timeout, true, headers)
-                .thenApply(status -> ensure200(index, status, "Can't create properly mapping for"));
+                .thenApply(status -> this.ensure200(index, status, "Can't create properly mapping for"));
     }
 
     private Void ensure200(final String index, final Status status, final String msg) {
@@ -390,24 +391,24 @@ public class ElasticsearchClient {
         return Stream.of(
                         metrics.getCounters().stream()
                                 .map(it -> new Counter(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(),
+                                        it.getHelp(), it.getName(), this.merge(it.getTags(), customTags), it.getType(),
                                         this.toTimeStamp(it.getTimestamp()), it.getValue())),
                         metrics.getGauges().stream()
                                 .map(it -> new Gauge(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(),
+                                        it.getHelp(), it.getName(), this.merge(it.getTags(), customTags), it.getType(),
                                         this.toTimeStamp(it.getTimestamp()), it.getValue())),
                         metrics.getUntyped().stream()
                                 .map(it -> new Untyped(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(),
+                                        it.getHelp(), it.getName(), this.merge(it.getTags(), customTags), it.getType(),
                                         this.toTimeStamp(it.getTimestamp()), it.getValue())),
                         metrics.getHistogram().stream()
                                 .map(it -> new Histogram(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(),
+                                        it.getHelp(), it.getName(), this.merge(it.getTags(), customTags), it.getType(),
                                         this.toTimeStamp(it.getTimestamp()), it.getSum(), it.getCount(), it.getBuckets(),
                                         it.getMin(), it.getMax(), it.getMean(), it.getStddev())),
                         metrics.getSummary().stream()
                                 .map(it -> new Summary(
-                                        it.getHelp(), it.getName(), merge(it.getTags(), customTags), it.getType(),
+                                        it.getHelp(), it.getName(), this.merge(it.getTags(), customTags), it.getType(),
                                         this.toTimeStamp(it.getTimestamp()), it.getSum(), it.getCount(), it.getQuantiles())))
                 .flatMap(s -> s.flatMap(this::toBulkRequests))
                 .collect(toList());
@@ -449,6 +450,7 @@ public class ElasticsearchClient {
         final ConcurrentMap<Class<?>, DailyIndexName> runtimeIndices = new ConcurrentHashMap<>();
         try { // use constant names as aliases
             final DateTimeFormatter formatter = DateTimeFormatter.class.cast(DateTimeFormatter.class.getField(pattern).get(null));
+            log.log(Level.FINER, String.format("Found date formatter: %s", formatter.toString()));
             if (pattern.contains("_TIME")) { // refresh once a sec
                 log.log(Level.FINE, "Will create one index per second, this is likely too often, you may want to adjust your suffix pattern");
                 currentIndex = type -> computeIndex(
