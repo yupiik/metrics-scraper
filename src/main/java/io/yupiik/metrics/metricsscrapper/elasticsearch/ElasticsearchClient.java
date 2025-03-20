@@ -167,6 +167,10 @@ public class ElasticsearchClient {
             log.fine("Create property in mappings for field: " + declaredField.getName());
             mappings.properties().put(declaredField.getName(), new Property(this.getEsType(declaredField.getType())));
         }
+        for (final Field declaredField : type.getSuperclass().getDeclaredFields()) {
+            log.fine("Create property in mappings for field: " + declaredField.getName());
+            mappings.properties().put(declaredField.getName(), new Property(this.getEsType(declaredField.getType())));
+        }
         return mappings;
     }
 
@@ -181,7 +185,7 @@ public class ElasticsearchClient {
             return "double";
         } else if (int.class == model || short.class == model || byte.class == model || long.class == model || Integer.class == model || Short.class == model || Byte.class == model || Long.class == model) {
             return "long";
-        }  else if(Map.class == model || List.class == model || Set.class == model || Collection.class == model || Object[].class == model) {
+        } else if (Map.class == model || List.class == model || Set.class == model || Collection.class == model || Object[].class == model || KeyValue.class == model) {
             return "object";
         } else if (this.isStringable(model)) {
             return "text";
@@ -260,16 +264,16 @@ public class ElasticsearchClient {
 
     private String toBulkLine(final BulkRequest bulkRequest) {
         final StringBuilder sb = new StringBuilder("{ \"");
-        sb.append(bulkRequest.actionType().getCode())
+        sb.append(bulkRequest.getActionType().getCode())
                 .append("\" : { \"_index\" : \"")
-                .append(bulkRequest._index())
+                .append(bulkRequest.getIndex())
                 .append("\"");
-        if(bulkRequest._id() != null) {
+        if (bulkRequest.getId() != null) {
             sb.append(", \"_id\" : \"")
-                    .append(bulkRequest._id())
+                    .append(bulkRequest.getId())
                     .append("\"");
         }
-        sb.append("} }\n").append(bulkRequest.actionType().hasDocument() ? jsonMapper.toString(bulkRequest.document()) : "");
+        sb.append("} }\n").append(bulkRequest.getActionType().hasDocument() ? bulkRequest.getDocument().json() : "");
         log.finer("Built bulk line : " + sb);
         return sb.toString();
     }
@@ -391,47 +395,33 @@ public class ElasticsearchClient {
         return Stream.of(
                         metrics.getCounters().stream()
                                 .map(it -> new Counter(
-                                        it.getHelp(), it.getName(), this.merge(it.getTags(), customTags), it.getType(),
-                                        this.toTimeStamp(it.getTimestamp()), it.getValue())),
+                                        it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
+                                        it.getLabels(), customTags, it.getType(), this.toTimeStamp(it.getTimestamp()))),
                         metrics.getGauges().stream()
                                 .map(it -> new Gauge(
-                                        it.getHelp(), it.getName(), this.merge(it.getTags(), customTags), it.getType(),
-                                        this.toTimeStamp(it.getTimestamp()), it.getValue())),
+                                        it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
+                                        it.getLabels(), customTags, it.getType(), this.toTimeStamp(it.getTimestamp()))),
                         metrics.getUntyped().stream()
                                 .map(it -> new Untyped(
-                                        it.getHelp(), it.getName(), this.merge(it.getTags(), customTags), it.getType(),
-                                        this.toTimeStamp(it.getTimestamp()), it.getValue())),
+                                        it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
+                                        it.getLabels(), customTags, it.getType(), this.toTimeStamp(it.getTimestamp()))),
                         metrics.getHistogram().stream()
                                 .map(it -> new Histogram(
-                                        it.getHelp(), it.getName(), this.merge(it.getTags(), customTags), it.getType(),
-                                        this.toTimeStamp(it.getTimestamp()), it.getSum(), it.getCount(), it.getBuckets(),
-                                        it.getMin(), it.getMax(), it.getMean(), it.getStddev())),
+                                        it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
+                                        it.getLabels(), customTags, it.getType(), this.toTimeStamp(it.getTimestamp()))),
                         metrics.getSummary().stream()
                                 .map(it -> new Summary(
-                                        it.getHelp(), it.getName(), this.merge(it.getTags(), customTags), it.getType(),
-                                        this.toTimeStamp(it.getTimestamp()), it.getSum(), it.getCount(), it.getQuantiles())))
+                                        it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
+                                        it.getLabels(), customTags, it.getType(), this.toTimeStamp(it.getTimestamp()))))
                 .flatMap(s -> s.flatMap(this::toBulkRequests))
                 .collect(toList());
     }
 
-    private String toTimeStamp(long timestamp){
+    private String toTimeStamp(long timestamp) {
         final Instant instant = Instant.ofEpochMilli(timestamp);
         final LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.of(configuration.timezone()));
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         return localDateTime.format(formatter);
-    }
-
-    private Map<String, String> merge(final Map<String, String> tags, final Map<String, String> customTags) {
-        if (customTags == null || customTags.isEmpty()) {
-            return tags;
-        }
-        if (tags == null || tags.isEmpty()) {
-            return customTags;
-        }
-        return Stream.of(tags, customTags) // tags win over custom tags (specific over global)
-                .map(Map::entrySet)
-                .flatMap(Collection::stream)
-                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a));
     }
 
     private Stream<Class<?>> getModels() {
@@ -510,7 +500,7 @@ public class ElasticsearchClient {
         return ZonedDateTime.ofInstant(now, zone).toOffsetDateTime();
     }
 
-    private Stream<BulkRequest> toBulkRequests(final Object metric) {
+    private Stream<BulkRequest> toBulkRequests(final OpenMetric metric) {
         return Stream.of(new BulkRequest(currentIndex.apply(metric.getClass()), null, metric, BulkRequest.BulkActionType.index));
     }
 

@@ -3,7 +3,9 @@ package io.yupiik.metrics.metricsscrapper.protocol;
 import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
 import io.yupiik.metrics.metricsscrapper.model.metrics.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -55,186 +57,27 @@ public class OpenMetricsReader {
                 continue;
             }
             final MetricInstance metric = this.doParseMetric(defaultTimestamp, current, line);
-            if (metric.getType() == OpenMetricMetricType.summary) {
-                final String prefix = extractBaseName(metric.getName());
-                Double sum = null;
-                Double count = null;
-                Map<String, Double> quantiles = new HashMap<>();
-                if (metric.getName().startsWith(prefix + "_sum")) {
-                    sum = metric.getValue();
-                } else if (metric.getName().startsWith(prefix + "_count")) {
-                    count = metric.getValue();
-                } else if (metric.getName().startsWith(prefix)) {
-                    if (metric.getTags().containsKey("quantile") && metric.getValue() != null) {
-                        quantiles.put(metric.getTags().get("quantile"), metric.getValue());
-                    }
-                }
-                for (int j = i + 1; j < lines.length; j++) {
-                    final String subLine = lines[j];
-                    if (subLine.startsWith(prefix + "_sum")) {
-                        sum = doParseMetric(defaultTimestamp, current, subLine).getValue();
-                        i++;
-                    } else if (subLine.startsWith(prefix + "_count")) {
-                        count = doParseMetric(defaultTimestamp, current, subLine).getValue();
-                        i++;
-                    } else if (subLine.startsWith(prefix)) {
-                        final MetricInstance quantile = doParseMetric(defaultTimestamp, current, subLine);
-                        if (quantile.getTags().containsKey("quantile") && quantile.getValue() != null) {
-                            quantiles.put(quantile.getTags().get("quantile"), quantile.getValue());
-                        }
-                        i++;
-                    } else {
-                        i = j - 1;
-                        break;
-                    }
-                    i++;
-                }
-                metrics.getSummary().add(new MetricInstance(
-                        metric.getHelp(), prefix,
-                        metric.getTags().entrySet().stream()
-                                .filter(it -> !"quantile".equals(it.getKey()))
-                                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a, TreeMap::new)),
-                        metric.getType(), metric.getTimestamp(), null,
-                        sum, count, quantiles, null, null, null, null, null));
-            } else if (metric.getType() == OpenMetricMetricType.histogram) {
-                final String prefix = extractBaseName(metric.getName());
-                Double sum = null;
-                Double count = null;
-                Double min = null;
-                Double max = null;
-                Double mean = null;
-                Double stddev = null;
-                Map<String, Double> buckets = new HashMap<>();
-                if (metric.getName().startsWith(prefix + "_bucket")) {
-                    if (metric.getTags().containsKey("le") && metric.getValue() != null) {
-                        buckets.put(metric.getTags().get("le"), metric.getValue());
-                    }
-                } else if (metric.getName().startsWith(prefix + "_sum")) {
-                    sum = metric.getValue();
-                } else if (metric.getName().startsWith(prefix + "_count")) {
-                    count = metric.getValue();
-                } else if (metric.getName().startsWith(prefix + "_min")) {
-                    min = metric.getValue();
-                } else if (metric.getName().startsWith(prefix + "_max")) {
-                    max = metric.getValue();
-                } else if (metric.getName().startsWith(prefix + "_mean")) {
-                    mean = metric.getValue();
-                } else if (metric.getName().startsWith(prefix + "_stddev")) {
-                    stddev = metric.getValue();
-                }
-                for (int j = i + 1; j < lines.length; j++) {
-                    final String subLine = lines[j];
-                    if (subLine.startsWith(prefix + "_bucket")) {
-                        final MetricInstance bucket = doParseMetric(defaultTimestamp, current, subLine);
-                        if (bucket.getTags().containsKey("le") && bucket.getValue() != null) {
-                            buckets.put(bucket.getTags().get("le"), bucket.getValue());
-                        }
-                        i++;
-                    } else if (subLine.startsWith(prefix + "_sum")) {
-                        sum = doParseMetric(defaultTimestamp, current, subLine).getValue();
-                        i++;
-                    } else if (subLine.startsWith(prefix + "_count")) {
-                        count = doParseMetric(defaultTimestamp, current, subLine).getValue();
-                        i++;
-                    } else if (subLine.startsWith(prefix + "_min")) {
-                        min = doParseMetric(defaultTimestamp, current, subLine).getValue();
-                        i++;
-                    } else if (subLine.startsWith(prefix + "_max")) {
-                        max = doParseMetric(defaultTimestamp, current, subLine).getValue();
-                        i++;
-                    } else if (subLine.startsWith(prefix + "_mean")) {
-                        mean = doParseMetric(defaultTimestamp, current, subLine).getValue();
-                        i++;
-                    } else if (subLine.startsWith(prefix + "_stddev")) {
-                        stddev = doParseMetric(defaultTimestamp, current, subLine).getValue();
-                        i++;
-                    } else {
-                        i = j - 1;
-                        break;
-                    }
-                }
-                if (buckets.containsKey("+Inf")) {// supposed to be the same as count
-                    final double posInf = buckets.remove("+Inf");
-                    if (count == null) {
-                        count = posInf;
-                    }
-                }
-                metrics.getHistogram().add(new MetricInstance(
-                        metric.getHelp(), prefix,
-                        metric.getTags().entrySet().stream()
-                                .filter(it -> !"le".equals(it.getKey()))
-                                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a, TreeMap::new)),
-                        metric.getType(), metric.getTimestamp(), null,
-                        sum, count, null, buckets, min, max, mean, stddev));
-            } else { // single value
-                switch (metric.getType()) {
-                    case untyped:
-                        metrics.getUntyped().add(metric);
-                        break;
-                    case counter:
-                        metrics.getCounters().add(metric);
-                        break;
-                    case gauge:
-                        metrics.getGauges().add(metric);
-                        break;
-                    default:
-                        throw new IllegalArgumentException(current.getType().name());
-                }
+            switch (metric.getType()) {
+                case untyped:
+                    metrics.getUntyped().add(metric);
+                    break;
+                case counter:
+                    metrics.getCounters().add(metric);
+                    break;
+                case gauge:
+                    metrics.getGauges().add(metric);
+                    break;
+                case summary:
+                    metrics.getSummary().add(metric);
+                    break;
+                case histogram:
+                    metrics.getHistogram().add(metric);
+                    break;
+                default:
+                    throw new IllegalArgumentException(current.getType().name());
             }
         }
         return metrics;
-    }
-
-    private String extractBaseName(final String name) {
-        if (name.endsWith("_bucket")) {
-            return name.substring(0, name.length() - "_bucket".length());
-        }
-        if (name.endsWith("_min")) {
-            return name.substring(0, name.length() - "_min".length());
-        }
-        if (name.endsWith("_max")) {
-            return name.substring(0, name.length() - "_max".length());
-        }
-        if (name.endsWith("_mean")) {
-            return name.substring(0, name.length() - "_mean".length());
-        }
-        if (name.endsWith("_stddev")) {
-            return name.substring(0, name.length() - "_stddev".length());
-        }
-        if (name.endsWith("_sum")) {
-            return name.substring(0, name.length() - "_sum".length());
-        }
-        if (name.endsWith("_count")) {
-            return name.substring(0, name.length() - "_count".length());
-        }
-        if (name.endsWith("_current")) {
-            return name.substring(0, name.length() - "_current".length());
-        }
-        if (name.endsWith("_total")) {
-            return name.substring(0, name.length() - "_total".length());
-        }
-        if (name.endsWith("_elapsedTime")) {
-            return name.substring(0, name.length() - "_elapsedTime".length());
-        }
-        if (name.endsWith("_minTimeDuration")) {
-            return name.substring(0, name.length() - "_minTimeDuration".length());
-        }
-        if (name.endsWith("_maxTimeDuration")) {
-            return name.substring(0, name.length() - "_maxTimeDuration".length());
-        }
-        if (name.endsWith("_rate_per_second")) {
-            return name.substring(0, name.length() - "_rate_per_second".length());
-        }
-        if (name.endsWith("_one_min_rate_per_second")) {
-            return name.substring(0, name.length() - "_one_min_rate_per_second".length());
-        }
-        if (name.endsWith("_five_min_rate_per_second")) {
-            return name.substring(0, name.length() - "_five_min_rate_per_second".length());
-        }
-        if (name.endsWith("_fifteen_min_rate_per_second")) {
-            return name.substring(0, name.length() - "_fifteen_min_rate_per_second".length());
-        }
-        return name;
     }
 
     private MetricInstance doParseMetric(final long defaultTimestamp, final Current current, final String line) {
@@ -249,18 +92,17 @@ public class OpenMetricsReader {
         if (segments.length < 2 || segments.length > 3) {
             throw new IllegalArgumentException("Invalid line: '" + line + "'");
         }
-        final MetricWithTags metricWithTags = parseMetricWithTags(segments[0]);
+        final MetricWithTags metricWithTags = this.parseMetricWithTags(segments[0]);
         if (current.getMetric() != null && !metricWithTags.getMetric().startsWith(current.getMetric())) {
             current.setHelp(null);
             current.setType(OpenMetricMetricType.untyped);
             current.setMetric(metricWithTags.getMetric());
         }
 
-        return new MetricInstance(
+        return new MetricInstance(current.getMetric(),
                 current.getHelp(), metricWithTags.getMetric(), metricWithTags.getTags(), current.getType(),
                 segments.length == 2 ? defaultTimestamp : this.goParseInt(segments[segments.length - 1]),
-                this.goParseFloat(segments[segments.length - (segments.length == 2 ? 1 : 2)]),
-                null, null, null, null, null, null, null, null);
+                this.goParseFloat(segments[segments.length - (segments.length == 2 ? 1 : 2)]));
     }
 
     private long goParseInt(final String segment) {

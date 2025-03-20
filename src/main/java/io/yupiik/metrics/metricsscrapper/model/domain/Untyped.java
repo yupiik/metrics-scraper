@@ -1,19 +1,11 @@
 package io.yupiik.metrics.metricsscrapper.model.domain;
 
-import io.yupiik.fusion.framework.build.api.json.JsonModel;
-import io.yupiik.fusion.framework.build.api.json.JsonProperty;
 import io.yupiik.metrics.metricsscrapper.model.metrics.OpenMetricMetricType;
 
 import java.util.Map;
 
-@JsonModel
-public record Untyped(
-        String help,
-        String name,
-        Map<String, String> tags,
-        OpenMetricMetricType type,
-        @JsonProperty("@timestamp")
-        String timestamp,
-        Double value
-) {
+public class Untyped extends OpenMetric {
+    public Untyped(String name, KeyValue field, Map<String, String> labels, Map<String, String> tags, OpenMetricMetricType type, String timestamp) {
+        super(name, field, labels, tags, type, timestamp);
+    }
 }

@@ -67,6 +67,10 @@ public class SimpleHttpClient {
         log.info("> Initializing SimpleHttpClient");
         log.info("> Configuration: " + configuration);
 
+        this.init();
+    }
+
+    private void init() {
         this.pool = new ThreadPoolExecutor(
                 this.configuration.threading().core(),
                 this.configuration.threading().max(),
@@ -100,6 +104,9 @@ public class SimpleHttpClient {
         final CompletableFuture<T> result = new CompletableFuture<>();
         try {
             log.fine(String.format("Requesting '%s' on '%s' with timeout %s on type %s and headers %s", url, method, timeout, type.getName(), Arrays.toString(headers)));
+            if(this.pool == null){
+                this.init();
+            }
             this.pool.submit(() -> this.doRequest(method, url, payload, timeout, enableRedirects, result, headers, type));
         } catch (final Exception e) {
             log.severe("Could not submit request: " + e);
