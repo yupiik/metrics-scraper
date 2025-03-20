@@ -7,7 +7,7 @@
 
   <groupId>io.yupiik.metrics</groupId>
   <artifactId>metrics-scrapper</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <name>metrics-scrapper</name>
   <description>metrics-scrapper</description>
 
