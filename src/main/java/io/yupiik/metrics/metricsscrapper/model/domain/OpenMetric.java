@@ -2,6 +2,7 @@ package io.yupiik.metrics.metricsscrapper.model.domain;
 
 import io.yupiik.metrics.metricsscrapper.model.metrics.OpenMetricMetricType;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -23,9 +24,13 @@ public class OpenMetric {
         }
 
         public String json() {
+                final var value = switch (field.getValue()) {
+                    case String s -> "\"" + field.getValue() + "\"";
+                    default -> field.getValue();
+                };
                 return "{" +
                         "\"name\":\"" + name + "\"," +
-                        "\"" + field.getKey() + "\":\"" + field.getValue() + "\"," +
+                        "\"" + field.getKey() + "\":" + value + "," +
                         "\"labels\": {" + labels.entrySet().stream().map(entry -> "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\"").collect(Collectors.joining(",")) + "}," +
                         "\"tags\": {" + tags.entrySet().stream().map(entry -> "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\"").collect(Collectors.joining(",")) + "}," +
                         "\"type\":\"" + type.name() + "\"," +
