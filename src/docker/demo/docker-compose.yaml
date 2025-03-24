@@ -49,7 +49,7 @@ services:
     depends_on:
       metrics-elasticsearch:
         condition: service_healthy
-    image: metrics-scrapper/metrics-scrapper:1.0.1
+    image: metrics-scrapper/metrics-scrapper:1.0.2
     env_file:
       - ./config/metricsScrapper/setup.env
     ports:
