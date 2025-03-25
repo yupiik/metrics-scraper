@@ -6,17 +6,16 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.yupiik.metrics</groupId>
-  <artifactId>metrics-scrapper</artifactId>
-  <version>1.0.3-SNAPSHOT</version>
-  <name>metrics-scrapper</name>
-  <description>metrics-scrapper</description>
+  <artifactId>metrics-scraper</artifactId>
+  <version>1.0.3</version>
+  <name>metrics-scraper</name>
+  <description>Metrics Scraper aims at providing a very light scraper for Prometheus format to ElasticSearch (more to come).</description>
 
   <properties>
     <!-- Main Dependencies -->
     <junit5.version>5.12.0</junit5.version>
     <yupiik-fusion.version>1.0.23</yupiik-fusion.version>
     <yupiik-tools.version>1.2.5</yupiik-tools.version>
-    <yupiik-bundlebee.version>1.0.28</yupiik-bundlebee.version>
     <yupiik-logging.version>1.0.8</yupiik-logging.version>
 
     <!-- Image related configuration -->
@@ -26,12 +25,9 @@
     <image.name>${project.artifactId}/${project.artifactId}:${image.version}</image.name>
     <image.registry>${project.artifactId}</image.registry>
     <jib.disableUpdateChecks>true</jib.disableUpdateChecks>
-    <bundlebee.kube.verbose>false</bundlebee.kube.verbose>
-    <bundlebee.namespace>default</bundlebee.namespace>
-    <bundlebee.environment>default</bundlebee.environment>
-    <bundlebee.alveolus>metrics-scrapper</bundlebee.alveolus>
 
     <main.class>io.yupiik.fusion.framework.api.main.Launcher</main.class>
+    <git.url>https://github.com/yupiik/metrics-scraper.git</git.url>
   </properties>
 
   <profiles>
@@ -61,6 +57,38 @@
                 </platforms>
               </from>
             </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile> <!--  mvn clean package -Pgh-pages  -->
+      <id>gh-pages</id>
+      <properties>
+        <minisite.serverId>github.com</minisite.serverId>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.yupiik.maven</groupId>
+            <artifactId>yupiik-tools-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>gh-pages</id>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>minisite</goal>
+                </goals>
+                <configuration>
+                  <git>
+                    <ignore>false</ignore>
+                    <noJekyll>true</noJekyll>
+                    <serverId>${minisite.serverId}</serverId>
+                    <branch>refs/heads/gh-pages</branch>
+                    <url>${git.url}</url>
+                  </git>
+                </configuration>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
@@ -118,18 +146,17 @@
     </dependency>
   </dependencies>
 
-  <!-- ENABLE WHEN PUSHED ON GIT
+
   <scm>
     <tag>HEAD</tag>
-    <url>https://github.com/metrics-scrapper/metrics-scrapper.git</url>
-    <developerConnection>scm:git:git@github.com:metrics-scrapper/metrics-scrapper.git</developerConnection>
-    <connection>scm:git:git@github.com:metrics-scrapper/metrics-scrapper.git</connection>
+    <url>${git.url}</url>
+    <developerConnection>scm:git:git@github.com:yupiik/metrics-scraper.git</developerConnection>
+    <connection>scm:git:git@github.com:yupiik/metrics-scraper.git</connection>
   </scm>
-  -->
+
 
   <build>
     <plugins>
-      <!-- ENABLE WHEN PUSHED ON GIT
       <plugin>
         <groupId>io.github.git-commit-id</groupId>
         <artifactId>git-commit-id-maven-plugin</artifactId>
@@ -156,16 +183,15 @@
           </includeOnlyProperties>
         </configuration>
       </plugin>
-      -->
       <plugin> <!-- mvn [compile] yupiik-tools:serve-minisite -e [-Dyupiik.minisite.openBrowser=false] -->
         <groupId>io.yupiik.maven</groupId>
         <artifactId>yupiik-tools-maven-plugin</artifactId>
         <version>${yupiik-tools.version}</version>
         <configuration>
           <siteBase>https://${project.groupId}.github.io/${project.artifactId}</siteBase>
-          <logoText>${project.artifactId}</logoText>
-          <indexText>${project.artifactId}</indexText>
-          <copyright>${project.artifactId}</copyright>
+          <logoText>Metrics Scraper</logoText>
+          <logoSideText>Documentation</logoSideText>
+          <indexText>Metrics Scraper Documentation</indexText>
           <linkedInCompany>${project.artifactId}</linkedInCompany>
           <indexSubTitle>${project.description}</indexSubTitle>
           <injectYupiikTemplateExtensionPoints>false</injectYupiikTemplateExtensionPoints>
@@ -177,27 +203,6 @@
                 <includeEnvironmentNames>true</includeEnvironmentNames>
                 <module>${project.artifactId}</module>
                 <urls>file://${project.build.outputDirectory}/META-INF/fusion/configuration/documentation.json</urls>
-              </configuration>
-            </preAction>
-            <preAction>
-              <type>io.yupiik.fusion.documentation.OpenRpcGenerator</type>
-              <configuration>
-                <output>${project.basedir}/src/main/minisite/content/_partials/generated/${project.artifactId}.openrpc.json</output>
-                <title>${project.artifactId} API</title>
-              </configuration>
-            </preAction>
-            <preAction>
-              <type>io.yupiik.fusion.documentation.OpenRPC2Adoc</type>
-              <configuration>
-                <input>${project.build.outputDirectory}/META-INF/fusion/jsonrpc/openrpc.json</input>
-                <output>${project.basedir}/src/main/minisite/content/_partials/generated/${project.artifactId}.openrpc.adoc</output>
-              </configuration>
-            </preAction>
-            <preAction>
-              <type>copy</type>
-              <configuration>
-                <from>${project.basedir}/src/main/minisite/content/_partials/generated/deployment/placeholders.completion.properties</from>
-                <to>${project.build.directory}/${project.build.finalName}/completion/placeholders.completion.properties</to>
               </configuration>
             </preAction>
           </preActions>
@@ -222,12 +227,15 @@
           </customScripts>
           <attributes>
             <partialsdir>${project.basedir}/src/main/minisite/content/_partials</partialsdir>
-            <!-- ENABLE WHEN PUSHED ON GIT if you want these info in the attributes
-            <gitCommitId>${git.commit.id}</gitCommitId>
-            <gitBranch>${git.branch}</gitBranch>
-            <gitTime>${git.commit.time}</gitTime>
-            -->
           </attributes>
+          <templateExtensionPoints>
+            <socialLinks>
+              &lt;li class="list-inline-item"&gt;&lt;a title="LinkedIn" target="_blank" href="https://www.linkedin.com/company/yupiik/"&gt;&lt;i class="fab fa-linkedin fa-fw"&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;li class="list-inline-item"&gt;&lt;a title="Twitter" target="_blank" href="https://twitter.com/Yupiik/"&gt;&lt;i class="fab fa-twitter fa-fw"&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+              &lt;li class="list-inline-item"&gt;&lt;a title="Github" target="_blank" href="https://www.github.com/yupiik/fusion"&gt;&lt;i class="fab fa-github fa-fw"&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            </socialLinks>
+          </templateExtensionPoints>
+          <copyright>© 2025 &lt;strong&gt;&lt;a href="https://www.yupiik.com"&gt;Yupiik&lt;/a&gt;&lt;/strong&gt;. All Rights Reserved</copyright>
         </configuration>
         <dependencies>
           <dependency>
@@ -236,43 +244,6 @@
             <version>${yupiik-tools.version}</version>
           </dependency>
         </dependencies>
-      </plugin>
-      <plugin> <!-- mvn bundlebee:apply [-D....] -->
-        <groupId>io.yupiik</groupId>
-        <artifactId>bundlebee-maven-plugin</artifactId>
-        <version>${yupiik-bundlebee.version}</version>
-        <executions>
-          <execution>
-            <id>doc</id>
-            <goals>
-              <goal>placeholder-extract</goal>
-            </goals>
-            <phase>compile</phase>
-            <configuration>
-              <outputType>FILE</outputType>
-              <failOnInvalidDescription>true</failOnInvalidDescription>
-              <dumpLocation>${project.basedir}/src/main/minisite/content/_partials/generated/deployment</dumpLocation>
-              <descriptions>${project.basedir}/src/main/bundlebee/placeholders.descriptions.properties</descriptions>
-            </configuration>
-          </execution>
-        </executions>
-        <configuration>
-          <manifest>${project.basedir}/src/main/bundlebee/manifest.json</manifest>
-          <alveolus>${bundlebee.alveolus}</alveolus>
-          <mavenRepositoriesDownloadsEnabled>true</mavenRepositoriesDownloadsEnabled>
-          <mavenRepositoriesSnapshot>https://oss.sonatype.org/content/repositories/snapshots/</mavenRepositoriesSnapshot>
-          <kubeVerbose>${bundlebee.kube.verbose}</kubeVerbose>
-          <kubeNamespace>${bundlebee.namespace}</kubeNamespace>
-          <skipPackaging>
-            <skipPackaging>none</skipPackaging>
-          </skipPackaging>
-          <customPlaceholders>
-            <app.deploytime>${maven.build.timestamp}</app.deploytime>
-            <!-- to extract the environment configuration in a file (supports maven placeholders)
-            <bundlebee-placeholder-import>${project.basedir}/environment/${bundlebee.environment}.properties</bundlebee-placeholder-import>
-            -->
-          </customPlaceholders>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
@@ -305,13 +276,8 @@
               <jvmFlag>-Dcom.sun.jndi.ldap.object.trustSerialData=false</jvmFlag>
             </jvmFlags>
             <labels>
-              <!-- ENABLE WHEN PUSHED ON GIT if you want these info in the attributes
-              <org.opencontainers.image.revision>${git.commit.id}</org.opencontainers.image.revision>
-              <org.opencontainers.image.ref.name>${git.branch}</org.opencontainers.image.ref.name>
-              <org.opencontainers.image.source>${git.remote.origin.url}</org.opencontainers.image.source>
               <org.opencontainers.image.url>${project.scm.url}</org.opencontainers.image.url>
-              <org.opencontainers.image.documentation>${project.parent.parent.scm.url}</org.opencontainers.image.documentation>
-              -->
+              <org.opencontainers.image.documentation>${project.scm.url}</org.opencontainers.image.documentation>
               <org.opencontainers.image.created>${maven.build.timestamp}</org.opencontainers.image.created>
               <org.opencontainers.image.authors>${project.artifactId}</org.opencontainers.image.authors>
               <org.opencontainers.image.vendor>${project.artifactId}</org.opencontainers.image.vendor>
@@ -453,27 +419,27 @@
               <value>io.yupiik.logging.jul.YupiikLogManager</value>
             </property>
             <property>
-              <key>metrics-scrapper.scrappers.length</key>
+              <key>metrics-scraper.scrapers.length</key>
               <value>1</value>
             </property>
             <property>
-              <key>metrics-scrapper.scrappers.0.url</key>
+              <key>metrics-scraper.scrapers.0.url</key>
               <value>http://localhost:8080/metrics</value>
             </property>
             <property>
-              <key>metrics-scrapper.scrappers.0.scrapping.interval</key>
+              <key>metrics-scraper.scrapers.0.scraping.interval</key>
               <value>1000</value>
             </property>
             <property>
-              <key>metrics-scrapper.elasticsearch.base</key>
+              <key>metrics-scraper.elasticsearch.base</key>
               <value>http://localhost:9200</value>
             </property>
             <property>
-              <key>metrics-scrapper.elasticsearch.indexPrefix</key>
-              <value>test-scrapper-</value>
+              <key>metrics-scraper.elasticsearch.indexPrefix</key>
+              <value>test-scraper-</value>
             </property>
             <property>
-              <key>io.yupiik.metrics.metricsscrapper.level</key>
+              <key>io.yupiik.metrics.scraper.level</key>
               <value>FINER</value>
             </property>
           </systemProperties>
