@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Index</title>
+    <title>Metrics Scraper documentation</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
     <meta name="generator" content="Yupiik Minisite Generator">
     <meta name="keywords" content="Metrics Scraper Documentation">
 
-    <link rel="shortcut icon" href="https://io.yupiik.metrics.github.io/metrics-scraper/images/favicon.png">
+    <link rel="shortcut icon" href="//www.yupiik.io/metrics-scraper/images/favicon.png">
 
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
@@ -99,15 +99,15 @@
         }
     </style>
     
-    <link id="theme-style" rel="stylesheet" href="https://io.yupiik.metrics.github.io/metrics-scraper/css/theme.css?v=1.0.3">
+    <link id="theme-style" rel="stylesheet" href="//www.yupiik.io/metrics-scraper/css/theme.css?v=1.0.3">
 </head>
 <body>
     <header class="header fixed-top">
         <div class="branding docs-branding">
             <div class="container-fluid position-relative py-2">
                 <div class="docs-logo-wrapper">
-	                <div class="site-logo"><a title="Home" class="navbar-brand" href="https://io.yupiik.metrics.github.io/metrics-scraper/index.html">
-	                <img class="logo-icon mr-2" src="https://io.yupiik.metrics.github.io/metrics-scraper/images/logo.svg" alt="logo">
+	                <div class="site-logo"><a title="Home" class="navbar-brand" href="//www.yupiik.io/metrics-scraper/index.html">
+	                <img class="logo-icon mr-2" src="//www.yupiik.io/metrics-scraper/images/logo.svg" alt="logo">
 	                <span class="logo-text">Metrics Scraper <span class="text-alt">Documentation</span></span></a></div>
                 </div>
 	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
@@ -144,7 +144,7 @@
                                 <div class="card-text">
                                     Demo documentation page.
                                 </div>
-                                <a title="Getting Started" class="card-link-mask" href="https://io.yupiik.metrics.github.io/metrics-scraper/getting-started.html"></a>
+                                <a title="Getting Started" class="card-link-mask" href="//www.yupiik.io/metrics-scraper/getting-started.html"></a>
                             </div>
                         </div>
                     </div>                    <div class="col-12 col-lg-4 py-3">
@@ -159,7 +159,7 @@
                                 <div class="card-text">
                                     Application Configuration.
                                 </div>
-                                <a title="Configuration" class="card-link-mask" href="https://io.yupiik.metrics.github.io/metrics-scraper/configuration.html"></a>
+                                <a title="Configuration" class="card-link-mask" href="//www.yupiik.io/metrics-scraper/configuration.html"></a>
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
               <li class="list-inline-item"><a title="Twitter" target="_blank" href="https://twitter.com/Yupiik/"><i class="fab fa-twitter fa-fw"></i></a></li>
               <li class="list-inline-item"><a title="Github" target="_blank" href="https://www.github.com/yupiik/fusion"><i class="fab fa-github fa-fw"></i></a></li>
 	        </ul>
-            <small class="copyright">© 2025 <strong><a href="https://www.yupiik.com">Yupiik</a></strong>. All Rights Reserved</small>
+            <small class="copyright">© 2025 <strong><a href="https://www.yupiik.com">Yupiik</a></strong>. All Rights Reserved</small> | <a href="https://www.yupiik.com/terms-of-use/">Terms of use</a> | <a href="https://www.yupiik.com/privacy-policy/">Privacy policy</a>
 	    </div>
     </footer>
 
@@ -218,24 +218,9 @@ function addCopyButtons(clipboard) {
   document.querySelectorAll('pre > code').forEach(function (codeBlock) {
   var button = document.createElement('button');  button.className = 'copy-code-button';  button.type = 'button';  button.innerText = 'Copy';  button.addEventListener('click', function () {   clipboard.writeText(codeBlock.innerText).then(function () {   button.blur();   button.innerText = 'Copied!';   setTimeout(function () { button.innerText = 'Copy'; }, 2000); }, function (error) { button.innerText = 'Error'; });  });  var pre = codeBlock.parentNode;  if (pre.parentNode.classList.contains('highlight')) {   var highlight = pre.parentNode; highlight.parentNode.insertBefore(button, highlight);  } else { pre.parentNode.insertBefore(button, pre); } });}
 if (navigator && navigator.clipboard) { addCopyButtons(navigator.clipboard);} else { var script = document.createElement('script'); script.src = '//cdnjs.cloudflare.com/ajax/libs/clipboard-polyfill/2.7.0/clipboard-polyfill.promise.js'; script.integrity = 'sha256-waClS2re9NUbXRsryKoof+F9qc1gjjIhc2eT7ZbIv94='; script.crossOrigin = 'anonymous'; script.onload = function() {addCopyButtons(clipboard);}; document.body.appendChild(script);} }</script>
-    <script src="https://io.yupiik.metrics.github.io/metrics-scraper/js/minisite.js?v=1.0.3"></script>
+    <script src="//www.yupiik.io/metrics-scraper/js/minisite.js?v=1.0.3"></script>
     <script>$('.page-content-body').generatedNavMenu();</script>
-    [
-          <script>
-          $(document).ready(function(){
-            function filterTables() {
-              $('input[table-filter]').on('keyup', function () {
-                var input = $(this);
-                var value = input.val().toLowerCase();
-                $('table.' + input.attr('table-filter') + ' tr').filter(function () {
-                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
-              });
-            }
-
-            filterTables();
-          });
-          </script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.3/fuse.min.js" integrity="sha512-neoBxVNv0UMXjoilAYGxfWrSsW6iAVclx7vQKdPJ9Peet1bM5YQjU0aIB8LtH8iNPa+pAyMZprBBw2ZQ/Q1LjQ==" crossorigin="anonymous"></script>
 
 </body>

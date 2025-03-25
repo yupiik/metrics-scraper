@@ -254,7 +254,7 @@ $(document).ready(function () {
 
   function loadSearchIndex() {
       return new Promise(function(ok, ko) {
-          $.getJSON('https://io.yupiik.metrics.github.io/metrics-scraper/search.json', function(index) {
+          $.getJSON('//www.yupiik.io/metrics-scraper/search.json', function(index) {
               ok(window.minisiteFuseFactory ? window.minisiteFuseFactory(index) : new Fuse(index, {
                   shouldSort: true,
                   includeMatches: true,
