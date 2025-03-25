@@ -1,77 +1,71 @@
-= metrics-scrapper
+= Metrics Scraper
 :toc:
 
-Generated project.
+🌐 https://yupiik.github.io/metrics-scraper/
 
-IMPORTANT: ensure to use maven >= 3.8 and Java >= 17.
+image::https://github.com/yupiik/metrics-scraper/actions/workflows/maven.yml/badge.svg?branch=main[Github CI,float="right"]
 
-== Application Configuration
+**Yupiik Metrics Scraper** is a light tool designed to simply scrap and index metrics form Prometheus/OpenMetrics sources to ElasticSearch.
 
-`MetricsScrapperConfiguration` contains the application configuration.
 
-It uses Yupiik Fusion Configuration mecanism which uses system properties and environment variable to bind values on a record.
+IMPORTANT: Ensure to use maven >= 3.9 and Java >= 21.
+
+== 🔧 Getting Started
+
+Setup quickstart with docker when available
+
+== 🧩 Application Configuration
+
+link:src/main/java/io/yupiik/metrics/scraper/configuration/MetricsScrapperConfiguration.java[MetricsScraperConfiguration] contains the application configuration.
+
+It uses https://www.yupiik.io/fusion/[Yupiik Fusion] configuration mechanism which uses system properties and environment variable to bind values on a record.
 
 It enables to inject the configuration from system properties or environment variable.
 
-== JSON-RPC server
-
-The application uses Yupiik Fusion IoC.
-
-`ServerConfigurationProducer` file configured from the application specific configuration the embedded Tomcat.
-
-`GreetingEndpoint` is a sample JSON-RPC endpoint. You can add as much `@JsonRpcMethod` you need in this class or another one marked with `@JsonRpc`.
-These endpoints use Fusion JSON to map the models, you have to use records and `@JsonXXX` annotations.
-
-Finally, `GreetingEndpointTest` shows a basic test using a random port for Tomcat server.
-It relies on a JUnit5 stereotype `@ApplicationSupport` which ensure the test is executed in the application context.
-
-TIP: the test is written as a client test but you can also inject your `GreetingEndpoint` bean marking a method parameter with `@Fusion` and test it as a standard bean in such a test.
-
-== Jib/Docker images
-
-You can build the project docker image using: `mvn package jib:dockerBuild [-DskipTests]` (docker) or `mvn package jib:build [-DskipTests]` (remote registry if configured with related properties).
-
-== Health Probe
-
-Health checks are used by orchestrators (kubernetes typically) to check if an application is started, ready, live, ...
-
-The `HealthCheckEndpoints` provides a base implementation for ready and live checks.
-First one (generally) must check if the application has the required dependencies and last one if the application is well behaving at runtime.
-
-To customize it at need in your application you should fill the `specific checks` parts.
-
-A common example is to `@Inject DataSource datasource;` if your application configured a datasource (not done in the generator) and check it is up:
-
-[source,java]
+[source, bash]
 ----
-try (final var connection = dataSource.getConnection()) {
-    if (!connection.isValid(10_000)) {
-        throw new IllegalStateException("datasource not valid");
-    }
-}
+JAVA_UTIL_LOGGING_MANAGER="io.yupiik.logging.jul.YupiikLogManager"
+METRICS_SCRAPER_THREADING_CORE="8"
+METRICS_SCRAPER_THREADING_MAX="32"
+METRICS_SCRAPER_SCRAPERS_LENGTH="3"
+METRICS_SCRAPER_SCRAPERS_0_URL="http://metrics-mock:1080/metrics"
+METRICS_SCRAPER_SCRAPERS_0_SCRAPPING_INTERVAL="30000"
+METRICS_SCRAPER_SCRAPERS_0_TAGS="
+                                  application = testApp1
+                                  env = PROD"
+
+METRICS_SCRAPER_SCRAPERS_1_URL="http://metrics-mock:1080/metrics2"
+METRICS_SCRAPER_SCRAPERS_1_SCRAPPING_INTERVAL="30000"
+METRICS_SCRAPER_SCRAPERS_1_TAGS="
+                                    application = testApp2
+                                    env = ITG
+                                    "
+METRICS_SCRAPER_SCRAPERS_2_URL="http://metrics-mock:1080/metrics3"
+METRICS_SCRAPER_SCRAPERS_2_SCRAPPING_INTERVAL="30000"
+METRICS_SCRAPER_SCRAPERS_2_TAGS="
+                                  application = testApp3
+                                  env = PROD
+                                  "
+METRICS_SCRAPER_ELASTICSEARCH_BASE="http://metrics-elasticsearch:9200"
+METRICS_SCRAPER_ELASTICSEARCH_INDEXPREFIX="test-scraper-"
+METRICS_SCRAPER_TIMEZONE="America/Guadeloupe"
+IO_YUPIIK_METRICS_METRICSSCRAPPER_LEVEL="FINE"
 ----
 
-These probes are then wired to Kubernetes (or any orchestrator) to report the application status.
+== 🚀 Jib/Docker images
 
-Bundlebee enables you to automate the deployment of your application in Kubernetes.
+You can build the project docker image using: `mvn package jib:dockerBuild [-DskipTests]` (docker) or `mvn package jib:build [-Dimage.registry=...] [-DskipTests]` (remote registry if configured with related properties).
 
-Generator creates a basic recipe in `manifest.json` for your application.
-it has one per type of deployment (a `Deployment` for a JSON-RPC server, a `CronJob` for a batch for example) and one "all in one" called metrics-scrapper
+== 📖 Documentation
 
-You can deploy your application using: `mvn bundlebee:apply`.
+Comprehensive documentation is available at:
 
-`kubernetes/io.yupiik.metrics/metrics-scrapper/jsonrpc-server/configmap.json` contains the JSON-RPC server configuration in the data map (matches `MetricsScrapperConfiguration`).
-By default it forwards the environment and deploy time only (can be used with stakater reloader to restart the dpeloyment for example).
+🌐 https://yupiik.github.io/metrics-scraper/
 
-`kubernetes/io.yupiik.metrics/metrics-scrapper/jsonrpc-server/deployment.json` contains the JSON-RPC server deployment.
-It uses placeholders like `bundlebee.deployments.metrics-scrapper-jsonrpc-server.replicas` you can force on the command line ot override the default (1).
+== 🖥️ Contributing
 
-TIP: If you enabled documentation feature you can see the environment names to use there.
+We warmly welcome contributions!
 
-== Documentation
-
-The documentation module sets up:
-
-* Documentation using yupiik minisite in `src/main/minisite/content`
-
-You can visualize the documentation running: `mvn process-classes yupiik-tools:serve-minisite [-Dyupiik.minisite.port=8080 [-Dyupiik.minisite.openBrowser=false]]`.
+- Fork the repository
+- Submit your enhancements via pull requests
+- Create https://github.com/yupiik/metrics-scraper/issues[issues]
