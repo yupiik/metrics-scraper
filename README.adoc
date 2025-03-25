@@ -16,7 +16,7 @@ Setup quickstart with docker when available
 
 == 🧩 Application Configuration
 
-link:src/main/java/io/yupiik/metrics/scraper/configuration/MetricsScrapperConfiguration.java[MetricsScraperConfiguration] contains the application configuration.
+link:src/main/java/io/yupiik/metrics/scraper/configuration/MetricsScraperConfiguration.java[MetricsScraperConfiguration] contains the application configuration.
 
 It uses https://www.yupiik.io/fusion/[Yupiik Fusion] configuration mechanism which uses system properties and environment variable to bind values on a record.
 
@@ -29,19 +29,19 @@ METRICS_SCRAPER_THREADING_CORE="8"
 METRICS_SCRAPER_THREADING_MAX="32"
 METRICS_SCRAPER_SCRAPERS_LENGTH="3"
 METRICS_SCRAPER_SCRAPERS_0_URL="http://metrics-mock:1080/metrics"
-METRICS_SCRAPER_SCRAPERS_0_SCRAPPING_INTERVAL="30000"
+METRICS_SCRAPER_SCRAPERS_0_SCRAPING_INTERVAL="30000"
 METRICS_SCRAPER_SCRAPERS_0_TAGS="
                                   application = testApp1
                                   env = PROD"
 
 METRICS_SCRAPER_SCRAPERS_1_URL="http://metrics-mock:1080/metrics2"
-METRICS_SCRAPER_SCRAPERS_1_SCRAPPING_INTERVAL="30000"
+METRICS_SCRAPER_SCRAPERS_1_SCRAPING_INTERVAL="30000"
 METRICS_SCRAPER_SCRAPERS_1_TAGS="
                                     application = testApp2
                                     env = ITG
                                     "
 METRICS_SCRAPER_SCRAPERS_2_URL="http://metrics-mock:1080/metrics3"
-METRICS_SCRAPER_SCRAPERS_2_SCRAPPING_INTERVAL="30000"
+METRICS_SCRAPER_SCRAPERS_2_SCRAPING_INTERVAL="30000"
 METRICS_SCRAPER_SCRAPERS_2_TAGS="
                                   application = testApp3
                                   env = PROD
@@ -49,7 +49,7 @@ METRICS_SCRAPER_SCRAPERS_2_TAGS="
 METRICS_SCRAPER_ELASTICSEARCH_BASE="http://metrics-elasticsearch:9200"
 METRICS_SCRAPER_ELASTICSEARCH_INDEXPREFIX="test-scraper-"
 METRICS_SCRAPER_TIMEZONE="America/Guadeloupe"
-IO_YUPIIK_METRICS_METRICSSCRAPPER_LEVEL="FINE"
+IO_YUPIIK_METRICS_SCRAPER_LEVEL="FINE"
 ----
 
 == 🚀 Jib/Docker images

@@ -10,4 +10,4 @@
 
 Here is the application configuration:
 
-include::{partialsdir}/generated/documentation.metrics-scrapper.adoc[lines=4..-1]
+include::{partialsdir}/generated/documentation.metrics-scraper.adoc[lines=4..-1]
