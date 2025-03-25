@@ -110,6 +110,72 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>release</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.8.0</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <source>21</source>
+              <doclint>none</doclint>
+              <encoding>UTF-8</encoding>
+              <failOnError>false</failOnError>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>3.2.4</version>
+            <configuration>
+              <gpgArguments>
+                <arg>--digest-algo=SHA512</arg>
+              </gpgArguments>
+            </configuration>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>net.nicoulaj.maven.plugins</groupId>
+            <artifactId>checksum-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>source-release-checksum</id>
+                <goals>
+                  <goal>artifacts</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <algorithms>
+                <algorithm>SHA-512</algorithm>
+              </algorithms>
+              <csvSummary>false</csvSummary>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
   <dependencies>
     <dependency>
