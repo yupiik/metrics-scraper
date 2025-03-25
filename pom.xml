@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2025 - present - Yupiik SAS - https://www.yupiik.com
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -380,10 +397,75 @@
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
-      <plugin> <!--  mvn ossindex:audit -->
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>4.5</version>
+        <executions>
+          <execution>
+            <id>check-license</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <inherited>false</inherited>
+        <configuration>
+          <aggregate>true</aggregate>
+          <mapping>
+            <adoc>DOUBLESLASH_STYLE</adoc>
+          </mapping>
+          <licenseSets>
+            <licenseSet>
+              <inlineHeader><![CDATA[Copyright (c) ${project.inceptionYear} - ${project.organization.name} - ${project.organization.url}
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+]]></inlineHeader>
+              <useDefaultExcludes>true</useDefaultExcludes>
+              <includes>
+                <include>**/*.properties</include>
+                <include>**/*.java</include>
+                <include>**/*.xml</include>
+                <include>**/*.yaml</include>
+              </includes>
+              <excludes>
+                <exclude>LICENSE</exclude>
+                <exclude>**/*.adoc</exclude>
+                <exclude>**/*.idea</exclude>
+                <exclude>**/target/**</exclude>
+                <exclude>**/generated/**</exclude>
+                <exclude>**/minisite/**</exclude>
+                <exclude>**/file</exclude>
+                <exclude>**/.m2/**</exclude>
+              </excludes>
+            </licenseSet>
+          </licenseSets>
+        </configuration>
+      </plugin>
+      <plugin><!--  mvn ossindex:audit -->
         <groupId>org.sonatype.ossindex.maven</groupId>
         <artifactId>ossindex-maven-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>audit-dependencies</id>
+            <phase />
+            <goals>
+              <goal>audit</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
           <scope>compile,runtime</scope>
         </configuration>
@@ -456,4 +538,46 @@
       </plugin>
     </plugins>
   </build>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://github.com/yupiik/metrics-scraper/blob/main/LICENSE</url>
+      <distribution>may be downloaded from the Maven repository</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Romain Manni-Bucau</name>
+      <id>rmannibucau</id>
+      <roles>
+        <role>Contributor</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <name>Loris Boiteux</name>
+      <id>lobtx</id>
+      <roles>
+        <role>Contributor</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <name>Francois Papon</name>
+      <id>fpapon</id>
+      <roles>
+        <role>Contributor</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+
+  <organization>
+    <name>Yupiik SAS</name>
+    <url>https://www.yupiik.com</url>
+  </organization>
+
+  <inceptionYear>2025 - present</inceptionYear>
 </project>
