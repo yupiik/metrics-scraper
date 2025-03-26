@@ -36,10 +36,11 @@
     <yupiik-logging.version>1.0.8</yupiik-logging.version>
 
     <!-- Image related configuration -->
+    <arthur.version>1.0.9</arthur.version>
     <image.base>ossyupiik/java:21.0.6</image.base>
     <image.workdir>/opt/applications/${project.artifactId}</image.workdir>
     <image.version>${project.version}</image.version>
-    <image.name>${project.artifactId}/${project.artifactId}:${image.version}</image.name>
+    <image.name>ossyupiik/${project.artifactId}:${image.version}</image.name>
     <image.registry>${project.artifactId}</image.registry>
     <jib.disableUpdateChecks>true</jib.disableUpdateChecks>
 
@@ -574,13 +575,25 @@ under the License.
           </systemProperties>
         </configuration>
       </plugin>
-      <!-- mvn package arthur:native-image-->
+      <!--
+        IMPORTANT: build on a linux amd64 machine.
+
+        Build native binary:
+        $ mvn package arthur:native-image
+
+        Create local docker image:
+        $ mvn package arthur:native-image arthur:docker
+
+        Create registry image:
+        $ mvn package arthur:native-image arthur:image -Dimage.registry=docker.io/
+        -->
       <plugin>
         <groupId>org.apache.geronimo.arthur</groupId>
         <artifactId>arthur-maven-plugin</artifactId>
-        <version>1.0.9</version>
+        <version>${arthur.version}</version>
         <configuration>
           <usePackagedArtifact>true</usePackagedArtifact>
+          <to>${image.registry}ossyupiik/simple-http-server:${image.version}</to>
           <graalVersion>21.0.2</graalVersion>
           <graalDownloadUrl>https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-21.0.2/graalvm-community-jdk-21.0.2_linux-x64_bin.tar.gz</graalDownloadUrl>
           <buildStaticImage>false</buildStaticImage>
