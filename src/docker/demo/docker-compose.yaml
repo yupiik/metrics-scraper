@@ -65,7 +65,7 @@ services:
     depends_on:
       metrics-elasticsearch:
         condition: service_healthy
-    image: metrics-scraper/metrics-scraper:1.0.3
+    image: ossyupiik/metrics-scraper:1.0.3
     env_file:
       - ./config/metricsScraper/setup.env
     ports:
