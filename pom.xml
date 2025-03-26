@@ -41,7 +41,6 @@
     <image.workdir>/opt/applications/${project.artifactId}</image.workdir>
     <image.version>${project.version}</image.version>
     <image.name>ossyupiik/${project.artifactId}:${image.version}</image.name>
-    <image.registry>${project.artifactId}</image.registry>
     <jib.disableUpdateChecks>true</jib.disableUpdateChecks>
 
     <main.class>io.yupiik.fusion.framework.api.main.Launcher</main.class>
@@ -582,7 +581,7 @@ under the License.
         $ mvn package arthur:native-image
 
         Create local docker image:
-        $ mvn package arthur:native-image arthur:docker
+        $ mvn package arthur:native-image arthur:docker -Dimage.registry=local/
 
         Create registry image:
         $ mvn package arthur:native-image arthur:image -Dimage.registry=docker.io/
@@ -593,12 +592,12 @@ under the License.
         <version>${arthur.version}</version>
         <configuration>
           <usePackagedArtifact>true</usePackagedArtifact>
-          <to>${image.registry}ossyupiik/simple-http-server:${image.version}</to>
+          <to>${image.registry}ossyupiik/${project.artifactId}:${image.version}</to>
           <graalVersion>21.0.2</graalVersion>
           <graalDownloadUrl>https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-21.0.2/graalvm-community-jdk-21.0.2_linux-x64_bin.tar.gz</graalDownloadUrl>
           <buildStaticImage>false</buildStaticImage>
           <useLDD>true</useLDD>
-          <includeNatives>true</includeNatives>
+          <includeNatives>false</includeNatives>
           <fallbackMode>no</fallbackMode>
           <enableAllSecurityServices>false</enableAllSecurityServices>
           <scanningExcludedArtifacts>*</scanningExcludedArtifacts>
