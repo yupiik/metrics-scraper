@@ -45,9 +45,9 @@ public class OpenMetric {
                 };
                 return "{" +
                         "\"name\":\"" + name + "\"," +
-                        "\"" + field.getKey() + "\":" + value + "," +
-                        "\"labels\": {" + labels.entrySet().stream().map(entry -> "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\"").collect(Collectors.joining(",")) + "}," +
-                        "\"tags\": {" + tags.entrySet().stream().map(entry -> "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\"").collect(Collectors.joining(",")) + "}," +
+                        (field != null ? "\"" + field.getKey() + "\":" + value + "," : "") +
+                        (labels != null ? "\"labels\": {" + labels.entrySet().stream().map(entry -> "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\"").collect(Collectors.joining(",")) + "}," : "") +
+                        (tags != null ? "\"tags\": {" + tags.entrySet().stream().map(entry -> "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\"").collect(Collectors.joining(",")) + "}," : "") +
                         "\"type\":\"" + type.name() + "\"," +
                         "\"@timestamp\":\"" + timestamp + "\"" +
                         "}";
