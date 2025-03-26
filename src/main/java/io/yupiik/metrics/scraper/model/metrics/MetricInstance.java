@@ -101,7 +101,7 @@ public class MetricInstance {
                 "metric name='" + metricName + '\'' +
                 ", help='" + help + '\'' +
                 ", name='" + name + '\'' +
-                ", tags=" + labels +
+                ", labels=" + labels +
                 ", type=" + type +
                 ", timestamp=" + timestamp +
                 ", value=" + value +
