@@ -22,7 +22,7 @@ import java.util.Map;
 
 @JsonModel
 public record ElasticsearchClientConfiguration(
-        @Property(value = "indexNameSuffix", documentation = "Index Name Suffix - An optional (but recommended) date pattern suffix to append to index names", defaultValue = "\"ISO_LOCAL_DATE\"")
+        @Property(value = "indexNameSuffix", documentation = "Index Name Suffix - An optional (but recommended) date pattern suffix to append to index names", defaultValue = "\"yyyy-MM-dd\"")
         String indexNameSuffix,
 
         @Property(value = "base", documentation = "Base - Elasticsearch base, using a local instance it is generally http://localhost:9200.")
