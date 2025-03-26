@@ -1,0 +1,16 @@
+{
+  "skip": false,
+  "name": "Metrics Scraper",
+  "description": "Scrape metrics from Prometheus/OpenMetrics sources and index them into ElasticSearch.",
+  "website": "https://www.yupiik.io/metrics-scraper",
+  "logo": "https://www.yupiik.com/img/logo.png",
+  "group": "Yupiik Stack",
+  "categories": [
+    "metrics",
+    "Prometheus",
+    "OpenMetrics",
+    "scraper",
+    "json",
+    "elastic"
+  ]
+}
