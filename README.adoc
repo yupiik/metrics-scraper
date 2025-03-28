@@ -1,9 +1,8 @@
 = Metrics Scraper
-:toc:
-
-🌐 https://yupiik.github.io/metrics-scraper/
 
 image::https://github.com/yupiik/metrics-scraper/actions/workflows/maven.yml/badge.svg?branch=main[Github CI,float="right"]
+
+🌐 https://yupiik.github.io/metrics-scraper/
 
 **Yupiik Metrics Scraper** is a light tool designed to simply scrap and index metrics form Prometheus/OpenMetrics sources to ElasticSearch.
 
