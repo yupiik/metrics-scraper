@@ -16,15 +16,13 @@
     under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.yupiik.metrics</groupId>
   <artifactId>metrics-scraper</artifactId>
-  <version>1.0.4-SNAPSHOT</version>
+  <version>1.0.4</version>
   <name>metrics-scraper</name>
   <description>Metrics Scraper aims at providing a very light scraper for Prometheus format to ElasticSearch (more to come).</description>
   <url>https://yupiik.github.io/metrics-scraper/</url>
@@ -232,7 +230,7 @@
 
 
   <scm>
-    <tag>HEAD</tag>
+    <tag>1.0.4</tag>
     <url>${git.url}</url>
     <developerConnection>scm:git:git@github.com:yupiik/metrics-scraper.git</developerConnection>
     <connection>scm:git:git@github.com:yupiik/metrics-scraper.git</connection>
@@ -444,7 +442,7 @@
         <version>3.2.3</version>
         <configuration>
           <trimStackTrace>false</trimStackTrace>
-          <statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter"/>
+          <statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter" />
           <systemPropertyVariables>
             <java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
             <java.util.logging.manager>io.yupiik.logging.jul.YupiikLogManager</java.util.logging.manager>
