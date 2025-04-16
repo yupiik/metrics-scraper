@@ -1,0 +1,944 @@
+# HELP http_client_request_duration_seconds Duration of HTTP client requests.
+# TYPE http_client_request_duration_seconds histogram
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.005"} 0
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.01"} 13
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.025"} 16
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.05"} 16
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.075"} 16
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.1"} 17
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.25"} 19
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.5"} 27
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.75"} 29
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="1.0"} 30
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="2.5"} 30
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="5.0"} 30
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="7.5"} 30
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="10.0"} 30
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="+Inf"} 30
+http_client_request_duration_seconds_count{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200"} 30
+http_client_request_duration_seconds_sum{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200"} 5.738727481
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.005"} 0
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.01"} 10
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.025"} 21
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.05"} 22
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.075"} 22
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.1"} 24
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.25"} 27
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.5"} 28
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.75"} 28
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="1.0"} 30
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="2.5"} 31
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="5.0"} 31
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="7.5"} 31
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="10.0"} 31
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="+Inf"} 31
+http_client_request_duration_seconds_count{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200"} 31
+http_client_request_duration_seconds_sum{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200"} 4.286494745
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.005"} 0
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.01"} 10
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.025"} 13
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.05"} 15
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.075"} 16
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.1"} 17
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.25"} 20
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.5"} 23
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.75"} 27
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="1.0"} 27
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="2.5"} 28
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="5.0"} 28
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="7.5"} 28
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="10.0"} 28
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="+Inf"} 28
+http_client_request_duration_seconds_count{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200"} 28
+http_client_request_duration_seconds_sum{http_request_method="POST",http_response_status_code="200",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200"} 5.3218770919999985
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.005"} 0
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.01"} 311
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.025"} 478
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.05"} 496
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.075"} 504
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.1"} 512
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.25"} 514
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.5"} 518
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="0.75"} 518
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="1.0"} 518
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="2.5"} 518
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="5.0"} 518
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="7.5"} 518
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="10.0"} 518
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200",le="+Inf"} 518
+http_client_request_duration_seconds_count{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200"} 518
+http_client_request_duration_seconds_sum{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-1.xitg.ms.fcm",server_port="9200"} 8.369134430999994
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.005"} 0
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.01"} 140
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.025"} 464
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.05"} 485
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.075"} 505
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.1"} 510
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.25"} 513
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.5"} 516
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="0.75"} 516
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="1.0"} 516
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="2.5"} 516
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="5.0"} 516
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="7.5"} 516
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="10.0"} 516
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200",le="+Inf"} 516
+http_client_request_duration_seconds_count{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200"} 516
+http_client_request_duration_seconds_sum{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-2.xitg.ms.fcm",server_port="9200"} 9.131222447000004
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.005"} 0
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.01"} 105
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.025"} 474
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.05"} 497
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.075"} 509
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.1"} 512
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.25"} 515
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.5"} 519
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="0.75"} 519
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="1.0"} 519
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="2.5"} 519
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="5.0"} 519
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="7.5"} 519
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="10.0"} 519
+http_client_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200",le="+Inf"} 519
+http_client_request_duration_seconds_count{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200"} 519
+http_client_request_duration_seconds_sum{http_request_method="POST",http_response_status_code="201",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.apache-httpasyncclient-4.1",otel_scope_version="2.14.0-alpha",server_address="it-elasticsearch-api-doc-3.xitg.ms.fcm",server_port="9200"} 8.803694899999995
+# HELP http_server_request_duration_seconds Duration of HTTP server requests.
+# TYPE http_server_request_duration_seconds histogram
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 652
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 654
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 655
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 656
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 656
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 656
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 656
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 656
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 656
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 656
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 656
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 656
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 656
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 656
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 656
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 656
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 1.815308103000002
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 361
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 367
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 367
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 367
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/category/category",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 1.186582353
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 2
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 2
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/characteristic/characteristic",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 0.0060693069999999995
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 33
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 43
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 44
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 45
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 54
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 63
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 65
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 68
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 68
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 68
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 68
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 68
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 68
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 68
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 9.595558953000005
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 4
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 7
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 7
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 8
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 9
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 11
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 14
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 14
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 16
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 16
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 16
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 16
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 16
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 16
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 5.256487851999999
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 1
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 1
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 0.110148599
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 0
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 2
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 2
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 0.799095125
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 72
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 72
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 72
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 0.09653385999999994
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 28694
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 28888
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 28897
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 28898
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 28898
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 28898
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 28899
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 28900
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 28900
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 28900
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 28900
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 28900
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 28900
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 28900
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 28900
+http_server_request_duration_seconds_count{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 28900
+http_server_request_duration_seconds_sum{http_request_method="GET",http_response_status_code="200",http_route="/status/status",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 41.65105035800018
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 0
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 20
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 146
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 261
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 293
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 342
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 345
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 345
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 345
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 345
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 345
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 345
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 345
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 345
+http_server_request_duration_seconds_count{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 345
+http_server_request_duration_seconds_sum{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 23.246392382999986
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 0
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 6
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 78
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 144
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 159
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 168
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 171
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 171
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 171
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 171
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 171
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 171
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 171
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 171
+http_server_request_duration_seconds_count{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 171
+http_server_request_duration_seconds_sum{http_request_method="POST",http_response_status_code="200",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 10.432611116000004
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 0
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 12
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 15
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 18
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 18
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 19
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 19
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 19
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 19
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 19
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 19
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 19
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 19
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 19
+http_server_request_duration_seconds_count{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 19
+http_server_request_duration_seconds_sum{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 0.611246765
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 0
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 8
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 11
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 11
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 11
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 11
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 11
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 11
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 11
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 11
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 11
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 11
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 11
+http_server_request_duration_seconds_bucket{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 11
+http_server_request_duration_seconds_count{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 11
+http_server_request_duration_seconds_sum{http_request_method="POST",http_response_status_code="400",http_route="/document/document",network_protocol_version="1.1",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 0.24057377900000002
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.005"} 0
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.01"} 0
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.025"} 0
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.05"} 1
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.075"} 1
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.1"} 1
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.25"} 1
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.5"} 1
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="0.75"} 1
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="1.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="2.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="5.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="7.5"} 2
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="10.0"} 2
+http_server_request_duration_seconds_bucket{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http",le="+Inf"} 2
+http_server_request_duration_seconds_count{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 2
+http_server_request_duration_seconds_sum{http_request_method="PUT",http_response_status_code="200",http_route="/document/{id}/document/{id}",network_protocol_version="1.0",otel_scope_name="io.opentelemetry.jetty-8.0",otel_scope_version="2.14.0-alpha",url_scheme="http"} 0.963937877
+# HELP jvm_class_count Number of classes currently loaded.
+# TYPE jvm_class_count gauge
+jvm_class_count{otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 23312.0
+# HELP jvm_class_loaded_total Number of classes loaded since JVM start.
+# TYPE jvm_class_loaded_total counter
+jvm_class_loaded_total{otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 23453.0
+# HELP jvm_class_unloaded_total Number of classes unloaded since JVM start.
+# TYPE jvm_class_unloaded_total counter
+jvm_class_unloaded_total{otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 141.0
+# HELP jvm_cpu_count Number of processors available to the Java virtual machine.
+# TYPE jvm_cpu_count gauge
+jvm_cpu_count{otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 4.0
+# HELP jvm_cpu_recent_utilization_ratio Recent CPU utilization for the process as reported by the JVM.
+# TYPE jvm_cpu_recent_utilization_ratio gauge
+jvm_cpu_recent_utilization_ratio{otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 0.001668335001668335
+# HELP jvm_cpu_time_seconds_total CPU time used by the process as reported by the JVM.
+# TYPE jvm_cpu_time_seconds_total counter
+jvm_cpu_time_seconds_total{otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 376.38
+# HELP jvm_gc_duration_seconds Duration of JVM garbage collection actions.
+# TYPE jvm_gc_duration_seconds histogram
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of major GC",jvm_gc_name="G1 Old Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha",le="0.01"} 0
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of major GC",jvm_gc_name="G1 Old Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha",le="0.1"} 0
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of major GC",jvm_gc_name="G1 Old Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha",le="1.0"} 2
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of major GC",jvm_gc_name="G1 Old Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha",le="10.0"} 2
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of major GC",jvm_gc_name="G1 Old Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha",le="+Inf"} 2
+jvm_gc_duration_seconds_count{jvm_gc_action="end of major GC",jvm_gc_name="G1 Old Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 2
+jvm_gc_duration_seconds_sum{jvm_gc_action="end of major GC",jvm_gc_name="G1 Old Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 0.259
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha",le="0.01"} 64
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha",le="0.1"} 80
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha",le="1.0"} 80
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha",le="10.0"} 80
+jvm_gc_duration_seconds_bucket{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha",le="+Inf"} 80
+jvm_gc_duration_seconds_count{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 80
+jvm_gc_duration_seconds_sum{jvm_gc_action="end of minor GC",jvm_gc_name="G1 Young Generation",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 0.8390000000000004
+# HELP jvm_memory_committed_bytes Measure of memory committed.
+# TYPE jvm_memory_committed_bytes gauge
+jvm_memory_committed_bytes{jvm_memory_pool_name="CodeHeap 'non-nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 2555904.0
+jvm_memory_committed_bytes{jvm_memory_pool_name="CodeHeap 'non-profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 2.3134208E7
+jvm_memory_committed_bytes{jvm_memory_pool_name="CodeHeap 'profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 3.9583744E7
+jvm_memory_committed_bytes{jvm_memory_pool_name="Compressed Class Space",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 1.7825792E7
+jvm_memory_committed_bytes{jvm_memory_pool_name="G1 Eden Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 2.43269632E8
+jvm_memory_committed_bytes{jvm_memory_pool_name="G1 Old Gen",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 1.59383552E8
+jvm_memory_committed_bytes{jvm_memory_pool_name="G1 Survivor Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 4194304.0
+jvm_memory_committed_bytes{jvm_memory_pool_name="Metaspace",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 1.46014208E8
+# HELP jvm_memory_limit_bytes Measure of max obtainable memory.
+# TYPE jvm_memory_limit_bytes gauge
+jvm_memory_limit_bytes{jvm_memory_pool_name="CodeHeap 'non-nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 5836800.0
+jvm_memory_limit_bytes{jvm_memory_pool_name="CodeHeap 'non-profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 1.22912768E8
+jvm_memory_limit_bytes{jvm_memory_pool_name="CodeHeap 'profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 1.22908672E8
+jvm_memory_limit_bytes{jvm_memory_pool_name="Compressed Class Space",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 1.073741824E9
+jvm_memory_limit_bytes{jvm_memory_pool_name="G1 Old Gen",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 2.858418176E9
+# HELP jvm_memory_used_after_last_gc_bytes Measure of memory used, as measured after the most recent garbage collection event on this pool.
+# TYPE jvm_memory_used_after_last_gc_bytes gauge
+jvm_memory_used_after_last_gc_bytes{jvm_memory_pool_name="G1 Eden Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 0.0
+jvm_memory_used_after_last_gc_bytes{jvm_memory_pool_name="G1 Old Gen",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 1.1603076E8
+jvm_memory_used_after_last_gc_bytes{jvm_memory_pool_name="G1 Survivor Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 2523392.0
+# HELP jvm_memory_used_bytes Measure of memory used.
+# TYPE jvm_memory_used_bytes gauge
+jvm_memory_used_bytes{jvm_memory_pool_name="CodeHeap 'non-nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 1562368.0
+jvm_memory_used_bytes{jvm_memory_pool_name="CodeHeap 'non-profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 2.3094656E7
+jvm_memory_used_bytes{jvm_memory_pool_name="CodeHeap 'profiled nmethods'",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 3.953216E7
+jvm_memory_used_bytes{jvm_memory_pool_name="Compressed Class Space",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 1.6692864E7
+jvm_memory_used_bytes{jvm_memory_pool_name="G1 Eden Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 1.61480704E8
+jvm_memory_used_bytes{jvm_memory_pool_name="G1 Old Gen",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 1.15961152E8
+jvm_memory_used_bytes{jvm_memory_pool_name="G1 Survivor Space",jvm_memory_type="heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 2523392.0
+jvm_memory_used_bytes{jvm_memory_pool_name="Metaspace",jvm_memory_type="non_heap",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 1.4345296E8
+# HELP jvm_thread_count Number of executing platform threads.
+# TYPE jvm_thread_count gauge
+jvm_thread_count{jvm_thread_daemon="false",jvm_thread_state="runnable",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 14.0
+jvm_thread_count{jvm_thread_daemon="false",jvm_thread_state="timed_waiting",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 29.0
+jvm_thread_count{jvm_thread_daemon="false",jvm_thread_state="waiting",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 4.0
+jvm_thread_count{jvm_thread_daemon="true",jvm_thread_state="runnable",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 15.0
+jvm_thread_count{jvm_thread_daemon="true",jvm_thread_state="timed_waiting",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 24.0
+jvm_thread_count{jvm_thread_daemon="true",jvm_thread_state="waiting",otel_scope_name="io.opentelemetry.runtime-telemetry-java8",otel_scope_version="2.14.0-alpha"} 51.0
+# HELP kafka_consumer_assigned_partitions The number of partitions currently assigned to this consumer
+# TYPE kafka_consumer_assigned_partitions gauge
+kafka_consumer_assigned_partitions{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_assigned_partitions{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.0
+# HELP kafka_consumer_bytes_consumed_total The total number of bytes consumed
+# TYPE kafka_consumer_bytes_consumed_total counter
+kafka_consumer_bytes_consumed_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_bytes_consumed_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",topic="dev_si_apidocument_retry_itg"} 0.0
+# HELP kafka_consumer_bytes_consumed_rate The average number of bytes consumed per second
+# TYPE kafka_consumer_bytes_consumed_rate gauge
+kafka_consumer_bytes_consumed_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_bytes_consumed_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",topic="dev_si_apidocument_retry_itg"} 0.0
+# HELP kafka_consumer_commit_total The total number of commit calls
+# TYPE kafka_consumer_commit_total counter
+kafka_consumer_commit_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_commit_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 5809.0
+# HELP kafka_consumer_commit_latency_avg The average time taken for a commit request
+# TYPE kafka_consumer_commit_latency_avg gauge
+kafka_consumer_commit_latency_avg{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.8888888888888888
+# HELP kafka_consumer_commit_latency_max The max time taken for a commit request
+# TYPE kafka_consumer_commit_latency_max gauge
+kafka_consumer_commit_latency_max{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.0
+# HELP kafka_consumer_commit_rate The number of commit calls per second
+# TYPE kafka_consumer_commit_rate gauge
+kafka_consumer_commit_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_commit_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.20267531414673692
+# HELP kafka_consumer_connection_close_total The total number of connections closed
+# TYPE kafka_consumer_connection_close_total counter
+kafka_consumer_connection_close_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_connection_close_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.0
+# HELP kafka_consumer_connection_close_rate The number of connections closed per second
+# TYPE kafka_consumer_connection_close_rate gauge
+kafka_consumer_connection_close_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_connection_close_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_connection_count The current number of active connections.
+# TYPE kafka_consumer_connection_count gauge
+kafka_consumer_connection_count{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_connection_count{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.0
+# HELP kafka_consumer_connection_creation_total The total number of new connections established
+# TYPE kafka_consumer_connection_creation_total counter
+kafka_consumer_connection_creation_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_connection_creation_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3.0
+# HELP kafka_consumer_connection_creation_rate The number of new connections established per second
+# TYPE kafka_consumer_connection_creation_rate gauge
+kafka_consumer_connection_creation_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_connection_creation_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_failed_authentication_total The total number of connections with failed authentication
+# TYPE kafka_consumer_failed_authentication_total counter
+kafka_consumer_failed_authentication_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_failed_authentication_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_failed_authentication_rate The number of connections with failed authentication per second
+# TYPE kafka_consumer_failed_authentication_rate gauge
+kafka_consumer_failed_authentication_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_failed_authentication_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_failed_reauthentication_total The total number of failed re-authentication of connections
+# TYPE kafka_consumer_failed_reauthentication_total counter
+kafka_consumer_failed_reauthentication_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_failed_reauthentication_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_failed_reauthentication_rate The number of failed re-authentication of connections per second
+# TYPE kafka_consumer_failed_reauthentication_rate gauge
+kafka_consumer_failed_reauthentication_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_failed_reauthentication_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_failed_rebalance_total The total number of failed rebalance events
+# TYPE kafka_consumer_failed_rebalance_total counter
+kafka_consumer_failed_rebalance_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_failed_rebalance_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.0
+# HELP kafka_consumer_failed_rebalance_rate_per_hour The number of failed rebalance events per hour
+# TYPE kafka_consumer_failed_rebalance_rate_per_hour gauge
+kafka_consumer_failed_rebalance_rate_per_hour{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_failed_rebalance_rate_per_hour{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_fetch_total The total number of fetch requests.
+# TYPE kafka_consumer_fetch_total counter
+kafka_consumer_fetch_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_fetch_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 57825.0
+# HELP kafka_consumer_fetch_latency_avg The average time taken for a fetch request.
+# TYPE kafka_consumer_fetch_latency_avg gauge
+kafka_consumer_fetch_latency_avg{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 503.51428571428573
+# HELP kafka_consumer_fetch_latency_max The max time taken for any fetch request.
+# TYPE kafka_consumer_fetch_latency_max gauge
+kafka_consumer_fetch_latency_max{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 706.0
+# HELP kafka_consumer_fetch_rate The number of fetch requests per second.
+# TYPE kafka_consumer_fetch_rate gauge
+kafka_consumer_fetch_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_fetch_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.9913140776422842
+# HELP kafka_consumer_fetch_throttle_time_avg The average throttle time in ms
+# TYPE kafka_consumer_fetch_throttle_time_avg gauge
+kafka_consumer_fetch_throttle_time_avg{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_fetch_throttle_time_max The maximum throttle time in ms
+# TYPE kafka_consumer_fetch_throttle_time_max gauge
+kafka_consumer_fetch_throttle_time_max{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_heartbeat_total The total number of heartbeats
+# TYPE kafka_consumer_heartbeat_total counter
+kafka_consumer_heartbeat_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_heartbeat_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 9682.0
+# HELP kafka_consumer_heartbeat_rate The number of heartbeats per second
+# TYPE kafka_consumer_heartbeat_rate gauge
+kafka_consumer_heartbeat_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_heartbeat_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.34895039394662897
+# HELP kafka_consumer_heartbeat_response_time_max The max time taken to receive a response to a heartbeat request
+# TYPE kafka_consumer_heartbeat_response_time_max gauge
+kafka_consumer_heartbeat_response_time_max{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.0
+# HELP kafka_consumer_incoming_byte_total The total number of bytes read off all sockets
+# TYPE kafka_consumer_incoming_byte_total counter
+kafka_consumer_incoming_byte_total{client_id="consumer-retry.itg-2",node_id="node--2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 821.0
+kafka_consumer_incoming_byte_total{client_id="consumer-retry.itg-2",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1245744.0
+kafka_consumer_incoming_byte_total{client_id="consumer-retry.itg-2",node_id="node-2147483647",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 463820.0
+kafka_consumer_incoming_byte_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_incoming_byte_rate The number of bytes read off all sockets per second
+# TYPE kafka_consumer_incoming_byte_rate gauge
+kafka_consumer_incoming_byte_rate{client_id="consumer-retry.itg-2",node_id="node--2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_incoming_byte_rate{client_id="consumer-retry.itg-2",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 41.81773778437377
+kafka_consumer_incoming_byte_rate{client_id="consumer-retry.itg-2",node_id="node-2147483647",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 16.226514255682567
+kafka_consumer_incoming_byte_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_io_ratio The fraction of time the I/O thread spent doing I/O
+# TYPE kafka_consumer_io_ratio gauge
+kafka_consumer_io_ratio{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_io_ratio{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 4.2174375744670066E-4
+# HELP kafka_consumer_io_time_ns_avg The average length of time for I/O per select call in nanoseconds.
+# TYPE kafka_consumer_io_time_ns_avg gauge
+kafka_consumer_io_time_ns_avg{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 44246.07978723404
+# HELP kafka_consumer_io_wait_ratio The fraction of time the I/O thread spent waiting
+# TYPE kafka_consumer_io_wait_ratio gauge
+kafka_consumer_io_wait_ratio{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_io_wait_ratio{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.9911434306284381
+# HELP kafka_consumer_io_wait_time_ns_avg The average length of time the I/O thread spent waiting for a socket ready for reads or writes in nanoseconds.
+# TYPE kafka_consumer_io_wait_time_ns_avg gauge
+kafka_consumer_io_wait_time_ns_avg{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.039830715638298E8
+# HELP kafka_consumer_io_waittime_total The total time the I/O thread spent waiting
+# TYPE kafka_consumer_io_waittime_total counter
+kafka_consumer_io_waittime_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_io_waittime_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.9015936508154E13
+# HELP kafka_consumer_iotime_total The total time the I/O thread spent doing I/O
+# TYPE kafka_consumer_iotime_total counter
+kafka_consumer_iotime_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_iotime_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.2546731779E10
+# HELP kafka_consumer_join_total The total number of group joins
+# TYPE kafka_consumer_join_total counter
+kafka_consumer_join_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_join_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.0
+# HELP kafka_consumer_join_rate The number of group joins per second
+# TYPE kafka_consumer_join_rate gauge
+kafka_consumer_join_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_join_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_last_heartbeat_seconds_ago The number of seconds since the last coordinator heartbeat was sent
+# TYPE kafka_consumer_last_heartbeat_seconds_ago gauge
+kafka_consumer_last_heartbeat_seconds_ago{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} -1.0
+kafka_consumer_last_heartbeat_seconds_ago{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_last_poll_seconds_ago The number of seconds since the last poll() invocation.
+# TYPE kafka_consumer_last_poll_seconds_ago gauge
+kafka_consumer_last_poll_seconds_ago{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} -1.0
+kafka_consumer_last_poll_seconds_ago{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.0
+# HELP kafka_consumer_last_rebalance_seconds_ago The number of seconds since the last successful rebalance event
+# TYPE kafka_consumer_last_rebalance_seconds_ago gauge
+kafka_consumer_last_rebalance_seconds_ago{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} -1.0
+kafka_consumer_last_rebalance_seconds_ago{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 29051.0
+# HELP kafka_consumer_network_io_total The total number of network operations (reads or writes) on all connections
+# TYPE kafka_consumer_network_io_total counter
+kafka_consumer_network_io_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_network_io_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 146843.0
+# HELP kafka_consumer_network_io_rate The number of network operations (reads or writes) on all connections per second
+# TYPE kafka_consumer_network_io_rate gauge
+kafka_consumer_network_io_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_network_io_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 5.070094050244632
+# HELP kafka_consumer_outgoing_byte_total The total number of outgoing bytes sent to all servers
+# TYPE kafka_consumer_outgoing_byte_total counter
+kafka_consumer_outgoing_byte_total{client_id="consumer-retry.itg-2",node_id="node--2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 192.0
+kafka_consumer_outgoing_byte_total{client_id="consumer-retry.itg-2",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3709148.0
+kafka_consumer_outgoing_byte_total{client_id="consumer-retry.itg-2",node_id="node-2147483647",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1979750.0
+kafka_consumer_outgoing_byte_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_outgoing_byte_rate The number of outgoing bytes sent to all servers per second
+# TYPE kafka_consumer_outgoing_byte_rate gauge
+kafka_consumer_outgoing_byte_rate{client_id="consumer-retry.itg-2",node_id="node--2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_outgoing_byte_rate{client_id="consumer-retry.itg-2",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 127.44453419999624
+kafka_consumer_outgoing_byte_rate{client_id="consumer-retry.itg-2",node_id="node-2147483647",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 70.9306157629224
+kafka_consumer_outgoing_byte_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_poll_idle_ratio_avg The average fraction of time the consumer's poll() is idle as opposed to waiting for the user code to process records.
+# TYPE kafka_consumer_poll_idle_ratio_avg gauge
+kafka_consumer_poll_idle_ratio_avg{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.5
+# HELP kafka_consumer_rebalance_total The total number of successful rebalance events, each event is composed of several failed re-trials until it succeeded
+# TYPE kafka_consumer_rebalance_total counter
+kafka_consumer_rebalance_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_rebalance_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.0
+# HELP kafka_consumer_rebalance_latency_total The total number of milliseconds this consumer has spent in successful rebalances since creation
+# TYPE kafka_consumer_rebalance_latency_total counter
+kafka_consumer_rebalance_latency_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_rebalance_latency_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3079.0
+# HELP kafka_consumer_rebalance_rate_per_hour The number of successful rebalance events per hour, each event is composed of several failed re-trials until it succeeded
+# TYPE kafka_consumer_rebalance_rate_per_hour gauge
+kafka_consumer_rebalance_rate_per_hour{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_rebalance_rate_per_hour{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_records_consumed_total The total number of records consumed
+# TYPE kafka_consumer_records_consumed_total counter
+kafka_consumer_records_consumed_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_records_consumed_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",topic="dev_si_apidocument_retry_itg"} 0.0
+# HELP kafka_consumer_records_consumed_rate The average number of records consumed per second
+# TYPE kafka_consumer_records_consumed_rate gauge
+kafka_consumer_records_consumed_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_records_consumed_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",topic="dev_si_apidocument_retry_itg"} 0.0
+# HELP kafka_consumer_records_lag The latest lag of the partition
+# TYPE kafka_consumer_records_lag gauge
+kafka_consumer_records_lag{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",partition="2",topic="dev_si_apidocument_retry_itg"} 0.0
+# HELP kafka_consumer_records_lead The latest lead of the partition
+# TYPE kafka_consumer_records_lead gauge
+kafka_consumer_records_lead{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",partition="2",topic="dev_si_apidocument_retry_itg"} 0.0
+# HELP kafka_consumer_request_total The total number of requests sent
+# TYPE kafka_consumer_request_total counter
+kafka_consumer_request_total{client_id="consumer-retry.itg-2",node_id="node--2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3.0
+kafka_consumer_request_total{client_id="consumer-retry.itg-2",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 57923.0
+kafka_consumer_request_total{client_id="consumer-retry.itg-2",node_id="node-2147483647",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 15496.0
+kafka_consumer_request_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_request_rate The number of requests sent per second
+# TYPE kafka_consumer_request_rate gauge
+kafka_consumer_request_rate{client_id="consumer-retry.itg-2",node_id="node--2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_request_rate{client_id="consumer-retry.itg-2",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.9913208468749413
+kafka_consumer_request_rate{client_id="consumer-retry.itg-2",node_id="node-2147483647",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.5577103455269095
+kafka_consumer_request_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_request_size_avg The average size of requests sent.
+# TYPE kafka_consumer_request_size_avg gauge
+kafka_consumer_request_size_avg{client_id="consumer-retry.itg-2",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 64.0
+kafka_consumer_request_size_avg{client_id="consumer-retry.itg-2",node_id="node-2147483647",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 127.18181818181819
+# HELP kafka_consumer_request_size_max The maximum size of any request sent.
+# TYPE kafka_consumer_request_size_max gauge
+kafka_consumer_request_size_max{client_id="consumer-retry.itg-2",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 64.0
+kafka_consumer_request_size_max{client_id="consumer-retry.itg-2",node_id="node-2147483647",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 159.0
+# HELP kafka_consumer_response_total The total number of responses received
+# TYPE kafka_consumer_response_total counter
+kafka_consumer_response_total{client_id="consumer-retry.itg-2",node_id="node--2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3.0
+kafka_consumer_response_total{client_id="consumer-retry.itg-2",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 57922.0
+kafka_consumer_response_total{client_id="consumer-retry.itg-2",node_id="node-2147483647",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 15496.0
+kafka_consumer_response_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_response_rate The number of responses received per second
+# TYPE kafka_consumer_response_rate gauge
+kafka_consumer_response_rate{client_id="consumer-retry.itg-2",node_id="node--2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_response_rate{client_id="consumer-retry.itg-2",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.9913208468749413
+kafka_consumer_response_rate{client_id="consumer-retry.itg-2",node_id="node-2147483647",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.5584023124425175
+kafka_consumer_response_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_select_total The total number of times the I/O layer checked for new I/O to perform
+# TYPE kafka_consumer_select_total counter
+kafka_consumer_select_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_select_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 287107.0
+# HELP kafka_consumer_select_rate The number of times the I/O layer checked for new I/O to perform per second
+# TYPE kafka_consumer_select_rate gauge
+kafka_consumer_select_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_select_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 9.531776814459908
+# HELP kafka_consumer_successful_authentication_total The total number of connections with successful authentication
+# TYPE kafka_consumer_successful_authentication_total counter
+kafka_consumer_successful_authentication_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_successful_authentication_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3.0
+# HELP kafka_consumer_successful_authentication_no_reauth_total The total number of connections with successful authentication where the client does not support re-authentication
+# TYPE kafka_consumer_successful_authentication_no_reauth_total counter
+kafka_consumer_successful_authentication_no_reauth_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_successful_authentication_no_reauth_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3.0
+# HELP kafka_consumer_successful_authentication_rate The number of connections with successful authentication per second
+# TYPE kafka_consumer_successful_authentication_rate gauge
+kafka_consumer_successful_authentication_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_successful_authentication_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_successful_reauthentication_total The total number of successful re-authentication of connections
+# TYPE kafka_consumer_successful_reauthentication_total counter
+kafka_consumer_successful_reauthentication_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_successful_reauthentication_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_successful_reauthentication_rate The number of successful re-authentication of connections per second
+# TYPE kafka_consumer_successful_reauthentication_rate gauge
+kafka_consumer_successful_reauthentication_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_successful_reauthentication_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_sync_total The total number of group syncs
+# TYPE kafka_consumer_sync_total counter
+kafka_consumer_sync_total{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_sync_total{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.0
+# HELP kafka_consumer_sync_rate The number of group syncs per second
+# TYPE kafka_consumer_sync_rate gauge
+kafka_consumer_sync_rate{client_id="consumer-retry.itg-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_consumer_sync_rate{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_consumer_time_between_poll_avg The average delay between invocations of poll().
+# TYPE kafka_consumer_time_between_poll_avg gauge
+kafka_consumer_time_between_poll_avg{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 5000.222222222223
+# HELP kafka_consumer_time_between_poll_max The max delay between invocations of poll().
+# TYPE kafka_consumer_time_between_poll_max gauge
+kafka_consumer_time_between_poll_max{client_id="consumer-retry.itg-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 5001.0
+# HELP kafka_producer_batch_split_total The total number of batch splits
+# TYPE kafka_producer_batch_split_total counter
+kafka_producer_batch_split_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_batch_split_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_batch_split_rate The average number of batch splits per second
+# TYPE kafka_producer_batch_split_rate gauge
+kafka_producer_batch_split_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_batch_split_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_buffer_available_bytes The total amount of buffer memory that is not being used (either unallocated or in the free list).
+# TYPE kafka_producer_buffer_available_bytes gauge
+kafka_producer_buffer_available_bytes{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3.3554432E7
+kafka_producer_buffer_available_bytes{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3.3554432E7
+# HELP kafka_producer_buffer_exhausted_total The total number of record sends that are dropped due to buffer exhaustion
+# TYPE kafka_producer_buffer_exhausted_total counter
+kafka_producer_buffer_exhausted_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_buffer_exhausted_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_buffer_exhausted_rate The average per-second number of record sends that are dropped due to buffer exhaustion
+# TYPE kafka_producer_buffer_exhausted_rate gauge
+kafka_producer_buffer_exhausted_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_buffer_exhausted_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_buffer_total_bytes The maximum amount of buffer memory the client can use (whether or not it is currently used).
+# TYPE kafka_producer_buffer_total_bytes gauge
+kafka_producer_buffer_total_bytes{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3.3554432E7
+kafka_producer_buffer_total_bytes{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3.3554432E7
+# HELP kafka_producer_bufferpool_wait_ratio The fraction of time an appender waits for space allocation.
+# TYPE kafka_producer_bufferpool_wait_ratio gauge
+kafka_producer_bufferpool_wait_ratio{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_bufferpool_wait_ratio{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_bufferpool_wait_time_total The total time an appender waits for space allocation.
+# TYPE kafka_producer_bufferpool_wait_time_total counter
+kafka_producer_bufferpool_wait_time_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_bufferpool_wait_time_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_byte_total The total number of bytes sent for a topic.
+# TYPE kafka_producer_byte_total counter
+kafka_producer_byte_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",topic="dev.si.apidocument.itg"} 1626353.0
+# HELP kafka_producer_byte_rate The average number of bytes sent per second for a topic.
+# TYPE kafka_producer_byte_rate gauge
+kafka_producer_byte_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",topic="dev.si.apidocument.itg"} 0.0
+# HELP kafka_producer_connection_close_total The total number of connections closed
+# TYPE kafka_producer_connection_close_total counter
+kafka_producer_connection_close_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 21.0
+kafka_producer_connection_close_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.0
+# HELP kafka_producer_connection_close_rate The number of connections closed per second
+# TYPE kafka_producer_connection_close_rate gauge
+kafka_producer_connection_close_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_connection_close_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_connection_count The current number of active connections.
+# TYPE kafka_producer_connection_count gauge
+kafka_producer_connection_count{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.0
+kafka_producer_connection_count{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.0
+# HELP kafka_producer_connection_creation_total The total number of new connections established
+# TYPE kafka_producer_connection_creation_total counter
+kafka_producer_connection_creation_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 22.0
+kafka_producer_connection_creation_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.0
+# HELP kafka_producer_connection_creation_rate The number of new connections established per second
+# TYPE kafka_producer_connection_creation_rate gauge
+kafka_producer_connection_creation_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_connection_creation_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_failed_authentication_total The total number of connections with failed authentication
+# TYPE kafka_producer_failed_authentication_total counter
+kafka_producer_failed_authentication_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_failed_authentication_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_failed_authentication_rate The number of connections with failed authentication per second
+# TYPE kafka_producer_failed_authentication_rate gauge
+kafka_producer_failed_authentication_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_failed_authentication_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_failed_reauthentication_total The total number of failed re-authentication of connections
+# TYPE kafka_producer_failed_reauthentication_total counter
+kafka_producer_failed_reauthentication_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_failed_reauthentication_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_failed_reauthentication_rate The number of failed re-authentication of connections per second
+# TYPE kafka_producer_failed_reauthentication_rate gauge
+kafka_producer_failed_reauthentication_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_failed_reauthentication_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_incoming_byte_total The total number of bytes read off all sockets
+# TYPE kafka_producer_incoming_byte_total counter
+kafka_producer_incoming_byte_total{client_id="producer-1",node_id="node--3",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 605.0
+kafka_producer_incoming_byte_total{client_id="producer-1",node_id="node-0",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 26985.0
+kafka_producer_incoming_byte_total{client_id="producer-1",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 23638.0
+kafka_producer_incoming_byte_total{client_id="producer-1",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 29343.0
+kafka_producer_incoming_byte_total{client_id="producer-2",node_id="node--1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 605.0
+kafka_producer_incoming_byte_total{client_id="producer-2",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 16541.0
+# HELP kafka_producer_incoming_byte_rate The number of bytes read off all sockets per second
+# TYPE kafka_producer_incoming_byte_rate gauge
+kafka_producer_incoming_byte_rate{client_id="producer-1",node_id="node--3",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_incoming_byte_rate{client_id="producer-1",node_id="node-0",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_incoming_byte_rate{client_id="producer-1",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_incoming_byte_rate{client_id="producer-1",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_incoming_byte_rate{client_id="producer-2",node_id="node--1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_incoming_byte_rate{client_id="producer-2",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3.9356077668982192
+# HELP kafka_producer_io_ratio The fraction of time the I/O thread spent doing I/O
+# TYPE kafka_producer_io_ratio gauge
+kafka_producer_io_ratio{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.1793681035167103E-6
+kafka_producer_io_ratio{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3.663478467761123E-6
+# HELP kafka_producer_io_time_ns_avg The average length of time for I/O per select call in nanoseconds.
+# TYPE kafka_producer_io_time_ns_avg gauge
+kafka_producer_io_time_ns_avg{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 29713.0
+kafka_producer_io_time_ns_avg{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 38494.0
+# HELP kafka_producer_io_wait_ratio The fraction of time the I/O thread spent waiting
+# TYPE kafka_producer_io_wait_ratio gauge
+kafka_producer_io_wait_ratio{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.1917323926331667
+kafka_producer_io_wait_ratio{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.424591047704021
+# HELP kafka_producer_io_wait_time_ns_avg The average length of time the I/O thread spent waiting for a socket ready for reads or writes in nanoseconds.
+# TYPE kafka_producer_io_wait_time_ns_avg gauge
+kafka_producer_io_wait_time_ns_avg{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 3.00245059E10
+kafka_producer_io_wait_time_ns_avg{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.496889043375E10
+# HELP kafka_producer_io_waittime_total The total time the I/O thread spent waiting
+# TYPE kafka_producer_io_waittime_total counter
+kafka_producer_io_waittime_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.9033128348961E13
+kafka_producer_io_waittime_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.9042241479087E13
+# HELP kafka_producer_iotime_total The total time the I/O thread spent doing I/O
+# TYPE kafka_producer_iotime_total counter
+kafka_producer_iotime_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1.289784403E9
+kafka_producer_iotime_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 9.11898149E8
+# HELP kafka_producer_metadata_age The age in seconds of the current producer metadata being used.
+# TYPE kafka_producer_metadata_age gauge
+kafka_producer_metadata_age{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 260.495
+kafka_producer_metadata_age{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 12.178
+# HELP kafka_producer_network_io_total The total number of network operations (reads or writes) on all connections
+# TYPE kafka_producer_network_io_total counter
+kafka_producer_network_io_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1320.0
+kafka_producer_network_io_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 200.0
+# HELP kafka_producer_network_io_rate The number of network operations (reads or writes) on all connections per second
+# TYPE kafka_producer_network_io_rate gauge
+kafka_producer_network_io_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_network_io_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0474169610469665
+# HELP kafka_producer_outgoing_byte_total The total number of outgoing bytes sent to all servers
+# TYPE kafka_producer_outgoing_byte_total counter
+kafka_producer_outgoing_byte_total{client_id="producer-1",node_id="node--3",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 79.0
+kafka_producer_outgoing_byte_total{client_id="producer-1",node_id="node-0",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 575260.0
+kafka_producer_outgoing_byte_total{client_id="producer-1",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 608622.0
+kafka_producer_outgoing_byte_total{client_id="producer-1",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 484489.0
+kafka_producer_outgoing_byte_total{client_id="producer-2",node_id="node--1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 79.0
+kafka_producer_outgoing_byte_total{client_id="producer-2",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2863.0
+# HELP kafka_producer_outgoing_byte_rate The number of outgoing bytes sent to all servers per second
+# TYPE kafka_producer_outgoing_byte_rate gauge
+kafka_producer_outgoing_byte_rate{client_id="producer-1",node_id="node--3",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_outgoing_byte_rate{client_id="producer-1",node_id="node-0",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_outgoing_byte_rate{client_id="producer-1",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_outgoing_byte_rate{client_id="producer-1",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_outgoing_byte_rate{client_id="producer-2",node_id="node--1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_outgoing_byte_rate{client_id="producer-2",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.687529634898056
+# HELP kafka_producer_produce_throttle_time_avg The average time in ms a request was throttled by a broker
+# TYPE kafka_producer_produce_throttle_time_avg gauge
+kafka_producer_produce_throttle_time_avg{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_produce_throttle_time_max The maximum time in ms a request was throttled by a broker
+# TYPE kafka_producer_produce_throttle_time_max gauge
+kafka_producer_produce_throttle_time_max{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_record_error_total The total number of record sends that resulted in errors
+# TYPE kafka_producer_record_error_total counter
+kafka_producer_record_error_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_record_error_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",topic="dev.si.apidocument.itg"} 0.0
+# HELP kafka_producer_record_error_rate The average per-second number of record sends that resulted in errors
+# TYPE kafka_producer_record_error_rate gauge
+kafka_producer_record_error_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_record_error_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",topic="dev.si.apidocument.itg"} 0.0
+# HELP kafka_producer_record_retry_total The total number of retried record sends
+# TYPE kafka_producer_record_retry_total counter
+kafka_producer_record_retry_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_record_retry_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",topic="dev.si.apidocument.itg"} 0.0
+# HELP kafka_producer_record_retry_rate The average per-second number of retried record sends
+# TYPE kafka_producer_record_retry_rate gauge
+kafka_producer_record_retry_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_record_retry_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",topic="dev.si.apidocument.itg"} 0.0
+# HELP kafka_producer_record_send_total The total number of records sent.
+# TYPE kafka_producer_record_send_total counter
+kafka_producer_record_send_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_record_send_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",topic="dev.si.apidocument.itg"} 516.0
+# HELP kafka_producer_record_send_rate The average number of records sent per second.
+# TYPE kafka_producer_record_send_rate gauge
+kafka_producer_record_send_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_record_send_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha",topic="dev.si.apidocument.itg"} 0.0
+# HELP kafka_producer_request_total The total number of requests sent
+# TYPE kafka_producer_request_total counter
+kafka_producer_request_total{client_id="producer-1",node_id="node--3",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.0
+kafka_producer_request_total{client_id="producer-1",node_id="node-0",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 228.0
+kafka_producer_request_total{client_id="producer-1",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 217.0
+kafka_producer_request_total{client_id="producer-1",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 213.0
+kafka_producer_request_total{client_id="producer-2",node_id="node--1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.0
+kafka_producer_request_total{client_id="producer-2",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 98.0
+# HELP kafka_producer_request_rate The number of requests sent per second
+# TYPE kafka_producer_request_rate gauge
+kafka_producer_request_rate{client_id="producer-1",node_id="node--3",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_request_rate{client_id="producer-1",node_id="node-0",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_request_rate{client_id="producer-1",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_request_rate{client_id="producer-1",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_request_rate{client_id="producer-2",node_id="node--1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_request_rate{client_id="producer-2",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.02370791844476055
+# HELP kafka_producer_request_size_avg The average size of requests sent.
+# TYPE kafka_producer_request_size_avg gauge
+kafka_producer_request_size_avg{client_id="producer-2",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 29.0
+# HELP kafka_producer_request_size_max The maximum size of any request sent.
+# TYPE kafka_producer_request_size_max gauge
+kafka_producer_request_size_max{client_id="producer-2",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 29.0
+# HELP kafka_producer_requests_in_flight The current number of in-flight requests awaiting a response.
+# TYPE kafka_producer_requests_in_flight gauge
+kafka_producer_requests_in_flight{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_requests_in_flight{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_response_total The total number of responses received
+# TYPE kafka_producer_response_total counter
+kafka_producer_response_total{client_id="producer-1",node_id="node--3",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.0
+kafka_producer_response_total{client_id="producer-1",node_id="node-0",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 228.0
+kafka_producer_response_total{client_id="producer-1",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 217.0
+kafka_producer_response_total{client_id="producer-1",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 213.0
+kafka_producer_response_total{client_id="producer-2",node_id="node--1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.0
+kafka_producer_response_total{client_id="producer-2",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 98.0
+# HELP kafka_producer_response_rate The number of responses received per second
+# TYPE kafka_producer_response_rate gauge
+kafka_producer_response_rate{client_id="producer-1",node_id="node--3",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_response_rate{client_id="producer-1",node_id="node-0",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_response_rate{client_id="producer-1",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_response_rate{client_id="producer-1",node_id="node-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_response_rate{client_id="producer-2",node_id="node--1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_response_rate{client_id="producer-2",node_id="node-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.02370848052348325
+# HELP kafka_producer_select_total The total number of times the I/O layer checked for new I/O to perform
+# TYPE kafka_producer_select_total counter
+kafka_producer_select_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2836.0
+kafka_producer_select_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 1178.0
+# HELP kafka_producer_select_rate The number of times the I/O layer checked for new I/O to perform per second
+# TYPE kafka_producer_select_rate gauge
+kafka_producer_select_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.03969199015638644
+kafka_producer_select_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0951701165833928
+# HELP kafka_producer_successful_authentication_total The total number of connections with successful authentication
+# TYPE kafka_producer_successful_authentication_total counter
+kafka_producer_successful_authentication_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 22.0
+kafka_producer_successful_authentication_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.0
+# HELP kafka_producer_successful_authentication_no_reauth_total The total number of connections with successful authentication where the client does not support re-authentication
+# TYPE kafka_producer_successful_authentication_no_reauth_total counter
+kafka_producer_successful_authentication_no_reauth_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 22.0
+kafka_producer_successful_authentication_no_reauth_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 2.0
+# HELP kafka_producer_successful_authentication_rate The number of connections with successful authentication per second
+# TYPE kafka_producer_successful_authentication_rate gauge
+kafka_producer_successful_authentication_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_successful_authentication_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_successful_reauthentication_total The total number of successful re-authentication of connections
+# TYPE kafka_producer_successful_reauthentication_total counter
+kafka_producer_successful_reauthentication_total{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_successful_reauthentication_total{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_successful_reauthentication_rate The number of successful re-authentication of connections per second
+# TYPE kafka_producer_successful_reauthentication_rate gauge
+kafka_producer_successful_reauthentication_rate{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_successful_reauthentication_rate{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# HELP kafka_producer_waiting_threads The number of user threads blocked waiting for buffer memory to enqueue their records
+# TYPE kafka_producer_waiting_threads gauge
+kafka_producer_waiting_threads{client_id="producer-1",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+kafka_producer_waiting_threads{client_id="producer-2",otel_scope_name="io.opentelemetry.kafka-clients-0.11",otel_scope_version="2.14.0-alpha"} 0.0
+# TYPE target_info gauge
+target_info{host_arch="amd64",host_name="it-api-document-2",os_description="Linux 4.18.0-553.16.1.el8_10.x86_64",os_type="linux",process_command_args="[/usr/lib/jvm/jdk-17-oracle-x64/bin/java, -XX:+ExitOnOutOfMemoryError, -XX:MaxRAMPercentage=75, -javaagent:/opt/bin/karaf/opentelemetry/opentelemetry.jar, -Dotel.traces.exporter=none, -Dotel.logs.exporter=none, -Dotel.metrics.exporter=prometheus, -Dotel.exporter.prometheus.port=8444, -Dapp.environment=XITG, -Dapp.name=api-document, -Dapp.version=1.9.0-SNAPSHOT, --add-reads=java.xml=java.logging, --add-exports=java.base/org.apache.karaf.specs.locator=java.xml,ALL-UNNAMED, --patch-module, java.base=/opt/bin/karaf/karaf/lib/endorsed/org.apache.karaf.specs.locator-4.3.9.jar, --patch-module, java.xml=/opt/bin/karaf/karaf/lib/endorsed/org.apache.karaf.specs.java.xml-4.3.9.jar, --add-opens, java.base/java.security=ALL-UNNAMED, --add-opens, java.base/java.net=ALL-UNNAMED, --add-opens, java.base/java.lang=ALL-UNNAMED, --add-opens, java.base/java.util=ALL-UNNAMED, --add-opens, java.naming/javax.naming.spi=ALL-UNNAMED, --add-opens, java.rmi/sun.rmi.transport.tcp=ALL-UNNAMED, --add-exports=java.base/sun.net.www.protocol.file=ALL-UNNAMED, --add-exports=java.base/sun.net.www.protocol.ftp=ALL-UNNAMED, --add-exports=java.base/sun.net.www.protocol.http=ALL-UNNAMED, --add-exports=java.base/sun.net.www.protocol.https=ALL-UNNAMED, --add-exports=java.base/sun.net.www.protocol.jar=ALL-UNNAMED, --add-exports=java.base/sun.net.www.content.text=ALL-UNNAMED, --add-exports=jdk.xml.dom/org.w3c.dom.html=ALL-UNNAMED, --add-exports=jdk.naming.rmi/com.sun.jndi.url.rmi=ALL-UNNAMED, --add-exports=java.rmi/sun.rmi.registry=ALL-UNNAMED, --add-exports=java.security.sasl/com.sun.security.sasl=ALL-UNNAMED, -Dkaraf.instances=/opt/bin/karaf/karaf/instances, -Dkaraf.home=/opt/bin/karaf/karaf, -Dkaraf.base=/opt/bin/karaf/karaf, -Dkaraf.data=/opt/bin/karaf/karaf/data, -Dkaraf.etc=/opt/bin/karaf/karaf/etc, -Dkaraf.log=/opt/bin/karaf/karaf/data/log, -Dkaraf.restart.jvm.supported=true, -Djava.io.tmpdir=/opt/bin/karaf/karaf/data/tmp, -Djava.util.logging.config.file=/opt/bin/karaf/karaf/etc/java.util.logging.properties, -Dkaraf.startLocalConsole=false, -Dkaraf.startRemoteShell=true, -classpath, /opt/bin/karaf/karaf/lib/boot/org.apache.karaf.diagnostic.boot-4.3.9.jar:/opt/bin/karaf/karaf/lib/boot/org.apache.karaf.jaas.boot-4.3.9.jar:/opt/bin/karaf/karaf/lib/boot/org.apache.karaf.main-4.3.9.jar:/opt/bin/karaf/karaf/lib/boot/org.apache.karaf.specs.activator-4.3.9.jar:/opt/bin/karaf/karaf/lib/boot/osgi.core-7.0.0.jar:/opt/bin/karaf/karaf/lib/jdk9plus/istack-commons-runtime-3.0.10.jar:/opt/bin/karaf/karaf/lib/jdk9plus/jakarta.xml.bind-api-2.3.3.jar:/opt/bin/karaf/karaf/lib/jdk9plus/javax.annotation-api-1.3.2.jar:/opt/bin/karaf/karaf/lib/jdk9plus/jaxb-runtime-2.3.3.jar:/opt/bin/karaf/karaf/lib/jdk9plus/org.apache.servicemix.specs.activation-api-1.2.1-1.2.1_3.jar:/opt/bin/karaf/karaf/lib/jdk9plus/txw2-2.3.3.jar, org.apache.karaf.main.Main]",process_executable_path="/usr/lib/jvm/jdk-17-oracle-x64/bin/java",process_pid="1569131",process_runtime_description="Oracle Corporation Java HotSpot(TM) 64-Bit Server VM 17.0.11+7-LTS-207",process_runtime_name="Java(TM) SE Runtime Environment",process_runtime_version="17.0.11+7-LTS-207",service_instance_id="233672e1-7303-4e74-99a5-0da2f5776501",service_name="unknown_service:java",telemetry_distro_name="opentelemetry-java-instrumentation",telemetry_distro_version="2.14.0",telemetry_sdk_language="java",telemetry_sdk_name="opentelemetry",telemetry_sdk_version="1.48.0"} 1

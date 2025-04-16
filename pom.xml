@@ -24,7 +24,7 @@
 
   <groupId>io.yupiik.metrics</groupId>
   <artifactId>metrics-scraper</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4-SNAPSHOT</version>
   <name>metrics-scraper</name>
   <description>Metrics Scraper aims at providing a very light scraper for Prometheus format to ElasticSearch (more to come).</description>
   <url>https://yupiik.github.io/metrics-scraper/</url>
@@ -337,7 +337,7 @@
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.4.5</version>
         <!--
         mvn package jib:build [-Dimage.registry=...] -> will be pushed
         mvn package jib:dockerBuild -> local docker image

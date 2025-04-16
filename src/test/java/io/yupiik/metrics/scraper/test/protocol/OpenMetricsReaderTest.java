@@ -80,4 +80,11 @@ class OpenMetricsReaderTest {
         assertNotNull(metrics);
     }
 
+    @Test
+    void parseLarge() throws IOException {
+        System.out.println("Parse large metrics");
+        final String content = new String(Files.readAllBytes(Paths.get("src/test/resources/large-metrics.txt")));
+        final Metrics metrics = reader.read(content, 1234);
+        assertNotNull(metrics);
+    }
 }

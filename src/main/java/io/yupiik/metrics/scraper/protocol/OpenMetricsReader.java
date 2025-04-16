@@ -97,7 +97,7 @@ public class OpenMetricsReader {
 
     private MetricInstance doParseMetric(final long defaultTimestamp, final Current current, final String line) {
         // <name>{tag1="v 1",tag2="400"}    <value> [<timestamp>]
-        final int endTags = line.indexOf('}');
+        final int endTags = line.lastIndexOf('}');
         final String[] segments = endTags > 0 ?
                 Stream.concat(
                                 Stream.of(line.substring(0, endTags + 1).trim()),
