@@ -33,6 +33,7 @@ import io.yupiik.metrics.scraper.model.metrics.Metrics;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -43,6 +44,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
@@ -258,8 +260,60 @@ public class ElasticsearchClient {
     }
 
     public CompletionStage<BulkResponse> bulk(final List<BulkRequest> lines) {
-        return this.initialized.thenCompose(i -> this.request("POST", base + "/_bulk" + query,
-                lines.stream().map(this::toBulkLine).collect(joining("\n")) + '\n', BulkResponse.class, timeout, true, headers));
+        final long maxPayloadSizeBytes = this.configuration.elasticsearch().maxBulkRequestSize();
+        List<CompletionStage<BulkResponse>> futures = new ArrayList<>();
+
+        List<String> currentBatch = new ArrayList<>();
+        int currentSize = 0;
+
+        for (BulkRequest request : lines) {
+            String bulkLine = toBulkLine(request);
+            final int bulkLineSize = bulkLine.getBytes(StandardCharsets.UTF_8).length;
+
+            if (currentSize + bulkLineSize > maxPayloadSizeBytes && !currentBatch.isEmpty()) {
+                futures.add(sendBulkBatch(currentBatch));
+                currentBatch = new ArrayList<>();
+                currentSize = 0;
+            }
+
+            currentBatch.add(bulkLine);
+            currentSize += bulkLineSize;
+        }
+
+        if (!currentBatch.isEmpty()) {
+            futures.add(sendBulkBatch(currentBatch));
+        }
+
+        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+            .thenApply(v -> {
+                List<BulkResponse> responses = futures.stream()
+                        .map(CompletionStage::toCompletableFuture)
+                        .map(CompletableFuture::join)
+                        .collect(Collectors.toList());
+
+                return mergeBulkResponses(responses);
+            });
+    }
+
+    private BulkResponse mergeBulkResponses(List<BulkResponse> responses) {
+        int took = 0;
+        boolean errors = false;
+        final Map<String, Object> items = new HashMap<>();
+        for (BulkResponse response : responses) {
+            took += response.took();
+            if (response.errors()) {
+                errors = true;
+            }
+            items.putAll(response.items());
+        }
+        return new BulkResponse(took, errors, items);
+    }
+
+    private CompletionStage<BulkResponse> sendBulkBatch(List<String> batchLines) {
+        final String payload = String.join("\n", batchLines) + '\n';
+        return this.initialized.thenCompose(i ->
+            this.request("POST", base + "/_bulk" + query, payload, BulkResponse.class, timeout, true, headers)
+        );
     }
 
     private String toBulkLine(final BulkRequest bulkRequest) {

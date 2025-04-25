@@ -41,7 +41,10 @@ public record ElasticsearchClientConfiguration(
         Map<String, String> headers,
 
         @Property(value = "timeout", documentation = "Timeout - HTTP connection and read timeout", defaultValue = "60000L")
-        long timeout
+        long timeout,
+
+        @Property(value = "maxBulkRequestSize", documentation = "Maximum Bulk Request Size - Maximum size of one http request in Bytes", defaultValue = "50000000L")
+        long maxBulkRequestSize
 ) {
 
     @JsonModel
