@@ -261,18 +261,18 @@ public class ElasticsearchClient {
 
     public CompletionStage<BulkResponse> bulk(final List<BulkRequest> lines) {
         final long maxPayloadSizeBytes = this.configuration.elasticsearch().maxBulkRequestSize();
-        List<CompletionStage<BulkResponse>> futures = new ArrayList<>();
+        final List<CompletionStage<BulkResponse>> futures = new ArrayList<>();
 
-        List<String> currentBatch = new ArrayList<>();
+        final List<String> currentBatch = new ArrayList<>();
         int currentSize = 0;
 
-        for (BulkRequest request : lines) {
-            String bulkLine = toBulkLine(request);
+        for (final BulkRequest request : lines) {
+            final String bulkLine = this.toBulkLine(request);
             final int bulkLineSize = bulkLine.getBytes(StandardCharsets.UTF_8).length;
 
             if (currentSize + bulkLineSize > maxPayloadSizeBytes && !currentBatch.isEmpty()) {
-                futures.add(sendBulkBatch(currentBatch));
-                currentBatch = new ArrayList<>();
+                futures.add(this.sendBulkBatch(currentBatch));
+                currentBatch.clear();
                 currentSize = 0;
             }
 
@@ -281,25 +281,25 @@ public class ElasticsearchClient {
         }
 
         if (!currentBatch.isEmpty()) {
-            futures.add(sendBulkBatch(currentBatch));
+            futures.add(this.sendBulkBatch(currentBatch));
         }
 
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
             .thenApply(v -> {
-                List<BulkResponse> responses = futures.stream()
+                final List<BulkResponse> responses = futures.stream()
                         .map(CompletionStage::toCompletableFuture)
                         .map(CompletableFuture::join)
                         .collect(Collectors.toList());
 
-                return mergeBulkResponses(responses);
+                return this.mergeBulkResponses(responses);
             });
     }
 
-    private BulkResponse mergeBulkResponses(List<BulkResponse> responses) {
+    private BulkResponse mergeBulkResponses(final List<BulkResponse> responses) {
         int took = 0;
         boolean errors = false;
         final Map<String, Object> items = new HashMap<>();
-        for (BulkResponse response : responses) {
+        for (final BulkResponse response : responses) {
             took += response.took();
             if (response.errors()) {
                 errors = true;
@@ -309,7 +309,7 @@ public class ElasticsearchClient {
         return new BulkResponse(took, errors, items);
     }
 
-    private CompletionStage<BulkResponse> sendBulkBatch(List<String> batchLines) {
+    private CompletionStage<BulkResponse> sendBulkBatch(final List<String> batchLines) {
         final String payload = String.join("\n", batchLines) + '\n';
         return this.initialized.thenCompose(i ->
             this.request("POST", base + "/_bulk" + query, payload, BulkResponse.class, timeout, true, headers)
