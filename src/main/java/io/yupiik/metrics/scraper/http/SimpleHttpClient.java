@@ -133,10 +133,9 @@ public class SimpleHttpClient {
                 result.completeExceptionally(new IllegalArgumentException("HTTP response was HTTP " + responseCode));
                 return;
             }
-            log.fine(String.format("HTTP response to '%s' was a HTTP %s: '%s'", url, responseCode, this.slurpPayload(connection)));
             this.onResponse(returnType, result, connection);
         } catch (final Exception e) {
-            log.severe(e::getMessage);
+            log.severe("Could not process request properly :: " + e.getMessage());
             result.completeExceptionally(e);
         }
     }
