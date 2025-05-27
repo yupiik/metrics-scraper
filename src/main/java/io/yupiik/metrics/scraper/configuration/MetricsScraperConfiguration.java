@@ -34,9 +34,6 @@ public record MetricsScraperConfiguration(
         ScraperHttpClientThreading threading,
 
         @Property(value = "elasticsearch", documentation = "Elasticsearch - Elasticsearch configuration to send metrics to Elasticsearch.")
-        ElasticsearchClientConfiguration elasticsearch,
-
-        @Property(value = "timezone", documentation = "Define the timezone to be used for timestamps interpretation.", defaultValue = "\"UTC\"")
-        String timezone
+        ElasticsearchClientConfiguration elasticsearch
 ) {
 }

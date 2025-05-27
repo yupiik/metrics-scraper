@@ -64,6 +64,8 @@ public class ElasticsearchClient {
     private final SimpleHttpClient httpClient;
 
     private ZoneId zone;
+    private DateTimeFormatter dateFormatter;
+    private DateTimeFormatter timeFormatter;
     private Function<Class<?>, String> currentIndex;
 
     private boolean useWildcardForOperations;
@@ -108,6 +110,8 @@ public class ElasticsearchClient {
             log.fine("> Dynamic index name - Using wildcards for operations");
             this.initIndexFactory(configuration.elasticsearch().indexNameSuffix());
             zone = ZoneId.of("UTC");
+            dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
             final CompletableFuture<?>[] tasks = getIndexableClasses()
                     .map(type -> {
                         final String templateName = this.toIndex(type).replaceAll("\\*", "");
@@ -440,32 +444,31 @@ public class ElasticsearchClient {
                         metrics.getCounters().stream()
                                 .map(it -> new Counter(
                                         it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
-                                        it.getLabels(), customTags, it.getType(), this.toTimeStamp(it.getTimestamp()))),
+                                        it.getLabels(), customTags, it.getType(), this.toUTCTimeStamp(it.getTimestamp()))),
                         metrics.getGauges().stream()
                                 .map(it -> new Gauge(
                                         it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
-                                        it.getLabels(), customTags, it.getType(), this.toTimeStamp(it.getTimestamp()))),
+                                        it.getLabels(), customTags, it.getType(), this.toUTCTimeStamp(it.getTimestamp()))),
                         metrics.getUntyped().stream()
                                 .map(it -> new Untyped(
                                         it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
-                                        it.getLabels(), customTags, it.getType(), this.toTimeStamp(it.getTimestamp()))),
+                                        it.getLabels(), customTags, it.getType(), this.toUTCTimeStamp(it.getTimestamp()))),
                         metrics.getHistogram().stream()
                                 .map(it -> new Histogram(
                                         it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
-                                        it.getLabels(), customTags, it.getType(), this.toTimeStamp(it.getTimestamp()))),
+                                        it.getLabels(), customTags, it.getType(), this.toUTCTimeStamp(it.getTimestamp()))),
                         metrics.getSummary().stream()
                                 .map(it -> new Summary(
                                         it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
-                                        it.getLabels(), customTags, it.getType(), this.toTimeStamp(it.getTimestamp()))))
+                                        it.getLabels(), customTags, it.getType(), this.toUTCTimeStamp(it.getTimestamp()))))
                 .flatMap(s -> s.flatMap(this::toBulkRequests))
                 .collect(toList());
     }
 
-    private String toTimeStamp(long timestamp) {
+    private String toUTCTimeStamp(long timestamp) {
         final Instant instant = Instant.ofEpochMilli(timestamp);
-        final LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.of(configuration.timezone()));
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        return localDateTime.format(formatter);
+        final LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        return localDateTime.format(dateFormatter) + "T" + localDateTime.format(timeFormatter) + "Z";
     }
 
     private Stream<Class<?>> getModels() {
