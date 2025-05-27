@@ -22,7 +22,7 @@
 
   <groupId>io.yupiik.metrics</groupId>
   <artifactId>metrics-scraper</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5-SNAPSHOT</version>
   <name>metrics-scraper</name>
   <description>Metrics Scraper aims at providing a very light scraper for Prometheus format to ElasticSearch (more to come).</description>
   <url>https://yupiik.github.io/metrics-scraper/</url>
@@ -35,7 +35,6 @@
     <yupiik-logging.version>1.0.8</yupiik-logging.version>
 
     <!-- Image related configuration -->
-    <arthur.version>1.0.9</arthur.version>
     <image.base>ossyupiik/java:21.0.6</image.base>
     <image.workdir>/opt/applications/${project.artifactId}</image.workdir>
     <image.version>${project.version}</image.version>
@@ -230,10 +229,10 @@
 
 
   <scm>
-    <tag>1.0.4</tag>
+    <tag>HEAD</tag>
     <url>${git.url}</url>
-    <developerConnection>scm:git:git@github.com:yupiik/metrics-scraper.git</developerConnection>
-    <connection>scm:git:git@github.com:yupiik/metrics-scraper.git</connection>
+    <developerConnection>scm:git:https://github.com/yupiik/metrics-scraper.git</developerConnection>
+    <connection>scm:git:https://github.com/yupiik/metrics-scraper.git</connection>
   </scm>
 
 
@@ -599,46 +598,6 @@ under the License.
               <value>FINER</value>
             </property>
           </systemProperties>
-        </configuration>
-      </plugin>
-      <!--
-        IMPORTANT: build on a linux amd64 machine.
-
-        Build native binary:
-        $ mvn package arthur:native-image
-
-        Create local docker image:
-        $ mvn package arthur:native-image arthur:docker -Dimage.registry=local/
-
-        Create registry image:
-        $ mvn package arthur:native-image arthur:image -Dimage.registry=docker.io/
-        -->
-      <plugin>
-        <groupId>org.apache.geronimo.arthur</groupId>
-        <artifactId>arthur-maven-plugin</artifactId>
-        <version>${arthur.version}</version>
-        <configuration>
-          <usePackagedArtifact>true</usePackagedArtifact>
-          <to>${image.registry}ossyupiik/${project.artifactId}:${image.version}</to>
-          <graalVersion>21.0.2</graalVersion>
-          <graalDownloadUrl>https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-21.0.2/graalvm-community-jdk-21.0.2_linux-x64_bin.tar.gz</graalDownloadUrl>
-          <buildStaticImage>false</buildStaticImage>
-          <useLDD>true</useLDD>
-          <includeNatives>false</includeNatives>
-          <fallbackMode>no</fallbackMode>
-          <enableAllSecurityServices>false</enableAllSecurityServices>
-          <scanningExcludedArtifacts>*</scanningExcludedArtifacts>
-          <main>${main.class}</main>
-          <customOptions>
-            <customOption>-Djava.util.logging.manager=io.yupiik.logging.jul.YupiikLogManager</customOption>
-            <customOption>-Djava.net.preferIPv4Stack=true</customOption>
-            <customOption>-Duser.language=en</customOption>
-            <customOption>-Duser.country=US</customOption>
-            <customOption>-Dfile.encoding=UTF-8</customOption>
-            <customOption>-H:+UnlockExperimentalVMOptions</customOption>
-            <customOption>--enable-http</customOption>
-            <customOption>--enable-https</customOption>
-          </customOptions>
         </configuration>
       </plugin>
     </plugins>
