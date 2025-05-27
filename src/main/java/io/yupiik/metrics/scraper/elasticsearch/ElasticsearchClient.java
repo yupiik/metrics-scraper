@@ -304,7 +304,9 @@ public class ElasticsearchClient {
             if (response.errors()) {
                 errors = true;
             }
-            items.putAll(response.items());
+            if(response.items() != null){
+                items.putAll(response.items());
+            }
         }
         return new BulkResponse(took, errors, items);
     }
