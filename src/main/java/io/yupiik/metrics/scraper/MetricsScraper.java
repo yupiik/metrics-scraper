@@ -23,7 +23,6 @@ import io.yupiik.fusion.framework.build.api.event.OnEvent;
 import io.yupiik.metrics.scraper.configuration.MetricsScraperConfiguration;
 import io.yupiik.metrics.scraper.configuration.Scraper;
 import io.yupiik.metrics.scraper.configuration.ScrapingConfiguration;
-import io.yupiik.metrics.scraper.elasticsearch.ElasticsearchCollector;
 import io.yupiik.metrics.scraper.http.SimpleHttpClient;
 import io.yupiik.metrics.scraper.model.http.Status;
 import io.yupiik.metrics.scraper.model.metrics.Metrics;
@@ -51,16 +50,14 @@ public class MetricsScraper {
     private final MetricsScraperConfiguration configuration;
     private final OpenMetricsReader openMetricsReader;
     private final SimpleHttpClient httpClient;
-    private final ElasticsearchCollector esCollector;
     private final Emitter emitter;
     private ScheduledExecutorService executor;
 
-    public MetricsScraper(final MetricsScraperConfiguration configuration, final OpenMetricsReader openMetricsReader, final SimpleHttpClient httpClient,
-                          final ElasticsearchCollector esCollector, final Emitter emitter) {
+    public MetricsScraper(final MetricsScraperConfiguration configuration, final OpenMetricsReader openMetricsReader,
+                          final SimpleHttpClient httpClient, final Emitter emitter) {
         this.configuration = configuration;
         this.openMetricsReader = openMetricsReader;
         this.httpClient = httpClient;
-        this.esCollector = esCollector;
         this.emitter = emitter;
     }
 
@@ -89,11 +86,11 @@ public class MetricsScraper {
                     log.fine(String.format("Got response from ES '%s'", r));
                     return r;
                 });
-        configuration.scrapers().forEach(scraper -> this.launchScraping(scraper, defaultScraping, httpClient, openMetricsReader, esCollector, emitter));
+        configuration.scrapers().forEach(scraper -> this.launchScraping(scraper, defaultScraping, httpClient, openMetricsReader, emitter));
     }
 
     private void launchScraping(final Scraper scraper, final ScrapingConfiguration defaultScraping, final SimpleHttpClient http,
-                                final OpenMetricsReader openMetricsReader, final ElasticsearchCollector esCollector, final Emitter emitter) {
+                                final OpenMetricsReader openMetricsReader, final Emitter emitter) {
         if (scraper.url() == null) {
             log.info(String.format("Scraper %s has no url, skipping", scraper));
             return;
@@ -104,14 +101,13 @@ public class MetricsScraper {
             return;
         }
         log.info(String.format("Scheduling scraping for %s", scraper));
-        final ScraperRuntime runtime = new ScraperRuntime(http, scraper, openMetricsReader, esCollector, emitter);
+        final ScraperRuntime runtime = new ScraperRuntime(http, scraper, openMetricsReader, emitter);
         this.executor.scheduleAtFixedRate(runtime, 0, scraping.interval(), TimeUnit.MILLISECONDS);
     }
 
     private static class ScraperRuntime implements Runnable {
         private final SimpleHttpClient http;
         private final OpenMetricsReader openMetricsReader;
-        private final ElasticsearchCollector esCollector;
         private final Scraper config;
 
         private final int timeout;
@@ -119,11 +115,10 @@ public class MetricsScraper {
         private final AtomicBoolean calling = new AtomicBoolean();
         private final Emitter emitter;
 
-        private ScraperRuntime(final SimpleHttpClient http, final Scraper config, final OpenMetricsReader openMetricsReader, final ElasticsearchCollector esCollector, final Emitter emitter) {
+        private ScraperRuntime(final SimpleHttpClient http, final Scraper config, final OpenMetricsReader openMetricsReader, final Emitter emitter) {
             this.http = http;
             this.config = config;
             this.openMetricsReader = openMetricsReader;
-            this.esCollector = esCollector;
 
             this.emitter = emitter;
             this.timeout = (int) Math.max(0, config.timeout());
