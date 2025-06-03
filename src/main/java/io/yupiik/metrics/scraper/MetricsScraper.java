@@ -27,6 +27,8 @@ import io.yupiik.metrics.scraper.http.SimpleHttpClient;
 import io.yupiik.metrics.scraper.model.http.Status;
 import io.yupiik.metrics.scraper.model.metrics.Metrics;
 import io.yupiik.metrics.scraper.model.metrics.ScraperMetrics;
+import io.yupiik.metrics.scraper.model.statistics.ScraperStatistics;
+import io.yupiik.metrics.scraper.model.statistics.Statistics;
 import io.yupiik.metrics.scraper.protocol.OpenMetricsReader;
 
 import java.time.Instant;
@@ -169,15 +171,27 @@ public class MetricsScraper {
 
         private void onResponse(final String payload) {
             final long timestamp = Instant.now().toEpochMilli();
-            final Metrics metrics = openMetricsReader.read(payload, timestamp);
-            if (config.skipZero()) {
-                metrics.dropZeroCounters();
-            }
-            if (!metrics.isEmpty()) {
-                log.fine(String.format("Emitting metrics %s", metrics));
-                this.emitter.emit(new ScraperMetrics(timestamp, config, metrics));
-            } else {
-                log.fine(String.format("No metrics found in %s", payload));
+            switch (config.mode()){
+                case PROMETHEUS -> {
+                    final Metrics metrics = openMetricsReader.read(payload, timestamp);
+                    if (config.skipZero()) {
+                        metrics.dropZeroCounters();
+                    }
+                    if (!metrics.isEmpty()) {
+                        log.fine(String.format("Emitting metrics %s", metrics));
+                        this.emitter.emit(new ScraperMetrics(timestamp, config, metrics));
+                    } else {
+                        log.fine(String.format("No metrics found in %s", payload));
+                    }
+                }
+
+                case ELASTICSEARCH -> {
+                    final var stat = new Statistics(timestamp, payload);
+                    log.fine(String.format("Emitting metrics %s", stat));
+                    this.emitter.emit(new ScraperStatistics(timestamp, config, stat));
+                }
+
+                default -> throw new IllegalStateException(config.mode().toString());
             }
         }
     }

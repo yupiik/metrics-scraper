@@ -15,16 +15,16 @@
  */
 package io.yupiik.metrics.scraper.model.elasticsearch.request;
 
-import io.yupiik.metrics.scraper.model.domain.OpenMetric;
+import io.yupiik.metrics.scraper.model.elasticsearch.Document;
 
 public class BulkRequest {
 
     private final String _index;
     private final String _id;
-    private final OpenMetric document;
+    private final Document document;
     private final BulkActionType actionType;
 
-    public BulkRequest(String _index, String _id, OpenMetric document, BulkActionType actionType) {
+    public BulkRequest(String _index, String _id, Document document, BulkActionType actionType) {
         this._index = _index;
         this._id = _id;
         this.document = document;
@@ -39,7 +39,7 @@ public class BulkRequest {
         return _id;
     }
 
-    public OpenMetric getDocument() {
+    public Document getDocument() {
         return document;
     }
 

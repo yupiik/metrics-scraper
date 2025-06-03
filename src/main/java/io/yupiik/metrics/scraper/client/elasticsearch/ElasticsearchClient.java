@@ -13,23 +13,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package io.yupiik.metrics.scraper.elasticsearch;
+package io.yupiik.metrics.scraper.client.elasticsearch;
 
 import io.yupiik.fusion.framework.api.lifecycle.Start;
-import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
 import io.yupiik.fusion.framework.build.api.event.OnEvent;
 import io.yupiik.fusion.json.JsonMapper;
 import io.yupiik.metrics.scraper.configuration.ElasticsearchClientConfiguration;
 import io.yupiik.metrics.scraper.configuration.MetricsScraperConfiguration;
 import io.yupiik.metrics.scraper.http.SimpleHttpClient;
-import io.yupiik.metrics.scraper.model.domain.*;
+import io.yupiik.metrics.scraper.model.domain.KeyValue;
 import io.yupiik.metrics.scraper.model.elasticsearch.DocumentResult;
 import io.yupiik.metrics.scraper.model.elasticsearch.index.*;
 import io.yupiik.metrics.scraper.model.elasticsearch.request.BulkRequest;
 import io.yupiik.metrics.scraper.model.elasticsearch.response.BulkResponse;
 import io.yupiik.metrics.scraper.model.elasticsearch.response.BulkResponseItem;
 import io.yupiik.metrics.scraper.model.http.Status;
-import io.yupiik.metrics.scraper.model.metrics.Metrics;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
@@ -54,8 +52,7 @@ import static java.util.concurrent.CompletableFuture.completedFuture;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
 
-@ApplicationScoped
-public class ElasticsearchClient {
+public abstract class ElasticsearchClient {
 
     private final Logger log = Logger.getLogger(ElasticsearchClient.class.getName());
 
@@ -66,7 +63,7 @@ public class ElasticsearchClient {
     private ZoneId zone;
     private DateTimeFormatter dateFormatter;
     private DateTimeFormatter timeFormatter;
-    private Function<Class<?>, String> currentIndex;
+    public Function<Class<?>, String> currentIndex;
 
     private boolean useWildcardForOperations;
     private String base;
@@ -82,11 +79,6 @@ public class ElasticsearchClient {
         this.configuration = configuration;
         this.jsonMapper = jsonMapper;
         this.httpClient = httpClient;
-    }
-
-    public void start(@OnEvent Start start) {
-        log.info("> Initializing ElasticsearchClient");
-        log.fine("> Configuration: " + configuration);
         this.base = configuration.elasticsearch().base();
         this.query = configuration.elasticsearch().refreshOnWrite() ? "?refresh" : "";
 
@@ -106,12 +98,13 @@ public class ElasticsearchClient {
         final boolean isDynamicIndexName = configuration.elasticsearch().indexNameSuffix() != null;
         this.useWildcardForOperations = isDynamicIndexName; // <name>-<date>
 
+        dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
+        zone = ZoneId.of("UTC");
+
         if (isDynamicIndexName) {
             log.fine("> Dynamic index name - Using wildcards for operations");
             this.initIndexFactory(configuration.elasticsearch().indexNameSuffix());
-            zone = ZoneId.of("UTC");
-            dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
             final CompletableFuture<?>[] tasks = getIndexableClasses()
                     .map(type -> {
                         final String templateName = this.toIndex(type).replaceAll("\\*", "");
@@ -139,7 +132,7 @@ public class ElasticsearchClient {
         }
     }
 
-    protected <T> CompletionStage<T> request(String mtd, String url, Object payload, Class<T> returnedType,
+    private <T> CompletionStage<T> request(String mtd, String url, Object payload, Class<T> returnedType,
                                              int timeout, boolean redirected, String[] headers) {
         log.fine("Request method: " + mtd);
         log.fine("Request url: " + url);
@@ -156,9 +149,7 @@ public class ElasticsearchClient {
         return httpClient.request(mtd, url, payload, timeout, redirected, returnedType, headers);
     }
 
-    protected Stream<Class<?>> getIndexableClasses() {
-        return Stream.of(Counter.class, Gauge.class, Untyped.class, Histogram.class, Summary.class);
-    }
+    public abstract Stream<Class<?>> getIndexableClasses();
 
     private CompletionStage<Boolean> createIndexTemplate(final Class<?> type, final String templateName) {
         log.fine("Create index template.");
@@ -258,11 +249,6 @@ public class ElasticsearchClient {
                 });
     }
 
-    public <T> CompletionStage<DocumentResult> index(final String documentId, final T instance) {
-        return this.initialized.thenCompose(i -> this.request("PUT", base + '/' + findCurrentIndexationIndex(instance.getClass()) + "/" + documentId + query,
-                instance, DocumentResult.class, timeout, true, headers));
-    }
-
     public CompletionStage<BulkResponse> bulk(final List<BulkRequest> lines) {
         final long maxPayloadSizeBytes = this.configuration.elasticsearch().maxBulkRequestSize();
         final List<CompletionStage<BulkResponse>> futures = new ArrayList<>();
@@ -350,7 +336,7 @@ public class ElasticsearchClient {
                 .thenApply(status -> ensure200(index, status, "Can't create properly"));
     }
 
-    protected <T> String findCurrentIndexationIndex(final Class<T> type) {
+    private <T> String findCurrentIndexationIndex(final Class<T> type) {
         return requireNonNull(currentIndex.apply(type), "No index for " + type) + "/_doc";
     }
 
@@ -393,7 +379,7 @@ public class ElasticsearchClient {
                 .thenApply(status -> status.value() == 200);
     }
 
-    protected String toIndexName(final String name) {
+    private String toIndexName(final String name) {
         final StringBuilder builder = new StringBuilder(configuration.elasticsearch().indexPrefix());
         for (final char c : name.toCharArray()) {
             if (Character.isUpperCase(c)) {
@@ -409,17 +395,13 @@ public class ElasticsearchClient {
                 .replace("-a-p-i-", "-api-"); // known particular case
     }
 
-    public Map<Class<?>, String> getIndicesNames() {
+    private Map<Class<?>, String> getIndicesNames() {
         return this.indicesNames;
     }
 
-    public CompletableFuture<?> createBulk(final Metrics metrics, final Map<String, String> customTags, final long timestamp) {
-        return doBulk(metrics, customTags).toCompletableFuture();
-    }
-
-    private CompletionStage<?> doBulk(final Metrics metrics, final Map<String, String> customTags) {
+    public <T> CompletableFuture<?> doBulk(final T instance, final Map<String, String> customTags) {
         log.fine("Creating elasticsearch bulk");
-        return this.bulk(this.toBulk(metrics, customTags)).thenApply(result -> {
+        return this.bulk(this.buildBulkRequest(instance, customTags)).thenApply(result -> {
             if (!result.errors()) {
                 return result; // ok
             }
@@ -439,44 +421,10 @@ public class ElasticsearchClient {
         }).toCompletableFuture();
     }
 
-    public List<BulkRequest> toBulk(final Metrics metrics, final Map<String, String> customTags) {
-        return Stream.of(
-                        metrics.getCounters().stream()
-                                .map(it -> new Counter(
-                                        it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
-                                        it.getLabels(), customTags, it.getType(), this.toUTCTimeStamp(it.getTimestamp()))),
-                        metrics.getGauges().stream()
-                                .map(it -> new Gauge(
-                                        it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
-                                        it.getLabels(), customTags, it.getType(), this.toUTCTimeStamp(it.getTimestamp()))),
-                        metrics.getUntyped().stream()
-                                .map(it -> new Untyped(
-                                        it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
-                                        it.getLabels(), customTags, it.getType(), this.toUTCTimeStamp(it.getTimestamp()))),
-                        metrics.getHistogram().stream()
-                                .map(it -> new Histogram(
-                                        it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
-                                        it.getLabels(), customTags, it.getType(), this.toUTCTimeStamp(it.getTimestamp()))),
-                        metrics.getSummary().stream()
-                                .map(it -> new Summary(
-                                        it.getMetricName(), new KeyValue(it.getName(), it.getValue()),
-                                        it.getLabels(), customTags, it.getType(), this.toUTCTimeStamp(it.getTimestamp()))))
-                .flatMap(s -> s.flatMap(this::toBulkRequests))
-                .collect(toList());
-    }
-
-    private String toUTCTimeStamp(long timestamp) {
-        final Instant instant = Instant.ofEpochMilli(timestamp);
-        final LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
-        return localDateTime.format(dateFormatter) + "T" + localDateTime.format(timeFormatter) + "Z";
-    }
-
-    private Stream<Class<?>> getModels() {
-        return Stream.of(Counter.class, Gauge.class, Untyped.class, Histogram.class, Summary.class);
-    }
+    public abstract <T> List<BulkRequest> buildBulkRequest(final T instance, final Map<String, String> customTags);
 
     private Map<Class<?>, String> getStaticIndexNames(final Function<Class<?>, String> toIndex) {
-        return getModels().collect(toMap(identity(), toIndex));
+        return getIndexableClasses().collect(toMap(identity(), toIndex));
     }
 
     private void initIndexFactory(final String pattern) {
@@ -547,8 +495,9 @@ public class ElasticsearchClient {
         return ZonedDateTime.ofInstant(now, zone).toOffsetDateTime();
     }
 
-    private Stream<BulkRequest> toBulkRequests(final OpenMetric metric) {
-        return Stream.of(new BulkRequest(currentIndex.apply(metric.getClass()), null, metric, BulkRequest.BulkActionType.index));
+    public String toUTCTimeStamp(long timestamp) {
+        final Instant instant = Instant.ofEpochMilli(timestamp);
+        final LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        return localDateTime.format(dateFormatter) + "T" + localDateTime.format(timeFormatter) + "Z";
     }
-
 }

@@ -13,9 +13,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package io.yupiik.metrics.scraper.configuration;
+package io.yupiik.metrics.scraper.model.elasticsearch;
 
-public enum ScrapingMode {
-    PROMETHEUS,
-    ELASTICSEARCH
+public abstract class Document {
+    public abstract String json();
 }

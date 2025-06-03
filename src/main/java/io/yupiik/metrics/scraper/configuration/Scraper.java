@@ -29,7 +29,7 @@ public record Scraper(
         @Property(value = "headers", documentation = "Optional headers to set.")
         Map<String, String> headers,
 
-        @Property(value = "mode", documentation = "Scraping - How to parse scraping response. Possible values are: ScrapingMode.PROMETHEUS (default)", defaultValue = "ScrapingMode.PROMETHEUS")
+        @Property(value = "mode", documentation = "Scraping - How to parse scraping response. Possible values are: ScrapingMode.PROMETHEUS (default), ScrapingMode.ELASTICSEARCH", defaultValue = "ScrapingMode.PROMETHEUS")
         ScrapingMode mode,
 
         @Property(value = "scraping", documentation = "Scraping - How often to poll data.", required = true)

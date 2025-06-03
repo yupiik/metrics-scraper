@@ -15,12 +15,13 @@
  */
 package io.yupiik.metrics.scraper.model.domain;
 
+import io.yupiik.metrics.scraper.model.elasticsearch.Document;
 import io.yupiik.metrics.scraper.model.metrics.OpenMetricMetricType;
 
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class OpenMetric {
+public class OpenMetric extends Document {
         private String name;
         private KeyValue field;
         private Map<String, String> labels;
@@ -38,6 +39,7 @@ public class OpenMetric {
                 this.timestamp = timestamp;
         }
 
+        @Override
         public String json() {
                 final var value = switch (field.getValue()) {
                     case String s -> "\"" + field.getValue() + "\"";
