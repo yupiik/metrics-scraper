@@ -30,7 +30,7 @@
   <properties>
     <!-- Main Dependencies -->
     <junit5.version>5.12.0</junit5.version>
-    <yupiik-fusion.version>1.0.23</yupiik-fusion.version>
+    <yupiik-fusion.version>1.0.25</yupiik-fusion.version>
     <yupiik-tools.version>1.2.5</yupiik-tools.version>
     <yupiik-logging.version>1.0.8</yupiik-logging.version>
 
