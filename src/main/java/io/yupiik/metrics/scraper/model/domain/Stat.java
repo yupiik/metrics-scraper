@@ -22,12 +22,14 @@ import java.util.stream.Collectors;
 
 public class Stat extends Document {
     private String timestamp;
-    private String content;
+    private String name;
+    private String value;
     private Map<String, String> tags;
 
-    public Stat(String timestamp, String content, Map<String, String> tags) {
+    public Stat(String timestamp, String name, String value, Map<String, String> tags) {
         this.timestamp = timestamp;
-        this.content = content;
+        this.name = name;
+        this.value = value;
         this.tags = tags;
     }
 
@@ -39,12 +41,20 @@ public class Stat extends Document {
         this.timestamp = timestamp;
     }
 
-    public String getContent() {
-        return content;
+    public String getName() {
+        return name;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public Map<String, String> getTags() {
@@ -57,12 +67,14 @@ public class Stat extends Document {
 
     @Override
     public String json(){
-        final StringBuilder json = new StringBuilder(content);
+        final StringBuilder json = new StringBuilder("{");
+        json.append("\"@timestamp\":\"").append(timestamp).append("\",");
+        json.append("\"").append(name).append("\":").append(value.contains("{") ? value : "\"" + value + "\"").append(",");
         if(tags != null && !tags.isEmpty()) {
-            final var customTags = "\"tags\": {" + tags.entrySet().stream().map(entry -> "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\"").collect(Collectors.joining(",")) + "},";
-            json.insert(content.indexOf("{") + 1, customTags);
+            final var customTags = "\"tags\": {" + tags.entrySet().stream().map(entry -> "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\"").collect(Collectors.joining(",")) + "}";
+            json.append(customTags);
         }
-        json.insert(content.indexOf("{") + 1, "\"@timestamp\": \"" + timestamp + "\", ");
+        json.append("}");
         return json.toString();
     }
 }

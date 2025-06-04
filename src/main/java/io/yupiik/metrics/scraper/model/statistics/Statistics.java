@@ -15,36 +15,24 @@
  */
 package io.yupiik.metrics.scraper.model.statistics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Statistics {
-    private long timestamp;
-    private String content;
+    private List<StatisticMetric> statisticMetrics = new ArrayList<>();
 
-    public Statistics(long timestamp, String content) {
-        this.timestamp = timestamp;
-        this.content = content;
+    public List<StatisticMetric> getStatisticMetrics() {
+        return statisticMetrics;
     }
 
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setStatisticMetrics(List<StatisticMetric> statisticMetrics) {
+        this.statisticMetrics = statisticMetrics;
     }
 
     @Override
     public String toString() {
         return "Statistics{" +
-                "timestamp=" + timestamp +
-                ", content='" + content + '\'' +
+                "statisticMetrics=" + statisticMetrics +
                 '}';
     }
 }

@@ -104,7 +104,7 @@ services:
     depends_on:
       opensearch-node1:
         condition: service_healthy
-    image: ossyupiik/metrics-scraper:1.0.5
+    image: ossyupiik/metrics-scraper:1.0.6-SNAPSHOT
     env_file:
       - ./config/metricsScraper/setup.env
     ports:

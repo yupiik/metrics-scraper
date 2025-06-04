@@ -37,6 +37,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.concurrent.CompletableFuture.allOf;
@@ -71,8 +72,10 @@ public class ElasticsearchStatsCollector{
             @Override
             public <T> List<BulkRequest> buildBulkRequest(T instance, Map<String, String> customTags) {
                 final var statistics = Statistics.class.cast(instance);
-                final var stat = new Stat(this.toUTCTimeStamp(statistics.getTimestamp()), statistics.getContent(), customTags);
-                return List.of(new BulkRequest(currentIndex.apply(stat.getClass()), null, stat, BulkRequest.BulkActionType.index));
+                return statistics.getStatisticMetrics().stream()
+                        .map(s -> new Stat(this.toUTCTimeStamp(s.getTimestamp()), s.getName(), jsonMapper.toString(s.getValue()), customTags))
+                        .map( stat -> new BulkRequest(currentIndex.apply(stat.getClass()), null, stat, BulkRequest.BulkActionType.index) )
+                        .collect(Collectors.toList());
             }
         };
     }

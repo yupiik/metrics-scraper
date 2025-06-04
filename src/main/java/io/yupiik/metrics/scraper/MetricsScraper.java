@@ -28,8 +28,8 @@ import io.yupiik.metrics.scraper.model.http.Status;
 import io.yupiik.metrics.scraper.model.metrics.Metrics;
 import io.yupiik.metrics.scraper.model.metrics.ScraperMetrics;
 import io.yupiik.metrics.scraper.model.statistics.ScraperStatistics;
-import io.yupiik.metrics.scraper.model.statistics.Statistics;
 import io.yupiik.metrics.scraper.protocol.OpenMetricsReader;
+import io.yupiik.metrics.scraper.protocol.StatisticsReader;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -51,14 +51,16 @@ public class MetricsScraper {
 
     private final MetricsScraperConfiguration configuration;
     private final OpenMetricsReader openMetricsReader;
+    private final StatisticsReader statisticsReader;
     private final SimpleHttpClient httpClient;
     private final Emitter emitter;
     private ScheduledExecutorService executor;
 
     public MetricsScraper(final MetricsScraperConfiguration configuration, final OpenMetricsReader openMetricsReader,
-                          final SimpleHttpClient httpClient, final Emitter emitter) {
+                          final StatisticsReader statisticsReader, final SimpleHttpClient httpClient, final Emitter emitter) {
         this.configuration = configuration;
         this.openMetricsReader = openMetricsReader;
+        this.statisticsReader = statisticsReader;
         this.httpClient = httpClient;
         this.emitter = emitter;
     }
@@ -88,11 +90,11 @@ public class MetricsScraper {
                     log.fine(String.format("Got response from ES '%s'", r));
                     return r;
                 });
-        configuration.scrapers().forEach(scraper -> this.launchScraping(scraper, defaultScraping, httpClient, openMetricsReader, emitter));
+        configuration.scrapers().forEach(scraper -> this.launchScraping(scraper, defaultScraping, httpClient, openMetricsReader, statisticsReader, emitter));
     }
 
     private void launchScraping(final Scraper scraper, final ScrapingConfiguration defaultScraping, final SimpleHttpClient http,
-                                final OpenMetricsReader openMetricsReader, final Emitter emitter) {
+                                final OpenMetricsReader openMetricsReader, final StatisticsReader statisticsReader, final Emitter emitter) {
         if (scraper.url() == null) {
             log.info(String.format("Scraper %s has no url, skipping", scraper));
             return;
@@ -103,13 +105,14 @@ public class MetricsScraper {
             return;
         }
         log.info(String.format("Scheduling scraping for %s", scraper));
-        final ScraperRuntime runtime = new ScraperRuntime(http, scraper, openMetricsReader, emitter);
+        final ScraperRuntime runtime = new ScraperRuntime(http, scraper, openMetricsReader, statisticsReader, emitter);
         this.executor.scheduleAtFixedRate(runtime, 0, scraping.interval(), TimeUnit.MILLISECONDS);
     }
 
     private static class ScraperRuntime implements Runnable {
         private final SimpleHttpClient http;
         private final OpenMetricsReader openMetricsReader;
+        private final StatisticsReader statisticsReader;
         private final Scraper config;
 
         private final int timeout;
@@ -117,10 +120,11 @@ public class MetricsScraper {
         private final AtomicBoolean calling = new AtomicBoolean();
         private final Emitter emitter;
 
-        private ScraperRuntime(final SimpleHttpClient http, final Scraper config, final OpenMetricsReader openMetricsReader, final Emitter emitter) {
+        private ScraperRuntime(final SimpleHttpClient http, final Scraper config, final OpenMetricsReader openMetricsReader, final StatisticsReader statisticsReader, final Emitter emitter) {
             this.http = http;
             this.config = config;
             this.openMetricsReader = openMetricsReader;
+            this.statisticsReader = statisticsReader;
 
             this.emitter = emitter;
             this.timeout = (int) Math.max(0, config.timeout());
@@ -148,9 +152,9 @@ public class MetricsScraper {
                             log.log(Level.SEVERE, error.getMessage(), error);
                         } else if (r.value() != config.expectedResponseCode()) {
                             if (log.isLoggable(Level.FINE)) {
-                                log.warning(String.format("Expected status %s but got %s (%s)", config.expectedResponseCode(), r.value(), r.payload()));
+                                log.warning(String.format("Calling URL " + url + " Expected status %s but got %s (%s)", config.expectedResponseCode(), r.value(), r.payload()));
                             } else {
-                                log.warning(String.format("Expected status %s but got %s", config.expectedResponseCode(), r.value()));
+                                log.warning(String.format("Calling URL " + url + " Expected status %s but got %s", config.expectedResponseCode(), r.value()));
                             }
                         } else if (!r.payload().trim().isEmpty()) {
                             log.fine(String.format("Open metrics read: %s", r.payload()));
@@ -186,9 +190,9 @@ public class MetricsScraper {
                 }
 
                 case ELASTICSEARCH -> {
-                    final var stat = new Statistics(timestamp, payload);
-                    log.fine(String.format("Emitting metrics %s", stat));
-                    this.emitter.emit(new ScraperStatistics(timestamp, config, stat));
+                    final var statistics = statisticsReader.read(payload, timestamp);
+                    log.fine(String.format("Emitting stats %s", statistics));
+                    this.emitter.emit(new ScraperStatistics(timestamp, config, statistics));
                 }
 
                 default -> throw new IllegalStateException(config.mode().toString());
