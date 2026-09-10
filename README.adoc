@@ -2,7 +2,7 @@
 
 image::https://github.com/yupiik/metrics-scraper/actions/workflows/maven.yml/badge.svg?branch=main[Github CI,float="right"]
 
-🌐 https://yupiik.github.io/metrics-scraper/
+🌐 https://www.yupiik.io/metrics-scraper/
 
 **Yupiik Metrics Scraper** is a light tool designed to simply scrap and index metrics form Prometheus/OpenMetrics sources to ElasticSearch.
 
@@ -58,7 +58,7 @@ You can build the project docker image using: `mvn package jib:dockerBuild [-Dsk
 
 Comprehensive documentation is available at:
 
-🌐 https://yupiik.github.io/metrics-scraper/
+🌐 https://www.yupiik.io/metrics-scraper/
 
 == 🖥️ Contributing
 
