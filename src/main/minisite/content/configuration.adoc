@@ -3,10 +3,9 @@
 :minisite-index-title: Configuration
 :minisite-index-description: Application Configuration.
 :minisite-index-icon: code
-:minisite-keywords: configuration, json-rpc, documentation
+:minisite-keywords: configuration, documentation, metrics
 :minisite-breadcrumb: Home[/] > Configuration
 :minisite-nav-prev-label: Getting Started
-:minisite-nav-next-label: JSON-RPC
 
 Here is the application configuration:
 
