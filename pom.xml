@@ -211,6 +211,11 @@
       <artifactId>fusion-json</artifactId>
       <version>${yupiik-fusion.version}</version>
     </dependency>
+    <dependency>
+      <groupId>io.yupiik.fusion</groupId>
+      <artifactId>fusion-httpclient</artifactId>
+      <version>${yupiik-fusion.version}</version>
+    </dependency>
 
     <!-- Test dependencies -->
     <dependency>

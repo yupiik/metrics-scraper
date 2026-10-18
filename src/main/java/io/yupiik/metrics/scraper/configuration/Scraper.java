@@ -29,6 +29,9 @@ public record Scraper(
         @Property(value = "headers", documentation = "Optional headers to set.")
         Map<String, String> headers,
 
+        @Property(value = "followRedirects", documentation = "Follow Redirects - Whether HTTP 3xx redirects are followed. When a redirect leads to another host, `Authorization` is not sent to it but other headers are, so a warning is logged.", defaultValue = "true")
+        boolean followRedirects,
+
         @Property(value = "mode", documentation = "Scraping - How to parse scraping response. Possible values are: ScrapingMode.PROMETHEUS (default), ScrapingMode.ELASTICSEARCH", defaultValue = "ScrapingMode.PROMETHEUS")
         ScrapingMode mode,
 

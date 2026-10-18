@@ -25,7 +25,7 @@ public record ElasticsearchClientConfiguration(
         @Property(value = "indexNameSuffix", documentation = "Index Name Suffix - An optional (but recommended) date pattern suffix to append to index names", defaultValue = "\"yyyy-MM-dd\"")
         String indexNameSuffix,
 
-        @Property(value = "base", documentation = "Base - Elasticsearch base, using a local instance it is generally http://localhost:9200.")
+        @Property(value = "base", documentation = "Base - Elasticsearch base, using a local instance it is generally http://localhost:9200. Redirects are not followed, use the final URL (`https://...` if a proxy redirects to it).")
         String base,
 
         @Property(value = "refreshOnWrite", documentation = "Refresh On Write -  Should updates trigger a refresh. This setting enables to reduce the update latency but also stresses more the Elasticserach backend. It is recommended to tune your ELasticsearch instance rather than setting it to true - except for dev and demo instances.", defaultValue = "false")

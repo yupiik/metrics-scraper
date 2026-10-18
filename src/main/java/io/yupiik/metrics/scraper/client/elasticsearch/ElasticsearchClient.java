@@ -36,6 +36,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -110,7 +111,7 @@ public abstract class ElasticsearchClient {
                         final String templateName = this.toIndex(type).replaceAll("\\*", "");
                         return this.request(
                                         "GET", base + "/_index_template/" + templateName,
-                                        null, Status.class, timeout, true, this.headers)
+                                        null, Status.class, timeout, this.headers)
                                 .thenCompose(exists -> {
                                     if (exists.value() == 404) { // then create it
                                         return this.createIndexTemplate(type, templateName).toCompletableFuture();
@@ -132,21 +133,43 @@ public abstract class ElasticsearchClient {
         }
     }
 
+    // redirects are never followed: elasticsearch does not redirect itself and following a 301/302
+    // turns a POST (_bulk) into a GET without payload, so a redirect is a configuration error
     private <T> CompletionStage<T> request(String mtd, String url, Object payload, Class<T> returnedType,
-                                             int timeout, boolean redirected, String[] headers) {
+                                             int timeout, String[] headers) {
         log.fine("Request method: " + mtd);
         log.fine("Request url: " + url);
         log.fine("Request payload: " + payload);
         log.fine("Request returnType: " + (returnedType != null ? returnedType.toString() : "null"));
         log.fine("Request timeout: " + timeout);
-        log.fine("Request redirected: " + redirected);
         log.fine("Request headers: " + String.join(", ", headers));
 
         if (Status.class == returnedType) {
-            return httpClient.request(mtd, url, payload, timeout, redirected, Status.class, headers)
-                    .thenApply(s -> returnedType.cast(new Status(s.value(), s.payload())));
+            return httpClient.request(mtd, url, payload, timeout, false, Status.class, headers)
+                    .thenApply(s -> {
+                        if (s.value() >= 300 && s.value() < 400) {
+                            throw this.redirectError(s.value(), mtd, url, null);
+                        }
+                        return returnedType.cast(new Status(s.value(), s.payload()));
+                    });
         }
-        return httpClient.request(mtd, url, payload, timeout, redirected, returnedType, headers);
+        final CompletableFuture<T> result = new CompletableFuture<>();
+        httpClient.request(mtd, url, payload, timeout, false, returnedType, headers).whenComplete((r, error) -> {
+            if (error == null) {
+                result.complete(r);
+                return;
+            }
+            final Throwable cause = error instanceof CompletionException && error.getCause() != null ? error.getCause() : error;
+            result.completeExceptionally(cause instanceof SimpleHttpClient.RedirectNotFollowedException redirect ?
+                    this.redirectError(redirect.getStatus(), mtd, url, redirect.getLocation()) : cause);
+        });
+        return result;
+    }
+
+    private IllegalStateException redirectError(final int status, final String mtd, final String url, final String location) {
+        return new IllegalStateException(String.format(
+                "Elasticsearch answered HTTP %s on '%s %s'%s, redirects are not followed, check elasticsearch.base ('%s')",
+                status, mtd, url, location == null ? "" : " to '" + location + "'", base));
     }
 
     public abstract Stream<Class<?>> getIndexableClasses();
@@ -162,7 +185,7 @@ public abstract class ElasticsearchClient {
         }
         return this.request(
                         "PUT", base + "/_index_template/" + templateName,
-                        tpl, Status.class, timeout, true, headers)
+                        tpl, Status.class, timeout, headers)
                 .thenApply(status -> {
                     if (status.value() > 399) {
                         throw new IllegalStateException("Invalid index creation: " + status);
@@ -216,7 +239,7 @@ public abstract class ElasticsearchClient {
                 return allOf(tasks)
                         .thenCompose(i -> this.request(
                                         "GET", base + '/' + this.getAllIndices() + "/_refresh", null,
-                                        Status.class, timeout, true, headers)
+                                        Status.class, timeout, headers)
                                 .thenApply(s -> {
                                     log.fine(String.format("Refresh after mapping creation: %s", s));
                                     return null;
@@ -240,7 +263,7 @@ public abstract class ElasticsearchClient {
         final String index = type == null ? null : ofNullable(indicesNames.get(type)).orElseThrow(() -> new IllegalArgumentException("No index for '" + type + "'"));
         return this.initialized.thenCompose(i -> this.request("GET", base + '/' +
                                 (index == null ? getAllIndices() : index) + "/_refresh" + query,
-                        null, Status.class, timeout, true, headers))
+                        null, Status.class, timeout, headers))
                 .thenApply(status -> {
                     if (status.value() != 201 && status.value() != 200) {
                         throw new IllegalArgumentException("'" + index + "' refresh failed, got " + status);
@@ -304,7 +327,7 @@ public abstract class ElasticsearchClient {
     private CompletionStage<BulkResponse> sendBulkBatch(final List<String> batchLines) {
         final String payload = String.join("\n", batchLines) + '\n';
         return this.initialized.thenCompose(i ->
-            this.request("POST", base + "/_bulk" + query, payload, BulkResponse.class, timeout, true, headers)
+            this.request("POST", base + "/_bulk" + query, payload, BulkResponse.class, timeout, headers)
         );
     }
 
@@ -332,7 +355,7 @@ public abstract class ElasticsearchClient {
         log.info(String.format("Creating elasticsearch index '%s'", index));
         return this.request("PUT", base + '/' + index,
                         "{\"settings\":" + jsonMapper.toString(configuration.elasticsearch().settingsTemplate().index()) + "}",
-                        Status.class, timeout, true, headers)
+                        Status.class, timeout, headers)
                 .thenApply(status -> ensure200(index, status, "Can't create properly"));
     }
 
@@ -363,7 +386,7 @@ public abstract class ElasticsearchClient {
             log.fine(String.format("> ES mapping: %s", mapping));
         }
         return this.request("PUT", base + '/' + index + "/_mapping", mapping, Status.class,
-                        timeout, true, headers)
+                        timeout, headers)
                 .thenApply(status -> this.ensure200(index, status, "Can't create properly mapping for"));
     }
 
@@ -375,7 +398,7 @@ public abstract class ElasticsearchClient {
     }
 
     private CompletionStage<Boolean> hasSchema(final String index) {
-        return this.request("HEAD", base + '/' + index, null, Status.class, timeout, true, headers)
+        return this.request("HEAD", base + '/' + index, null, Status.class, timeout, headers)
                 .thenApply(status -> status.value() == 200);
     }
 

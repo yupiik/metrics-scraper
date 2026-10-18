@@ -10,3 +10,20 @@
 Here is the application configuration:
 
 include::{partialsdir}/generated/documentation.metrics-scraper.adoc[lines=4..-1]
+
+== HTTP redirects
+
+Redirects are handled differently depending on the destination:
+
+* *Scraped endpoints* follow redirects by default.
+It can be disabled per scraper with `followRedirects=false`, the `3xx` response is then compared to `expectedResponseCode`.
+When a redirect leads to another host, `Authorization` is not sent to it but the other `headers` are, so a warning is logged:
+prefer the final URL or disable `followRedirects` if the redirect is not expected.
+* *Elasticsearch* calls never follow redirects since Elasticsearch does not redirect by itself: a `3xx` comes from a proxy or a wrong `elasticsearch.base`.
+Following it would replay a `_bulk` `POST` as a `GET` without payload, so it fails with an explicit error and `elasticsearch.base` must be set to the final URL.
+
+[source,bash]
+----
+# keep the 3xx of this scraper instead of following it
+METRICS_SCRAPER_SCRAPERS_0_FOLLOWREDIRECTS="false"
+----
