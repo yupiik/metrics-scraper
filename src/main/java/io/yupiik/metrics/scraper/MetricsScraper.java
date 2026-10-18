@@ -85,9 +85,17 @@ public class MetricsScraper {
                 .toArray(String[]::new);
         final int timeout = (int) Math.max(0, configuration.elasticsearch().timeout());
         final String base = configuration.elasticsearch().base();
-        this.httpClient.request("GET", base, null, timeout, true, Status.class, headers)
+        this.httpClient.request("GET", base, null, timeout, false, Status.class, headers)
                 .handle((r, error) -> {
-                    log.fine(String.format("Got response from ES '%s'", r));
+                    if (error != null) {
+                        log.warning(String.format("Could not reach elasticsearch on '%s': %s", base, error.getMessage()));
+                    } else if (r.value() >= 300 && r.value() < 400) {
+                        log.warning(String.format("Elasticsearch answered HTTP %s on '%s', redirects are not followed, check elasticsearch.base", r.value(), base));
+                    } else if (r.value() != 200) {
+                        log.warning(String.format("Elasticsearch answered HTTP %s on '%s': %s", r.value(), base, r.payload()));
+                    } else {
+                        log.fine(String.format("Got response from ES '%s'", r));
+                    }
                     return r;
                 });
         configuration.scrapers().forEach(scraper -> this.launchScraping(scraper, defaultScraping, httpClient, openMetricsReader, statisticsReader, emitter));
@@ -145,7 +153,7 @@ public class MetricsScraper {
         private void doScraping(final String url) {
             log.fine(String.format("Scraping '%s' on '%s'", config, url));
             try {
-                http.request("GET", url, null, timeout, true, Status.class, headers).handle((r, error) -> {
+                http.request("GET", url, null, timeout, config.followRedirects(), Status.class, headers).handle((r, error) -> {
                     try {
                         log.fine(String.format("Got scraping of '%s'", r));
                         if (error != null) {
