@@ -40,7 +40,7 @@ public record ElasticsearchClientConfiguration(
         @Property(value = "headers", documentation = "Headers - Headers to set when calling elasticsearch, this is primarly intended for security headers.")
         Map<String, String> headers,
 
-        @Property(value = "timeout", documentation = "Timeout - HTTP connection and read timeout", defaultValue = "60000L")
+        @Property(value = "timeout", documentation = "Timeout - How long an Elasticsearch request can last (ms), `0` to use `http.defaultTimeout`. Connection establishment is bounded by `http.connectTimeout`.", defaultValue = "60000L")
         long timeout,
 
         @Property(value = "maxBulkRequestSize", documentation = "Maximum Bulk Request Size - Maximum size of one http request in Bytes", defaultValue = "50000000L")

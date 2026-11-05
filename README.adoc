@@ -25,7 +25,6 @@ It enables to inject the configuration from system properties or environment var
 ----
 JAVA_UTIL_LOGGING_MANAGER="io.yupiik.logging.jul.YupiikLogManager"
 METRICS_SCRAPER_THREADING_CORE="8"
-METRICS_SCRAPER_THREADING_MAX="32"
 METRICS_SCRAPER_SCRAPERS_LENGTH="3"
 METRICS_SCRAPER_SCRAPERS_0_URL="http://metrics-mock:1080/metrics"
 METRICS_SCRAPER_SCRAPERS_0_SCRAPING_INTERVAL="30000"

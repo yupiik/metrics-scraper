@@ -41,7 +41,7 @@ public record Scraper(
         @Property(value = "expectedResponseCode", documentation = "Which response code is expected to be a success - failures are ignored.", defaultValue = "200")
         int expectedResponseCode,
 
-        @Property(value = "timeout", documentation = "Timeout - How long a request can last.", defaultValue = "30000L")
+        @Property(value = "timeout", documentation = "Timeout - How long a request can last (ms), `0` to use `http.defaultTimeout`. Connection establishment is bounded by `http.connectTimeout`.", defaultValue = "30000L")
         long timeout,
 
         @Property(value = "tags", documentation = "Tags to inject in elasticsearch if set.")
