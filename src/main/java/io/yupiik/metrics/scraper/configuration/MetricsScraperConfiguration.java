@@ -33,6 +33,9 @@ public record MetricsScraperConfiguration(
         @Property(value = "threading", documentation = "Threading - Threading used by the asynchronous HTTP client.")
         ScraperHttpClientThreading threading,
 
+        @Property(value = "http", documentation = "HTTP - HTTP client timeouts and exchange logging.")
+        HttpClientConfiguration http,
+
         @Property(value = "elasticsearch", documentation = "Elasticsearch - Elasticsearch configuration to send metrics to Elasticsearch.")
         ElasticsearchClientConfiguration elasticsearch
 ) {

@@ -27,3 +27,17 @@ Following it would replay a `_bulk` `POST` as a `GET` without payload, so it fai
 # keep the 3xx of this scraper instead of following it
 METRICS_SCRAPER_SCRAPERS_0_FOLLOWREDIRECTS="false"
 ----
+
+== HTTP client
+
+The HTTP client uses non-blocking I/O (`java.net.http`), so a few threads (`threading.core`, `4` by default) are enough to complete many concurrent requests, `threading.max` is ignored.
+
+* `http.connectTimeout` bounds the connection establishment (`30s` by default).
+* `http.defaultTimeout` is the request timeout used when a scraper or Elasticsearch sets `timeout=0` (`60s` by default), set it to `0` to really have no timeout.
+* `http.logExchanges=true` logs each exchange (method, URL, duration and status, no header nor payload) with the `io.yupiik.metrics.scraper.http.exchanges` logger, handy to debug a scraper.
+
+[source,bash]
+----
+# log every HTTP exchange
+METRICS_SCRAPER_HTTP_LOGEXCHANGES="true"
+----

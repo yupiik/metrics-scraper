@@ -19,6 +19,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import io.yupiik.fusion.framework.api.configuration.Configuration;
 import io.yupiik.fusion.json.internal.JsonMapperImpl;
+import io.yupiik.metrics.scraper.configuration.ElasticsearchClientConfiguration;
+import io.yupiik.metrics.scraper.configuration.HttpClientConfiguration;
 import io.yupiik.metrics.scraper.configuration.MetricsScraperConfiguration;
 import io.yupiik.metrics.scraper.configuration.ScraperHttpClientThreading;
 import io.yupiik.metrics.scraper.http.SimpleHttpClient;
@@ -44,6 +46,8 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -89,6 +93,13 @@ class SimpleHttpClientTest {
             exchange.getResponseHeaders().add("Location", "http://127.0.0.1:" + server.getAddress().getPort() + "/echo");
             respond(exchange, 302, "");
         });
+        server.createContext("/latin1", exchange -> {
+            final byte[] bytes = "café".getBytes(StandardCharsets.ISO_8859_1);
+            exchange.getResponseHeaders().add("Content-Type", "text/plain; charset=ISO-8859-1");
+            exchange.sendResponseHeaders(200, bytes.length);
+            exchange.getResponseBody().write(bytes);
+            exchange.close();
+        });
         server.createContext("/head", exchange -> {
             exchange.sendResponseHeaders(200, -1);
             exchange.close();
@@ -106,7 +117,7 @@ class SimpleHttpClientTest {
         base = "http://localhost:" + server.getAddress().getPort();
 
         client = new SimpleHttpClient(
-                new MetricsScraperConfiguration(null, List.of(), new ScraperHttpClientThreading(2, 4), null),
+                new MetricsScraperConfiguration(null, List.of(), new ScraperHttpClientThreading(2, 4), null, null),
                 new JsonMapperImpl(List.of(new Status$FusionJsonCodec(), new Shards$FusionJsonCodec()), Configuration.of(Map.of())));
     }
 
@@ -194,6 +205,78 @@ class SimpleHttpClientTest {
     @Test
     void timeout() {
         assertThrows(ExecutionException.class, () -> get(client.request("GET", base + "/slow", null, 200, true, String.class)));
+    }
+
+    @Test
+    void responseCharsetIsRespected() throws Exception {
+        assertEquals("café", get(client.request("GET", base + "/latin1", null, 5_000, true, String.class)));
+    }
+
+    @Test
+    void defaultTimeoutAppliesWhenRequestHasNone() {
+        final SimpleHttpClient withDefaultTimeout = newClient(new HttpClientConfiguration(1_000, 200, false), null);
+        try {
+            final ExecutionException error = assertThrows(ExecutionException.class,
+                    () -> get(withDefaultTimeout.request("GET", base + "/slow", null, 0, true, String.class)));
+            assertInstanceOf(java.net.http.HttpTimeoutException.class, error.getCause());
+        } finally {
+            withDefaultTimeout.destroy(null);
+        }
+    }
+
+    @Test
+    void exchangesAreLoggedWithoutHeaders() throws Exception {
+        final List<String> exchanges = new CopyOnWriteArrayList<>();
+        final Handler handler = new Handler() {
+            @Override
+            public void publish(final LogRecord record) {
+                exchanges.add(record.getMessage());
+            }
+
+            @Override
+            public void flush() {
+                // no-op
+            }
+
+            @Override
+            public void close() {
+                // no-op
+            }
+        };
+        final Logger logger = Logger.getLogger(SimpleHttpClient.class.getPackageName() + ".exchanges");
+        logger.addHandler(handler);
+        final SimpleHttpClient logging = newClient(new HttpClientConfiguration(1_000, 5_000, true), Map.of("X-Secret", "es-token"));
+        try {
+            get(logging.request("GET", base + "/echo", null, 5_000, true, String.class,
+                    "X-Test", "visible", "Authorization", "Bearer secret", "X-Secret", "es-token"));
+            assertEquals(1, exchanges.size(), exchanges::toString);
+            final String exchange = exchanges.get(0);
+            assertTrue(exchange.contains("Request: 'GET " + base + "/echo'"), exchange);
+            assertTrue(exchange.contains("Response: HTTP 200"), exchange);
+            assertFalse(exchange.contains("visible"), exchange);
+            assertFalse(exchange.contains("Bearer secret"), exchange);
+            assertFalse(exchange.contains("es-token"), exchange);
+        } finally {
+            logging.destroy(null);
+            logger.removeHandler(handler);
+        }
+    }
+
+    @Test
+    void destroyIsIdempotentAndRejectsLaterRequests() {
+        client.destroy(null);
+        client.destroy(null); // second stop event must not fail
+        final ExecutionException error = assertThrows(ExecutionException.class,
+                () -> get(client.request("GET", base + "/echo", null, 5_000, true, String.class)));
+        assertInstanceOf(IllegalStateException.class, error.getCause());
+    }
+
+    private SimpleHttpClient newClient(final HttpClientConfiguration http, final Map<String, String> elasticsearchHeaders) {
+        return new SimpleHttpClient(
+                new MetricsScraperConfiguration(null, List.of(), new ScraperHttpClientThreading(2, 4), http,
+                        elasticsearchHeaders == null ? null : new ElasticsearchClientConfiguration(
+                                null, "http://localhost:9200", false, null, null, elasticsearchHeaders, 0, 0)),
+                new JsonMapperImpl(List.of(new Status$FusionJsonCodec(), new Shards$FusionJsonCodec()), Configuration.of(Map.of())));
     }
 
     private static <T> T get(final java.util.concurrent.CompletionStage<T> stage) throws Exception {

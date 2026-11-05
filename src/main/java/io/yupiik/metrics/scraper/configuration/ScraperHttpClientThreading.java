@@ -18,10 +18,10 @@ package io.yupiik.metrics.scraper.configuration;
 import io.yupiik.fusion.framework.build.api.configuration.Property;
 
 public record ScraperHttpClientThreading(
-        @Property(value = "core", documentation = "Core Threads - How many core threads are used to complete HTTP asynchronous requests.", defaultValue = "32")
+        @Property(value = "core", documentation = "Threads - How many threads complete HTTP asynchronous requests (I/O is non-blocking so a few threads are enough).", defaultValue = "4")
         int core,
 
-        @Property(value = "max", documentation = "Max Threads - How many max threads are used to complete HTTP asynchronous requests.", defaultValue = "128")
+        @Property(value = "max", documentation = "Max Threads - Ignored since the HTTP client uses non-blocking I/O, kept for configuration compatibility (use `core`).", defaultValue = "4")
         int max
 ) {
 }
