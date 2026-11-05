@@ -41,3 +41,6 @@ The HTTP client uses non-blocking I/O (`java.net.http`), so a few threads (`thre
 # log every HTTP exchange
 METRICS_SCRAPER_HTTP_LOGEXCHANGES="true"
 ----
+
+The Docker image sets `-Dfusion.launcher.useHook=true` so a `SIGTERM` stops the application properly (in-flight scrapings and clients are closed),
+set it too when launching `io.yupiik.fusion.framework.api.main.Launcher` yourself.

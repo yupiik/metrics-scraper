@@ -17,12 +17,12 @@ package io.yupiik.metrics.scraper.model.elasticsearch.response;
 
 import io.yupiik.fusion.framework.build.api.json.JsonModel;
 
-import java.util.Map;
+import java.util.List;
 
 @JsonModel
 public record BulkResponse(
         int took,
         boolean errors,
-        Map<String, Object> items
+        List<BulkResponseAction> items
 ) {
 }

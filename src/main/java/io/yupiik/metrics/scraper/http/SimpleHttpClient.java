@@ -127,6 +127,7 @@ public class SimpleHttpClient {
             return;
         }
         this.closed = true;
+        log.info("> Closing SimpleHttpClient");
         if (this.pool == null) {
             return;
         }

@@ -210,6 +210,9 @@ public class MetricsScraper {
 
     public void onStop(@OnEvent final Stop stop) {
         log.info("> Stop: " + stop);
-        this.executor.shutdownNow();
+        if (this.executor != null) { // not started or already stopped
+            this.executor.shutdownNow();
+            this.executor = null;
+        }
     }
 }

@@ -26,7 +26,7 @@ import io.yupiik.metrics.scraper.model.elasticsearch.DocumentResult;
 import io.yupiik.metrics.scraper.model.elasticsearch.index.*;
 import io.yupiik.metrics.scraper.model.elasticsearch.request.BulkRequest;
 import io.yupiik.metrics.scraper.model.elasticsearch.response.BulkResponse;
-import io.yupiik.metrics.scraper.model.elasticsearch.response.BulkResponseItem;
+import io.yupiik.metrics.scraper.model.elasticsearch.response.BulkResponseAction;
 import io.yupiik.metrics.scraper.model.http.Status;
 
 import java.lang.reflect.Field;
@@ -308,14 +308,14 @@ public abstract class ElasticsearchClient {
     private BulkResponse mergeBulkResponses(final List<BulkResponse> responses) {
         int took = 0;
         boolean errors = false;
-        final Map<String, Object> items = new HashMap<>();
+        final List<BulkResponseAction> items = new ArrayList<>();
         for (final BulkResponse response : responses) {
             took += response.took();
             if (response.errors()) {
                 errors = true;
             }
             if(response.items() != null){
-                items.putAll(response.items());
+                items.addAll(response.items());
             }
         }
         return new BulkResponse(took, errors, items);
@@ -425,14 +425,15 @@ public abstract class ElasticsearchClient {
             if (!result.errors()) {
                 return result; // ok
             }
-            final Map<String, Object> items = result.items();
+            final List<BulkResponseAction> items = result.items();
             if (items == null) {
                 log.severe(String.format("Index update failed: %s", result));
                 return result;
             }
-            final List<String> errors = items.values().stream()
-                    .filter(o -> BulkResponseItem.class.isInstance(o) && BulkResponseItem.class.cast(o).error() != null)
-                    .map(o -> BulkResponseItem.class.cast(o).error().reason())
+            final List<String> errors = items.stream()
+                    .map(it -> it == null ? null : it.item())
+                    .filter(it -> it != null && it.error() != null)
+                    .map(it -> it.error().type() + ": " + it.error().reason())
                     .collect(toList());
             if (!errors.isEmpty()) {
                 log.severe(String.format("Error during bulk metric push:\n%s", String.join("\n", errors)));
