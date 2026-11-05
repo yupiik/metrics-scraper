@@ -22,12 +22,13 @@ import io.yupiik.fusion.framework.build.api.event.OnEvent;
 import io.yupiik.fusion.httpclient.core.ExtendedHttpClient;
 import io.yupiik.fusion.httpclient.core.ExtendedHttpClientConfiguration;
 import io.yupiik.fusion.httpclient.core.listener.RequestListener;
+import io.yupiik.fusion.httpclient.core.listener.impl.CurlLoggerListener;
 import io.yupiik.fusion.httpclient.core.listener.impl.DefaultTimeout;
-import io.yupiik.fusion.httpclient.core.listener.impl.ExchangeLogger;
 import io.yupiik.fusion.json.JsonMapper;
 import io.yupiik.metrics.scraper.common.ThreadFactoryImpl;
 import io.yupiik.metrics.scraper.configuration.HttpClientConfiguration;
 import io.yupiik.metrics.scraper.configuration.MetricsScraperConfiguration;
+import io.yupiik.metrics.scraper.configuration.Scraper;
 import io.yupiik.metrics.scraper.model.http.Status;
 
 import java.net.URI;
@@ -35,11 +36,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.time.Clock;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -49,6 +52,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @ApplicationScoped
 public class SimpleHttpClient {
@@ -99,11 +104,30 @@ public class SimpleHttpClient {
         if (http == null || http.defaultTimeout() > 0) { // only applied to requests without timeout
             listeners.add(new DefaultTimeout(Duration.ofMillis(http == null ? 60_000L : http.defaultTimeout())));
         }
-        if (http != null && http.logExchanges()) { // no payload (bulks can be big) nor headers (they can be secrets)
-            listeners.add(new ExchangeLogger(
-                    Logger.getLogger(SimpleHttpClient.class.getPackageName() + ".exchanges"), Clock.systemUTC(), false));
+        if (http == null || http.logExchanges()) {
+            listeners.add(new CurlLoggerListener(new CurlLoggerListener.Configuration(
+                    Logger.getLogger(SimpleHttpClient.class.getPackageName() + ".exchanges"))
+                    .setLogPayload(false) // response
+                    .setSensitiveHeaders(this.sensitiveHeaders())) {
+                @Override // request payload: _bulk ones can be big (up to elasticsearch.maxBulkRequestSize)
+                protected String toCurl(final HttpRequest request, final byte[] payload) {
+                    return super.toCurl(request, null);
+                }
+            });
         }
         return listeners;
+    }
+
+    // configured headers are mainly security ones so mask them all, in addition to the usual sensitive ones
+    private Set<String> sensitiveHeaders() {
+        final Stream<Map<String, String>> configured = Stream.concat(
+                Stream.of(this.configuration.elasticsearch() == null ? null : this.configuration.elasticsearch().headers()),
+                this.configuration.scrapers() == null ? Stream.empty() : this.configuration.scrapers().stream().map(Scraper::headers));
+        return Stream.concat(
+                        CurlLoggerListener.Configuration.DEFAULT_SENSITIVE_HEADERS.stream(),
+                        configured.filter(Objects::nonNull).flatMap(it -> it.keySet().stream()))
+                .map(it -> it.toLowerCase(Locale.ROOT))
+                .collect(Collectors.toUnmodifiableSet());
     }
 
     private ExtendedHttpClient newClient(final HttpClient.Redirect redirect, final List<RequestListener<?>> listeners) {
