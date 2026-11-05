@@ -24,7 +24,7 @@ public record HttpClientConfiguration(
         @Property(value = "defaultTimeout", documentation = "Default Timeout - Request timeout (ms) used when a request does not set one (`timeout=0`), `0` to disable it.", defaultValue = "60000L")
         long defaultTimeout,
 
-        @Property(value = "logExchanges", documentation = "Log Exchanges - Log each HTTP exchange (method, URL, duration and response status) at `INFO` level with the `io.yupiik.metrics.scraper.http.exchanges` logger. Headers and payloads are not logged.", defaultValue = "false")
+        @Property(value = "logExchanges", documentation = "Log Exchanges - Log each HTTP request as a replayable `curl` command at `INFO` level with the `io.yupiik.metrics.scraper.http.exchanges` logger (set its level to `WARNING` or this flag to `false` to silence it). Sensitive headers (`Authorization`, cookies, API keys and every configured `headers`) are masked, payloads are not logged.", defaultValue = "true")
         boolean logExchanges
 ) {
 }

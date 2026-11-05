@@ -225,7 +225,7 @@ class SimpleHttpClientTest {
     }
 
     @Test
-    void exchangesAreLoggedWithoutHeaders() throws Exception {
+    void exchangesAreLoggedAsCurlWithMaskedHeaders() throws Exception {
         final List<String> exchanges = new CopyOnWriteArrayList<>();
         final Handler handler = new Handler() {
             @Override
@@ -247,13 +247,15 @@ class SimpleHttpClientTest {
         logger.addHandler(handler);
         final SimpleHttpClient logging = newClient(new HttpClientConfiguration(1_000, 5_000, true), Map.of("X-Secret", "es-token"));
         try {
-            get(logging.request("GET", base + "/echo", null, 5_000, true, String.class,
+            get(logging.request("POST", base + "/echo", "the-payload", 5_000, true, String.class,
                     "X-Test", "visible", "Authorization", "Bearer secret", "X-Secret", "es-token"));
             assertEquals(1, exchanges.size(), exchanges::toString);
             final String exchange = exchanges.get(0);
-            assertTrue(exchange.contains("Request: 'GET " + base + "/echo'"), exchange);
-            assertTrue(exchange.contains("Response: HTTP 200"), exchange);
-            assertFalse(exchange.contains("visible"), exchange);
+            assertTrue(exchange.startsWith("curl -X POST"), exchange);
+            assertFalse(exchange.contains("the-payload"), exchange);
+            assertTrue(exchange.contains(base + "/echo"), exchange);
+            assertTrue(exchange.contains("visible"), exchange); // non sensitive header
+            assertTrue(exchange.contains("Authorization: ******"), exchange);
             assertFalse(exchange.contains("Bearer secret"), exchange);
             assertFalse(exchange.contains("es-token"), exchange);
         } finally {
