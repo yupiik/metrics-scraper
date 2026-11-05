@@ -137,12 +137,9 @@ public abstract class ElasticsearchClient {
     // turns a POST (_bulk) into a GET without payload, so a redirect is a configuration error
     private <T> CompletionStage<T> request(String mtd, String url, Object payload, Class<T> returnedType,
                                              int timeout, String[] headers) {
-        log.fine("Request method: " + mtd);
-        log.fine("Request url: " + url);
-        log.fine("Request payload: " + payload);
-        log.fine("Request returnType: " + (returnedType != null ? returnedType.toString() : "null"));
-        log.fine("Request timeout: " + timeout);
-        log.fine("Request headers: " + String.join(", ", headers));
+        log.fine(() -> "Request method: " + mtd + ", url: " + url + ", payload: " + payload +
+                ", returnType: " + (returnedType != null ? returnedType.toString() : "null") +
+                ", timeout: " + timeout + ", headers: " + String.join(", ", headers));
 
         if (Status.class == returnedType) {
             return httpClient.request(mtd, url, payload, timeout, false, Status.class, headers)

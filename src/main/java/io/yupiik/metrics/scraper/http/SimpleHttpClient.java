@@ -21,25 +21,33 @@ import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
 import io.yupiik.fusion.framework.build.api.event.OnEvent;
 import io.yupiik.fusion.httpclient.core.ExtendedHttpClient;
 import io.yupiik.fusion.httpclient.core.ExtendedHttpClientConfiguration;
+import io.yupiik.fusion.httpclient.core.listener.RequestListener;
+import io.yupiik.fusion.httpclient.core.listener.impl.DefaultTimeout;
+import io.yupiik.fusion.httpclient.core.listener.impl.ExchangeLogger;
 import io.yupiik.fusion.json.JsonMapper;
 import io.yupiik.metrics.scraper.common.ThreadFactoryImpl;
+import io.yupiik.metrics.scraper.configuration.HttpClientConfiguration;
 import io.yupiik.metrics.scraper.configuration.MetricsScraperConfiguration;
 import io.yupiik.metrics.scraper.model.http.Status;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.Clock;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -55,6 +63,7 @@ public class SimpleHttpClient {
     private final List<HttpClient> delegates = new ArrayList<>();
     private ExtendedHttpClient redirectingClient;
     private ExtendedHttpClient nonRedirectingClient;
+    private boolean closed;
 
     public SimpleHttpClient(final MetricsScraperConfiguration configuration, final JsonMapper jsonMapper) {
         log.fine("> Constructor SimpleHttpClient");
@@ -69,33 +78,55 @@ public class SimpleHttpClient {
     }
 
     private synchronized void init() {
+        if (this.closed) {
+            throw new IllegalStateException("HTTP client is closed");
+        }
         if (this.pool != null) {
             return;
         }
-        this.pool = new ThreadPoolExecutor(
-                this.configuration.threading().core(),
-                this.configuration.threading().max(),
-                1, TimeUnit.MINUTES, new LinkedBlockingQueue<>(),
-                new ThreadFactoryImpl("metrics-scraper-http-client"),
-                (r, executor) -> {
-                    log.severe(String.format("Rejecting http task '%s' from pool '%s'", r, executor));
-                    throw new RejectedExecutionException("Task " + r.toString() + " rejected from " + executor.toString());
-                });
+        // java.net.http does the I/O in its selector thread (nio), this pool only completes the responses
+        final int threads = this.configuration.threading() == null ? 4 : Math.max(1, this.configuration.threading().core());
+        this.pool = Executors.newFixedThreadPool(threads, new ThreadFactoryImpl("metrics-scraper-http-client"));
+        final List<RequestListener<?>> listeners = this.listeners();
         // redirect policy is set per client in java.net.http so keep one client per policy
-        this.redirectingClient = this.newClient(HttpClient.Redirect.NORMAL);
-        this.nonRedirectingClient = this.newClient(HttpClient.Redirect.NEVER);
+        this.redirectingClient = this.newClient(HttpClient.Redirect.NORMAL, listeners);
+        this.nonRedirectingClient = this.newClient(HttpClient.Redirect.NEVER, listeners);
     }
 
-    private ExtendedHttpClient newClient(final HttpClient.Redirect redirect) {
-        final HttpClient delegate = HttpClient.newBuilder()
+    private List<RequestListener<?>> listeners() {
+        final HttpClientConfiguration http = this.configuration.http();
+        final List<RequestListener<?>> listeners = new ArrayList<>(2);
+        if (http == null || http.defaultTimeout() > 0) { // only applied to requests without timeout
+            listeners.add(new DefaultTimeout(Duration.ofMillis(http == null ? 60_000L : http.defaultTimeout())));
+        }
+        if (http != null && http.logExchanges()) { // no payload (bulks can be big) nor headers (they can be secrets)
+            listeners.add(new ExchangeLogger(
+                    Logger.getLogger(SimpleHttpClient.class.getPackageName() + ".exchanges"), Clock.systemUTC(), false));
+        }
+        return listeners;
+    }
+
+    private ExtendedHttpClient newClient(final HttpClient.Redirect redirect, final List<RequestListener<?>> listeners) {
+        final HttpClient.Builder builder = HttpClient.newBuilder()
                 .followRedirects(redirect)
-                .executor(this.pool)
-                .build();
+                .executor(this.pool);
+        final HttpClientConfiguration http = this.configuration.http();
+        final long connectTimeout = http == null ? 30_000L : http.connectTimeout();
+        if (connectTimeout > 0) {
+            builder.connectTimeout(Duration.ofMillis(connectTimeout));
+        }
+        final HttpClient delegate = builder.build();
         this.delegates.add(delegate);
-        return new ExtendedHttpClient(new ExtendedHttpClientConfiguration().setDelegate(delegate));
+        return new ExtendedHttpClient(new ExtendedHttpClientConfiguration()
+                .setDelegate(delegate)
+                .setRequestListeners(listeners));
     }
 
-    public void destroy(@OnEvent final Stop stop) {
+    public synchronized void destroy(@OnEvent final Stop stop) {
+        if (this.closed) {
+            return;
+        }
+        this.closed = true;
         if (this.pool == null) {
             return;
         }
@@ -117,11 +148,12 @@ public class SimpleHttpClient {
                                           final String... headers) {
         final CompletableFuture<T> result = new CompletableFuture<>();
         try {
-            log.fine(String.format("Requesting '%s' on '%s' with timeout %s on type %s and headers %s", url, method, timeout, type.getName(), Arrays.toString(headers)));
+            log.fine(() -> String.format("Requesting '%s' on '%s' with timeout %s on type %s and headers %s", url, method, timeout, type.getName(), Arrays.toString(headers)));
             this.init();
             final HttpRequest request = this.toRequest(method, url, payload, timeout, headers);
+            // every result type needs the whole body (Status, String, JSON) and ofString() respects the response charset
             (enableRedirects ? this.redirectingClient : this.nonRedirectingClient)
-                    .sendAsync(request, HttpResponse.BodyHandlers.ofInputStream())
+                    .sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .whenComplete((response, error) -> {
                         if (error != null) {
                             final Throwable cause = error instanceof CompletionException && error.getCause() != null ? error.getCause() : error;
@@ -170,14 +202,14 @@ public class SimpleHttpClient {
         }
     }
 
-    // the body is a stream so JSON is mapped without buffering the whole payload, it is only read as a String when needed
-    private <T> void onResponse(final String url, final Class<T> resultType, final HttpResponse<InputStream> response,
+    private <T> void onResponse(final String url, final Class<T> resultType, final HttpResponse<String> response,
                                 final CompletableFuture<T> result) {
-        try (final InputStream body = response.body()) { // always closed to release the connection
+        try {
+            final String body = response.body();
             final int responseCode = response.statusCode();
             if (Status.class == resultType) {
                 log.fine("Complete result of type Status.class");
-                result.complete(resultType.cast(new Status(responseCode, readString(body))));
+                result.complete(resultType.cast(new Status(responseCode, body)));
                 return;
             }
             if (responseCode >= 300 && responseCode < 400) { // only reached when redirects are not followed
@@ -187,23 +219,19 @@ public class SimpleHttpClient {
                 return;
             }
             if (responseCode < 200 || responseCode >= 300) {
-                log.severe(String.format("HTTP response to '%s' was a HTTP %s: '%s'", url, responseCode, readString(body)));
+                log.severe(String.format("HTTP response to '%s' was a HTTP %s: '%s'", url, responseCode, body));
                 result.completeExceptionally(new IllegalArgumentException("HTTP response was HTTP " + responseCode));
                 return;
             }
             if (resultType == String.class) {
-                result.complete(resultType.cast(readString(body)));
+                result.complete(resultType.cast(body));
             } else {
-                result.complete(jsonMapper.read(resultType, new InputStreamReader(body, StandardCharsets.UTF_8)));
+                result.complete(jsonMapper.fromString(resultType, body));
             }
         } catch (final Exception e) {
             log.severe("Could not process request properly :: " + e.getMessage());
             result.completeExceptionally(e);
         }
-    }
-
-    private static String readString(final InputStream body) throws IOException {
-        return new String(body.readAllBytes(), StandardCharsets.UTF_8);
     }
 
     public static class RedirectNotFollowedException extends IllegalArgumentException {
