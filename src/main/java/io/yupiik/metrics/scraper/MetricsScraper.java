@@ -20,6 +20,7 @@ import io.yupiik.fusion.framework.api.lifecycle.Start;
 import io.yupiik.fusion.framework.api.lifecycle.Stop;
 import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
 import io.yupiik.fusion.framework.build.api.event.OnEvent;
+import io.yupiik.fusion.framework.build.api.order.Order;
 import io.yupiik.metrics.scraper.configuration.MetricsScraperConfiguration;
 import io.yupiik.metrics.scraper.configuration.Scraper;
 import io.yupiik.metrics.scraper.configuration.ScrapingConfiguration;
@@ -34,9 +35,14 @@ import io.yupiik.metrics.scraper.protocol.StatisticsReader;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,6 +60,7 @@ public class MetricsScraper {
     private final StatisticsReader statisticsReader;
     private final SimpleHttpClient httpClient;
     private final Emitter emitter;
+    private final Set<CompletableFuture<?>> inFlight = ConcurrentHashMap.newKeySet();
     private ScheduledExecutorService executor;
 
     public MetricsScraper(final MetricsScraperConfiguration configuration, final OpenMetricsReader openMetricsReader,
@@ -65,7 +72,8 @@ public class MetricsScraper {
         this.emitter = emitter;
     }
 
-    public void start(@OnEvent Start start){
+    // synchronized like onStop: a stop received during the startup waits for it, then sees the executor to stop
+    public synchronized void start(@OnEvent Start start){
         log.info("> Initializing MetricsScraper");
         log.info("> Configuration: " + configuration);
         this.executor = Executors.newScheduledThreadPool(10); //TODO add threading configuration with defaults
@@ -113,7 +121,7 @@ public class MetricsScraper {
             return;
         }
         log.info(String.format("Scheduling scraping for %s", scraper));
-        final ScraperRuntime runtime = new ScraperRuntime(http, scraper, openMetricsReader, statisticsReader, emitter);
+        final ScraperRuntime runtime = new ScraperRuntime(http, scraper, openMetricsReader, statisticsReader, emitter, inFlight);
         this.executor.scheduleAtFixedRate(runtime, 0, scraping.interval(), TimeUnit.MILLISECONDS);
     }
 
@@ -127,9 +135,12 @@ public class MetricsScraper {
         private final String[] headers;
         private final AtomicBoolean calling = new AtomicBoolean();
         private final Emitter emitter;
+        private final Set<CompletableFuture<?>> inFlight;
 
-        private ScraperRuntime(final SimpleHttpClient http, final Scraper config, final OpenMetricsReader openMetricsReader, final StatisticsReader statisticsReader, final Emitter emitter) {
+        private ScraperRuntime(final SimpleHttpClient http, final Scraper config, final OpenMetricsReader openMetricsReader, final StatisticsReader statisticsReader, final Emitter emitter,
+                               final Set<CompletableFuture<?>> inFlight) {
             this.http = http;
+            this.inFlight = inFlight;
             this.config = config;
             this.openMetricsReader = openMetricsReader;
             this.statisticsReader = statisticsReader;
@@ -153,7 +164,7 @@ public class MetricsScraper {
         private void doScraping(final String url) {
             log.fine(String.format("Scraping '%s' on '%s'", config, url));
             try {
-                http.request("GET", url, null, timeout, config.followRedirects(), Status.class, headers).handle((r, error) -> {
+                final CompletableFuture<?> scraping = http.request("GET", url, null, timeout, config.followRedirects(), Status.class, headers).handle((r, error) -> {
                     try {
                         log.fine(String.format("Got scraping of '%s'", r));
                         if (error != null) {
@@ -174,7 +185,9 @@ public class MetricsScraper {
                         calling.set(false);
                     }
                     return r;
-                });
+                }).toCompletableFuture();
+                inFlight.add(scraping); // tracked for the stop grace period
+                scraping.whenComplete((r, e) -> inFlight.remove(scraping));
             } catch (final RuntimeException re) { // don't break scheduler for that
                 log.log(Level.SEVERE, re.getMessage(), re);
                 calling.set(false);
@@ -208,11 +221,29 @@ public class MetricsScraper {
         }
     }
 
-    public void onStop(@OnEvent final Stop stop) {
+    // before the collectors (default order) so the scrapings finishing during the grace period are still indexed
+    public synchronized void onStop(@OnEvent @Order(500) final Stop stop) {
         log.info("> Stop: " + stop);
-        if (this.executor != null) { // not started or already stopped
-            this.executor.shutdownNow();
-            this.executor = null;
+        final ScheduledExecutorService executor = this.executor;
+        if (executor == null) { // not started or already stopped
+            return;
         }
+        this.executor = null;
+        executor.shutdown(); // no new scraping
+        final CompletableFuture<?>[] pending = inFlight.toArray(new CompletableFuture<?>[0]);
+        if (pending.length > 0) {
+            final long grace = Math.max(0, configuration.stopGracePeriod());
+            log.info(String.format("Waiting up to %sms for %s in-flight scraping(s)", grace, pending.length));
+            try {
+                CompletableFuture.allOf(pending).get(grace, TimeUnit.MILLISECONDS);
+            } catch (final InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } catch (final TimeoutException e) {
+                log.warning(String.format("%s scraping(s) not finished after %sms, cancelling them", inFlight.size(), grace));
+            } catch (final ExecutionException e) { // errors are already logged by the scraping
+                log.log(Level.FINE, e.getMessage(), e);
+            }
+        }
+        executor.shutdownNow();
     }
 }

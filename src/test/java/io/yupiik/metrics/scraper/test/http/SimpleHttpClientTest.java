@@ -117,7 +117,7 @@ class SimpleHttpClientTest {
         base = "http://localhost:" + server.getAddress().getPort();
 
         client = new SimpleHttpClient(
-                new MetricsScraperConfiguration(null, List.of(), new ScraperHttpClientThreading(2, 4), null, null),
+                new MetricsScraperConfiguration(null, List.of(), new ScraperHttpClientThreading(2, 4), null, 0, null),
                 new JsonMapperImpl(List.of(new Status$FusionJsonCodec(), new Shards$FusionJsonCodec()), Configuration.of(Map.of())));
     }
 
@@ -275,7 +275,7 @@ class SimpleHttpClientTest {
 
     private SimpleHttpClient newClient(final HttpClientConfiguration http, final Map<String, String> elasticsearchHeaders) {
         return new SimpleHttpClient(
-                new MetricsScraperConfiguration(null, List.of(), new ScraperHttpClientThreading(2, 4), http,
+                new MetricsScraperConfiguration(null, List.of(), new ScraperHttpClientThreading(2, 4), http, 0,
                         elasticsearchHeaders == null ? null : new ElasticsearchClientConfiguration(
                                 null, "http://localhost:9200", false, null, null, elasticsearchHeaders, 0, 0)),
                 new JsonMapperImpl(List.of(new Status$FusionJsonCodec(), new Shards$FusionJsonCodec()), Configuration.of(Map.of())));

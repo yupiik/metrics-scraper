@@ -43,5 +43,15 @@ Sensitive headers (`Authorization`, cookies, API keys and every configured `head
 METRICS_SCRAPER_HTTP_LOGEXCHANGES="false"
 ----
 
-The Docker image sets `-Dfusion.launcher.useHook=true` so a `SIGTERM` stops the application properly (in-flight scrapings and clients are closed),
+== Stop
+
+The Docker image sets `-Dfusion.launcher.useHook=true` so a `SIGTERM` stops the application properly,
 set it too when launching `io.yupiik.fusion.framework.api.main.Launcher` yourself.
+
+The stop is graceful, in this order:
+
+. no new scraping is started and the in-flight ones can finish during `stopGracePeriod` (`5s` by default, so it fits the `10s` of `docker stop`), then they are cancelled,
+. the collectors flush their pending Elasticsearch bulks (up to one minute),
+. the HTTP client is closed.
+
+Keep the orchestrator grace period (`docker stop -t`, Kubernetes `terminationGracePeriodSeconds`) above it, the process is killed otherwise.
