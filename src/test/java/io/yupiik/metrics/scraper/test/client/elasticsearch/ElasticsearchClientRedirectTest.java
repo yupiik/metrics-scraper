@@ -100,7 +100,7 @@ class ElasticsearchClientRedirectTest {
 
     private ElasticsearchClient newClient() {
         final MetricsScraperConfiguration configuration = new MetricsScraperConfiguration(
-                null, List.of(), new ScraperHttpClientThreading(2, 4), null,
+                null, List.of(), new ScraperHttpClientThreading(2, 4), null, 0,
                 new ElasticsearchClientConfiguration("yyyy-MM-dd", base, false, null, "metrics-scraper-", Map.of(), 5_000, 50_000_000));
         final JsonMapperImpl jsonMapper = new JsonMapperImpl(List.of(new Status$FusionJsonCodec()), Configuration.of(Map.of()));
         httpClient = new SimpleHttpClient(configuration, jsonMapper);

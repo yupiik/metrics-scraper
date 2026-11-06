@@ -19,6 +19,7 @@ import io.yupiik.fusion.framework.api.lifecycle.Start;
 import io.yupiik.fusion.framework.api.lifecycle.Stop;
 import io.yupiik.fusion.framework.api.scope.ApplicationScoped;
 import io.yupiik.fusion.framework.build.api.event.OnEvent;
+import io.yupiik.fusion.framework.build.api.order.Order;
 import io.yupiik.fusion.httpclient.core.ExtendedHttpClient;
 import io.yupiik.fusion.httpclient.core.ExtendedHttpClientConfiguration;
 import io.yupiik.fusion.httpclient.core.listener.RequestListener;
@@ -146,7 +147,8 @@ public class SimpleHttpClient {
                 .setRequestListeners(listeners));
     }
 
-    public synchronized void destroy(@OnEvent final Stop stop) {
+    // after the collectors (default order) which still flush their pending bulks
+    public synchronized void destroy(@OnEvent @Order(2000) final Stop stop) {
         if (this.closed) {
             return;
         }

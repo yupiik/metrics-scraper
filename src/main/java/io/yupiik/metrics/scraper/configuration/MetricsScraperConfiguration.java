@@ -36,6 +36,9 @@ public record MetricsScraperConfiguration(
         @Property(value = "http", documentation = "HTTP - HTTP client timeouts and exchange logging.")
         HttpClientConfiguration http,
 
+        @Property(value = "stopGracePeriod", documentation = "Stop Grace Period - On stop, how long in-flight scrapings can last (ms) before being cancelled, the collectors then flush their pending Elasticsearch bulks.", defaultValue = "5000L")
+        long stopGracePeriod,
+
         @Property(value = "elasticsearch", documentation = "Elasticsearch - Elasticsearch configuration to send metrics to Elasticsearch.")
         ElasticsearchClientConfiguration elasticsearch
 ) {
